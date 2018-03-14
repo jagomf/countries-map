@@ -1,0 +1,20 @@
+<div class="major-block map-content" [ngClass]="{'goes-first': captionBelow}"></div>
+
+<div class="major-block caption-container" [ngClass]="{'goes-first': !captionBelow}"
+  *ngIf="showCaption">
+  <div class="simple-caption">
+    <div class="country-label">
+      <span class="default-label" *ngIf="!countrySelected">Country</span>
+      <span class="country-name" *ngIf="countrySelected">{{countrySelectedName}}</span>
+    </div>
+    <div class="value-label">
+      <span class="value-text" [class.has-value]="countrySelected">{{valueLabel}}</span>
+    </div>
+  </div>
+  <div class="extended-caption" *ngIf="extraSelected && extraSelected.length > 0">
+    <div *ngFor="let item of extraSelected" class="extended-item">
+      <span class="extended-label">{{item.key}}</span>:
+      <span class="extended-value">{{item.val}}</span>
+    </div>
+  </div>
+</div>
