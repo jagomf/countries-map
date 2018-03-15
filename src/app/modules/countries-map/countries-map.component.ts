@@ -43,6 +43,12 @@ export class CountriesMapComponent implements OnChanges {
   @Input() public valueLabel = 'Value';
   @Input() public showCaption = true;
   @Input() public captionBelow = true;
+  @Input() public minValue = 0;
+  @Input() public maxValue: number;
+  @Input() public minColor = 'white';
+  @Input() public maxColor = 'red';
+  @Input() public noDataColor = '#CFCFCF';
+  @Input() public exceptionColor = '#FFEE58';
 
   @Output() public chartReady: EventEmitter<void>;
   @Output() public chartError: EventEmitter<ChartErrorEvent>;
@@ -111,7 +117,15 @@ export class CountriesMapComponent implements OnChanges {
         return;
       }
 
-      const options = {
+      const defaultOptions = {
+        colorAxis: {
+          colors: [this.minColor, this.maxColor],
+          minValue: Number.isInteger(this.minValue) ? this.minValue : undefined,
+          maxValue: Number.isInteger(this.maxValue) ? this.maxValue : undefined
+        },
+        datalessRegionColor: this.noDataColor,
+        defaultColor: this.exceptionColor,
+        legend: this.showCaption,
         tooltip: { trigger: 'none' }
       };
 
@@ -121,7 +135,7 @@ export class CountriesMapComponent implements OnChanges {
         this.wrapper = new google.visualization.ChartWrapper({
           chartType: 'GeoChart',
           dataTable: this.googleData,
-          options: Object.assign(options, this.options)
+          options: Object.assign(defaultOptions, this.options)
         });
 
         this.registerChartWrapperEvents();
