@@ -101,7 +101,7 @@ export class CountriesMapComponent implements OnChanges {
    * [ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]
    * y almacernarlo en this.processedData
    */
-  private processInputData() {
+  private processInputData(): void {
     this.googleData = Object.keys(this.data).reduce((acc, currKey) => {
       const currVal = this.data[currKey][valueHolder];
       acc.push([currKey, currVal]);
@@ -148,15 +148,15 @@ export class CountriesMapComponent implements OnChanges {
     this.wrapper.draw(this.el.nativeElement.querySelector('div.map-content'));
   }
 
-  private onChartReady() {
+  private onChartReady(): void {
     this.chartReady.emit();
   }
 
-  private onCharterror(error: any) {
+  private onCharterror(error: any): void {
     this.chartError.emit(error as ChartErrorEvent);
   }
 
-  private onMapSelect() {
+  private onMapSelect(): void {
     const event: ChartSelectEvent = {
       selected: false,
       value: null,
