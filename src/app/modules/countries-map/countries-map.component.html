@@ -4,15 +4,15 @@
   *ngIf="showCaption">
   <div class="simple-caption">
     <div class="country-label">
-      <span class="default-label" *ngIf="!countrySelected">Country</span>
-      <span class="country-name" *ngIf="countrySelected">{{countrySelectedName}}</span>
+      <span class="default-label" *ngIf="!selection">Country</span>
+      <span class="country-name" *ngIf="selection">{{selection?.countryName}}</span>
     </div>
     <div class="value-label">
-      <span class="value-text" [class.has-value]="countrySelected">{{valueLabel}}</span>
+      <span class="value-text" [ngClass]="{'has-value': selection}">{{valueLabel}}</span>
     </div>
   </div>
-  <div class="extended-caption" *ngIf="extraSelected && extraSelected.length > 0">
-    <div *ngFor="let item of extraSelected" class="extended-item">
+  <div class="extended-caption" *ngIf="selection?.extra && selection?.extra.length > 0">
+    <div *ngFor="let item of selection?.extra" class="extended-item">
       <span class="extended-label">{{item.key}}</span>:
       <span class="extended-value">{{item.val}}</span>
     </div>

@@ -19,6 +19,16 @@ const countryName = (countryCode: string): string => {
   return countriesEN[countryCode];
 };
 
+interface Extra {
+  key: string;
+  val: string;
+}
+interface Selection {
+  countryId: string;
+  countryName: string;
+  extra: Extra[] | null;
+}
+
 @Component({
   selector: 'countries-map',
   templateUrl: './countries-map.component.html',
@@ -40,18 +50,7 @@ export class CountriesMapComponent implements OnChanges {
 
   public googleData: string[][];
   public wrapper: any;
-  public countrySelected: string | null = null;
-  public get countrySelectedName(): string {
-    return this.countrySelected ? countryName(this.countrySelected) : null;
-  }
-  public get extraSelected(): { key: string, val: string }[] | null {
-    if (this.countrySelected) {
-      const extra = this.data[this.countrySelected];
-      delete extra[valueHolder];
-      return Object.keys(extra).map(key => ({ key, val: extra[key] }));
-    }
-    return null;
-  }
+  public selection: Selection | null = null;
 
   private el: ElementRef;
   private loaderService: GoogleChartsLoaderService;
@@ -65,6 +64,28 @@ export class CountriesMapComponent implements OnChanges {
     this.chartSelect = new EventEmitter();
     this.chartReady = new EventEmitter();
     this.chartError = new EventEmitter();
+  }
+
+  private getExtraSelected(): Extra[] | null {
+    if (this.selection) {
+      const extra = this.data[this.selection.countryId];
+      delete extra[valueHolder];
+      return Object.keys(extra).map(key => ({ key, val: extra[key] }));
+    }
+    return null;
+  }
+
+  private selectCountry(country?: string): void {
+    if (country) {
+      this.selection = {
+        countryId: country,
+        countryName: countryName(country),
+        extra: null
+      };
+      this.selection.extra = this.getExtraSelected();
+    } else {
+      this.selection = null;
+    }
   }
 
   /**
@@ -137,10 +158,10 @@ export class CountriesMapComponent implements OnChanges {
       event.selected = true;
       event.value = dataTable.getValue(tableRow, 1);
       event.country = dataTable.getValue(tableRow, 0);
-      this.countrySelected = event.country;
+      this.selectCountry(event.country);
 
     } else {
-      this.countrySelected = null;
+      this.selectCountry(null);
     }
 
     this.chartSelect.emit(event);
