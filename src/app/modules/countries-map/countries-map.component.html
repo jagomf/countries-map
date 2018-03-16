@@ -1,7 +1,9 @@
+<div class="major-block loading" *ngIf="loading"><span class="text">Loading map...</span></div>
+
 <div class="major-block map-content" [ngClass]="{'goes-first': captionBelow}"></div>
 
 <div class="major-block caption-container" [ngClass]="{'goes-first': !captionBelow}"
-  *ngIf="showCaption">
+  *ngIf="!loading && showCaption">
   <div class="simple-caption">
     <div class="country-label">
       <span class="default-label" *ngIf="!selection">Country</span>

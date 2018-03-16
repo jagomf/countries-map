@@ -45,6 +45,7 @@ export class CountriesMapComponent implements OnChanges {
   googleData: string[][];
   wrapper: any;
   selection: Selection | null = null;
+  loading = true;
 
   public constructor(
     private el: ElementRef,
@@ -64,8 +65,8 @@ export class CountriesMapComponent implements OnChanges {
 
   private selectCountry(country?: string): void {
     this.selection = country ? {
-        countryId: country,
-        countryName: countryName(country),
+      countryId: country,
+      countryName: countryName(country),
       extra: this.getExtraSelected(country)
     } : null;
   }
@@ -125,6 +126,7 @@ export class CountriesMapComponent implements OnChanges {
   }
 
   private onChartReady(): void {
+    this.loading = false;
     this.chartReady.emit();
   }
 

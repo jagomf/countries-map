@@ -5,6 +5,15 @@
   align-items: stretch;
   align-content: stretch;
 }
+.major-block.loading {
+  flex: 0 1 auto;
+  align-self: center;
+}
+.loading .text {
+  font-style: italic;
+  font-family: sans-serif;
+  color: gray;
+}
 .major-block.map-content {
   flex: 0 1 auto;
 }
