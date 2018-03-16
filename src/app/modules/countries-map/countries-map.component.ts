@@ -10,23 +10,13 @@ import {
   EventEmitter
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent } from './chart-events';
+import { ChartSelectEvent, ChartErrorEvent, SelectionExtra, Selection } from './interfaces';
 import { en as countriesEN } from '@jagomf/countrieslist';
 
 const valueHolder = 'value';
 const countryName = (countryCode: string): string => {
   return countriesEN[countryCode];
 };
-
-interface Extra {
-  key: string;
-  val: string;
-}
-interface Selection {
-  countryId: string;
-  countryName: string;
-  extra: Extra[] | null;
-}
 
 @Component({
   selector: 'countries-map',

@@ -10,3 +10,14 @@ export interface ChartErrorEvent {
   detailedMessage: string;
   options: Object;
 }
+
+export interface SelectionExtra {
+  key: string;
+  val: string;
+}
+
+export interface Selection {
+  countryId: string;
+  countryName: string;
+  extra: SelectionExtra[] | null;
+}
