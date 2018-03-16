@@ -7,10 +7,12 @@
   "repository": "github:jagomf/countries-map",
   "homepage": "https://github.com/jagomf/countries-map",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "packagr": "rimraf ./dist && ng-packagr -p ng-package.json && rimraf ./.ng_pkg_build",
-    "build": "ng build --prod",
+    "demo": "ng serve",
+    "build": "ng-packagr -p ng-package.json && rimraf ./.ng_pkg_build",
+    "clear": "rimraf ./dist",
+    "dist": "npm run clear && npm run build",
+    "dist-pack": "npm run dist && npm pack ./dist",
+    "publish-dist": "npm publish dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
