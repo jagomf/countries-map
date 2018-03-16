@@ -57,26 +57,17 @@ export class CountriesMapComponent implements OnChanges {
     this.chartError = new EventEmitter();
   }
 
-  private getExtraSelected(): Extra[] | null {
-    if (this.selection) {
-      const extra = this.data[this.selection.countryId];
-      delete extra[valueHolder];
-      return Object.keys(extra).map(key => ({ key, val: extra[key] }));
-    }
-    return null;
+  private getExtraSelected(country: string): SelectionExtra[] | null {
+    const { extra } = this.data[country];
+    return extra && Object.keys(extra).map(key => ({ key, val: extra[key] }));
   }
 
   private selectCountry(country?: string): void {
-    if (country) {
-      this.selection = {
+    this.selection = country ? {
         countryId: country,
         countryName: countryName(country),
-        extra: null
-      };
-      this.selection.extra = this.getExtraSelected();
-    } else {
-      this.selection = null;
-    }
+      extra: this.getExtraSelected(country)
+    } : null;
   }
 
   /**
