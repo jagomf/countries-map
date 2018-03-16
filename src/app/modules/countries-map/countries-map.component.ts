@@ -3,7 +3,6 @@ declare var google: any;
 import {
   Component,
   ElementRef,
-  ChangeDetectionStrategy,
   OnChanges,
   Input,
   Output,
@@ -32,8 +31,7 @@ interface Selection {
 @Component({
   selector: 'countries-map',
   templateUrl: './countries-map.component.html',
-  styleUrls: ['./countries-map.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./countries-map.component.css']
 })
 export class CountriesMapComponent implements OnChanges {
 
