@@ -42,16 +42,13 @@ export class CountriesMapComponent implements OnChanges {
   @Output() public chartError: EventEmitter<ChartErrorEvent>;
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
-  public googleData: string[][];
-  public wrapper: any;
-  public selection: Selection | null = null;
-
-  private el: ElementRef;
-  private loaderService: GoogleChartsLoaderService;
+  googleData: string[][];
+  wrapper: any;
+  selection: Selection | null = null;
 
   public constructor(
-    el: ElementRef,
-    loaderService: GoogleChartsLoaderService
+    private el: ElementRef,
+    private loaderService: GoogleChartsLoaderService
   ) {
     this.el = el;
     this.loaderService = loaderService;
