@@ -10,7 +10,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent, SelectionExtra, Selection } from './interfaces';
+import { ChartSelectEvent, ChartErrorEvent, CountriesData, SelectionExtra, Selection } from './interfaces';
 import { en as countriesEN } from '@jagomf/countrieslist';
 
 const valueHolder = 'value';
@@ -25,7 +25,7 @@ const countryName = (countryCode: string): string => {
 })
 export class CountriesMapComponent implements OnChanges {
 
-  @Input() public data: any;
+  @Input() public data: CountriesData;
   @Input() public apiKey: string;
   @Input() public options: any;
   @Input() public valueLabel = 'Value';
@@ -81,7 +81,7 @@ export class CountriesMapComponent implements OnChanges {
   private processInputData(): void {
     this.googleData = Object.keys(this.data).reduce((acc, currKey) => {
       const currVal = this.data[currKey][valueHolder];
-      acc.push([currKey, currVal]);
+      acc.push([currKey, <string>currVal]);
       return acc;
     }, [['Country', 'Value']]);
   }
