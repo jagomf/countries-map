@@ -4,9 +4,12 @@
 <h2>Map with data</h2>
 <div>
   <countries-map
+    class="demo-maps"
     [data]="mapData"
-    valueLabel="Banderas"
+    valueLabel="World Cups"
     countryLabel="Nationality"
+    minColor="lightyellow"
+    [showCaption]="true"
     [captionBelow]="false">
   </countries-map>
 </div>

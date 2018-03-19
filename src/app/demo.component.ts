@@ -10,7 +10,9 @@ export class DemoComponent {
     'CA' : { value:  1, extra: { 'Villeneuve': '', 'Stroll': '' } },
     'ES' : { value:  2, extra: { 'Alonso': '', 'Sainz': '', 'De la Rosa': '', 'De Villota': '', 'Jordá': '' } },
     'FR' : { value:  4, extra: { 'Grosjean': '', 'Prost': '' } },
-    'GB' : { value:  17, extra: { 'Hamilton': '', 'Button': '', 'Coulthard': '', 'Mansell': '', 'Hunt': '', 'Wolff': '' } },
+    'GB' : { value:  17, extra: {
+      'Hamilton': '1985', 'Button': '1980', 'Coulthard': '1971', 'Mansell': '1953', 'Hunt': '1947', 'Wolff': '1982'
+    } },
     'PT' : { value:  0, extra: { 'Monteiro': '0' } },
     'IT' : { value:  3, extra: { 'Trulli': '', 'Lombardi': '', 'Farina': '' } },
     'MX' : { value:  0, extra: { 'Pérez': '' } },
