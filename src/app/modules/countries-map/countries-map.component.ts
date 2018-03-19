@@ -28,6 +28,7 @@ export class CountriesMapComponent implements OnChanges {
   @Input() public data: CountriesData;
   @Input() public apiKey: string;
   @Input() public options: any;
+  @Input() public countryLabel = 'Country';
   @Input() public valueLabel = 'Value';
   @Input() public showCaption = true;
   @Input() public captionBelow = true;

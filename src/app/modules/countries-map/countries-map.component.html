@@ -6,7 +6,7 @@
   *ngIf="!loading && showCaption">
   <div class="simple-caption">
     <div class="country-label">
-      <span class="default-label" *ngIf="!selection">Country</span>
+      <span class="default-label" *ngIf="!selection">{{countryLabel}}</span>
       <span class="country-name" *ngIf="selection">{{selection?.countryName}}</span>
     </div>
     <div class="value-label">
