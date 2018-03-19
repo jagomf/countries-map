@@ -59,11 +59,12 @@
   color: #777;
 }
 .extended-caption {
-  display: flex;
-  flex-flow: column wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-gap: 5px;
 }
 .extended-item {
-  flex: 0 1 auto;
+  margin: 5px auto;
 }
 .extended-item .extended-label {
   font-weight: bold;
