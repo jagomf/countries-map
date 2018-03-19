@@ -10,7 +10,9 @@
       <span class="country-name" *ngIf="selection">{{selection?.countryName}}</span>
     </div>
     <div class="value-label">
-      <span class="value-text" [ngClass]="{'has-value': selection}">{{valueLabel}}</span>
+      <span class="value-text"
+        [ngClass]="{'has-value': selection}">{{valueLabel}}<span *ngIf="selection">: </span></span>
+      <span class="value-content" *ngIf="selection">{{selectionValue}}</span>
     </div>
   </div>
   <div class="extended-caption" *ngIf="selection?.extra && selection?.extra.length > 0">

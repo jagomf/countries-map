@@ -47,6 +47,9 @@ export class CountriesMapComponent implements OnChanges {
   wrapper: any;
   selection: Selection | null = null;
   loading = true;
+  get selectionValue() {
+    return this.data[this.selection.countryId].value;
+  }
 
   public constructor(
     private el: ElementRef,
