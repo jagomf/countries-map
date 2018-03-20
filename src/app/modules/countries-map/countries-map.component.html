@@ -1,24 +1,24 @@
 <div class="major-block loading" *ngIf="loading"><span class="text">Loading map...</span></div>
 
-<div class="major-block map-content" [ngClass]="{'goes-first': captionBelow}"></div>
+<div class="major-block cm-map-content" [ngClass]="{'goes-first': captionBelow}"></div>
 
-<div class="major-block caption-container" [ngClass]="{'goes-first': !captionBelow}"
+<div class="major-block cm-caption-container" [ngClass]="{'goes-first': !captionBelow}"
   *ngIf="!loading && showCaption">
-  <div class="simple-caption">
-    <div class="country-label">
-      <span class="default-label" *ngIf="!selection">{{countryLabel}}</span>
-      <span class="country-name" *ngIf="selection">{{selection?.countryName}}</span>
+  <div class="cm-simple-caption">
+    <div class="cm-country-label">
+      <span class="cm-default-label" *ngIf="!selection">{{countryLabel}}</span>
+      <span class="cm-country-name" *ngIf="selection">{{selection?.countryName}}</span>
     </div>
-    <div class="value-label">
-      <span class="value-text"
+    <div class="cm-value-label">
+      <span class="cm-value-text"
         [ngClass]="{'has-value': selection}">{{valueLabel}}<span *ngIf="selection">: </span></span>
-      <span class="value-content" *ngIf="selection">{{selectionValue}}</span>
+      <span class="cm-value-content" *ngIf="selection">{{selectionValue}}</span>
     </div>
   </div>
-  <div class="extended-caption" *ngIf="selection?.extra && selection?.extra.length > 0">
-    <div *ngFor="let item of selection?.extra" class="extended-item">
-      <span class="extended-label">{{item.key}}</span>:
-      <span class="extended-value">{{item.val}}</span>
+  <div class="cm-extended-caption" *ngIf="selection?.extra && selection?.extra.length > 0">
+    <div *ngFor="let item of selection?.extra" class="cm-extended-item">
+      <span class="cm-extended-label">{{item.key}}</span>:
+      <span class="cm-extended-value">{{item.val}}</span>
     </div>
   </div>
 </div>

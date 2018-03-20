@@ -14,7 +14,7 @@
   font-family: sans-serif;
   color: gray;
 }
-.major-block.map-content {
+.major-block.cm-map-content {
   flex: 0 1 auto;
 }
 .major-block.goes-first {
@@ -23,49 +23,49 @@
 .major-block:not(.goes-first) {
   order: 1;
 }
-.major-block.caption-container {
+.major-block.cm-caption-container {
   flex: 0 1 auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
 }
-.simple-caption {
+.cm-simple-caption {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
 }
-.country-label {
+.cm-country-label {
   flex: 0 1 auto;
   align-self: flex-start;
 }
-.value-label {
+.cm-value-label {
   flex: 0 1 auto;
   align-self: flex-end;
 }
-.country-label,
-.value-label {
+.cm-country-label,
+.cm-value-label {
   flex: 0 1 auto;
 }
-.country-label .country-name {
+.cm-country-label .cm-country-name {
   font-weight: bold;
 }
-.country-label .country-name,
-.value-label .value-text {
+.cm-country-label .cm-country-name,
+.cm-value-label .cm-value-text {
   color: #333;
 }
-.country-label .default-label,
-.value-label .value-text:not(.has-value) {
+.cm-country-label .cm-default-label,
+.cm-value-label .cm-value-text:not(.has-value) {
   font-style: italic;
   color: #777;
 }
-.extended-caption {
+.cm-extended-caption {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   grid-gap: 5px;
 }
-.extended-item {
+.cm-extended-item {
   margin: 5px auto;
 }
-.extended-item .extended-label {
+.cm-extended-item .cm-extended-label {
   font-weight: bold;
 }

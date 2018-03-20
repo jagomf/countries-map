@@ -10,7 +10,8 @@
 * [Usage](#usage)
 * [Attributes](#attributes)
 * [Events](#events)
-* [Advanced usage](#events)
+* [Styles](#styles)
+* [Advanced usage](#advanced-usage)
 * [FAQ](#faq)
 * [License](#license)
 
@@ -105,7 +106,7 @@ Bind the `chartError` event in the `countries-map` component, like this:
 <countries-map [data]="mapData" (chartError)="error($event)"></countries-map>
 ```
 
-Your `error()` function is passed an event whose interface looks like this:
+Your `error()` function is passed an event which interface looks like this:
 ```ts
 interface ChartErrorEvent {
   id: string;
@@ -158,6 +159,26 @@ public select(event: ChartSelectEvent) {
   // your logic
 }
 ```
+
+## Styles
+
+You can apply styles to most of the countries-map caption area (if you decide to show it) and map container so that you can integrate your countries-map in your site's look&feel.
+
+These are the classes you can apply styles to, hierarchically displayed, and associated to their wrappers:
+
+* `cm-map-content`: world map
+* `cm-caption-container`: full caption area
+  * `cm-simple-caption`: main caption section (`countryLabel`/`valueLabel` area)
+    * `cm-country-label`: `countryLabel` keyword or country name (whichever is shown)
+      * `cm-defaut-label`: `countryLabel` keyword
+      * `cm-country-name`: country name
+    * `cm-value-label`: `valueLabel` keyword or value label, plus actual value
+      * `cm-value-text`: `valueLabel` keyword or value label (whichever is shown)
+      * `cm-value-content`: actual value for the current country
+  * `cm-extended-caption`: area for the extra items
+    * `cm-extended-item`: each of the single extra items (made of key and value)
+      * `cm-extended-label`: key of the single extra item
+      * `cm-extended-value`: value of the single extra item
 
 ## Advanced usage
 You can access Google Chart's underlying [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the
