@@ -126,7 +126,7 @@ export class CountriesMapComponent implements OnChanges {
   }
 
   public redraw(): void {
-    this.wrapper.draw(this.el.nativeElement.querySelector('div.map-content'));
+    this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
   }
 
   private onChartReady(): void {
