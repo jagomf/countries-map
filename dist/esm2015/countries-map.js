@@ -329,5 +329,5 @@ CountriesMapModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { CountriesMapModule, CountriesMapComponent as ɵa, GoogleChartsLoaderService as ɵb };
+export { CountriesMapModule, CountriesMapComponent, GoogleChartsLoaderService as ɵa };
 //# sourceMappingURL=countries-map.js.map

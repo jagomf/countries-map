@@ -240,8 +240,8 @@ CountriesMapModule.decorators = [
 CountriesMapModule.ctorParameters = function () { return []; };
 
 exports.CountriesMapModule = CountriesMapModule;
-exports.ɵa = CountriesMapComponent;
-exports.ɵb = GoogleChartsLoaderService;
+exports.CountriesMapComponent = CountriesMapComponent;
+exports.ɵa = GoogleChartsLoaderService;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

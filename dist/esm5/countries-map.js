@@ -237,5 +237,5 @@ CountriesMapModule.decorators = [
 ];
 CountriesMapModule.ctorParameters = function () { return []; };
 
-export { CountriesMapModule, CountriesMapComponent as ɵa, GoogleChartsLoaderService as ɵb };
+export { CountriesMapModule, CountriesMapComponent, GoogleChartsLoaderService as ɵa };
 //# sourceMappingURL=countries-map.js.map

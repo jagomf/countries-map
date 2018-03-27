@@ -24,15 +24,15 @@ npm install --save countries-map
 
 ## Usage
 
-Import `CountriesMap` in your `app.module.ts`:
+Import `CountriesMapModule` in your `app.module.ts`:
 ```ts
-import { CountriesMap } from 'countries-map';
+import { CountriesMapModule } from 'countries-map';
 
 @NgModule({
   ...
   imports: [
     ...
-    CountriesMap,
+    CountriesMapModule,
   ],
 })
 export class AppModule { }
