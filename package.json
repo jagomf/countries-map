@@ -11,8 +11,7 @@
     "build": "ng-packagr -p ng-package.json && rimraf ./.ng_pkg_build",
     "clear": "rimraf ./dist",
     "dist": "npm run clear && npm run build",
-    "dist-pack": "npm run dist && cd dist && npm pack",
-    "publish-dist": "npm publish dist",
+    "dist-publish": "npm run dist && cd dist && npm publish",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
