@@ -1,6 +1,6 @@
 {
   "name": "countries-map",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "World countries datamaps component for Angular, based on Google GeoCharts",
   "license": "MIT",
   "author": "Jago MF <jago84@gmail.com>",

@@ -1,6 +1,7 @@
 import { ElementRef, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent, CountriesData, Selection } from './interfaces';
+import { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
+import { CountriesData, Selection } from './data-types.interface';
 export declare class CountriesMapComponent implements OnChanges {
     private el;
     private loaderService;
