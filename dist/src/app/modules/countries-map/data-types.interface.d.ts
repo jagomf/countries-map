@@ -12,7 +12,7 @@ export interface CountryExtraData {
 }
 export interface CountryData {
     value: string | number;
-    extra: CountryExtraData | undefined;
+    extra?: CountryExtraData;
 }
 export interface CountriesData {
     [key: string]: CountryData;
