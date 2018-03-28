@@ -10,7 +10,8 @@ import {
   EventEmitter
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent, CountriesData, SelectionExtra, Selection } from './interfaces';
+import { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
+import { CountriesData, SelectionExtra, Selection } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
 
 const valueHolder = 'value';
