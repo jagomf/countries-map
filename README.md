@@ -40,13 +40,13 @@ export class AppModule { }
 
 In your templates, use the `<countries-map>` component like this:
 ```html
-<countries-map [data]="mapData" [apiKey]="abcdef" [options]="optObj"></countries-map>
+<countries-map [data]="mapData" [apiKey]="abcdef"></countries-map>
 ```
 and in the corresponding `.ts` file:
 ```ts
 import { CountriesData } from 'countries-map';
 ...
-public mapData: CountriesData =  {
+public mapData: CountriesData = {
   'ES': { 'value': 416 },
   'GB': { 'value': 94 },
   'FR': { 'value': 255 }
