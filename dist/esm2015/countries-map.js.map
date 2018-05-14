@@ -2,9 +2,9 @@
   "version": 3,
   "file": "countries-map.js",
   "sources": [
-    "ng://countries-map/out/src/app/modules/countries-map/countries-map.module.ts",
-    "ng://countries-map/out/src/app/modules/countries-map/countries-map.component.ts",
-    "ng://countries-map/out/src/app/modules/countries-map/google-charts-loader.service.ts"
+    "ng://countries-map/out/app/modules/countries-map/countries-map.module.ts",
+    "ng://countries-map/out/app/modules/countries-map/countries-map.component.ts",
+    "ng://countries-map/out/app/modules/countries-map/google-charts-loader.service.ts"
   ],
   "sourcesContent": [
     "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { CountriesMapComponent } from './countries-map.component';\nimport { GoogleChartsLoaderService } from './google-charts-loader.service';\n\n@NgModule({\n  imports: [\n    CommonModule\n  ],\n  declarations: [CountriesMapComponent],\n  entryComponents: [CountriesMapComponent],\n  providers: [GoogleChartsLoaderService],\n  exports: [\n    CountriesMapComponent\n  ]\n})\nexport class CountriesMapModule { }\n",
