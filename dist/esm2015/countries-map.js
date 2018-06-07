@@ -245,7 +245,9 @@ CountriesMapComponent.decorators = [
     { type: Component, args: [{
                 selector: 'countries-map',
                 template: `<div class="major-block loading" *ngIf="loading"><span class="text">Loading map...</span></div>
+
 <div class="major-block cm-map-content" [ngClass]="{'goes-first': captionBelow}"></div>
+
 <div class="major-block cm-caption-container" [ngClass]="{'goes-first': !captionBelow}"
   *ngIf="!loading && showCaption">
   <div class="cm-simple-caption">
@@ -313,8 +315,6 @@ CountriesMapModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */
-CountriesMapModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
