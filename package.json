@@ -35,6 +35,8 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@jagomf/countrieslist": "^1.5.0",
     "core-js": "^2.4.1",
+    "rxjs": "~6.4.0",
+    "tslib": "^1.9.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
@@ -52,7 +54,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^2.2.0",
+    "ng-packagr": "^5.5.0",
     "protractor": "~5.1.2",
     "rimraf": "^2.6.2",
     "ts-node": "~4.1.0",
