@@ -109,21 +109,24 @@ Bind the `chartError` event in the `countries-map` component, like this:
 Your `error()` function is passed an event which interface looks like this:
 ```ts
 interface ChartErrorEvent {
-  id: string;
+  id: string | CharErrorCode;
   message: string;
   detailedMessage: string;
   options: Object;
 }
 ```
 
-You can import the `ChartErrorEvent` interface in your `.ts` file:
+You can import the `ChartErrorEvent` interface and `CharErrorCode` enum in your `.ts` file:
 ```ts
-import { ChartErrorEvent } from 'countries-map';
+import { ChartErrorEvent, CharErrorCode } from 'countries-map';
 ```
 
 and then use it like:
 ```ts
 public error(event: ChartErrorEvent) {
+  if (event.id === CharErrorCode.loading) {
+    // error was produced during loading
+  }
   // your logic
 }
 ```

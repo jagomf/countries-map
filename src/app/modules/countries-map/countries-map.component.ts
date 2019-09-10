@@ -10,7 +10,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
+import { ChartSelectEvent, ChartErrorEvent, CharErrorCode } from './chart-events.interface';
 import { CountriesData, SelectionExtra, Selection } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
 
@@ -78,15 +78,15 @@ export class CountriesMapComponent implements OnChanges {
 
   /**
    * Pasar de una tabla en forma
-   * { GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }
+   * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
    * a un array para Google Charts en forma
-   * [ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]
+   * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
    * y almacernarlo en this.processedData
    */
   private processInputData(): void {
-    this.googleData = Object.keys(this.data).reduce((acc, currKey) => {
-      const currVal = this.data[currKey][valueHolder];
-      acc.push([currKey, <string>currVal]);
+    this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
+      const valContent = val[valueHolder].toString();
+      acc.push([key, valContent]);
       return acc;
     }, [['Country', 'Value']]);
   }
@@ -122,6 +122,8 @@ export class CountriesMapComponent implements OnChanges {
 
         this.registerChartWrapperEvents();
         this.redraw();
+      }, () => {
+        this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
       });
     }
   }
@@ -135,8 +137,8 @@ export class CountriesMapComponent implements OnChanges {
     this.chartReady.emit();
   }
 
-  private onCharterror(error: any): void {
-    this.chartError.emit(error as ChartErrorEvent);
+  private onCharterror(error: ChartErrorEvent): void {
+    this.chartError.emit(error);
   }
 
   private onMapSelect(): void {

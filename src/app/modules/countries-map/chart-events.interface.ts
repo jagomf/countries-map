@@ -4,9 +4,11 @@ export interface ChartSelectEvent {
   country: string;
 }
 
+export enum CharErrorCode {loading = 'loading'}
+
 export interface ChartErrorEvent {
-  id: string;
+  id: string | CharErrorCode;
   message: string;
-  detailedMessage: string;
-  options: Object;
+  detailedMessage?: string;
+  options?: Object;
 }
