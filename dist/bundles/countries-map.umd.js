@@ -268,6 +268,11 @@
         return GoogleChartsLoaderService;
     }());
 
+
+    (function (CharErrorCode) {
+        CharErrorCode["loading"] = "loading";
+    })(exports.CharErrorCode || (exports.CharErrorCode = {}));
+
     var valueHolder = 'value';
     var countryName = function (countryCode) {
         return countrieslist.en[countryCode];
@@ -314,16 +319,16 @@
         };
         /**
          * Pasar de una tabla en forma
-         * { GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }
+         * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
          * a un array para Google Charts en forma
-         * [ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]
+         * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
          * y almacernarlo en this.processedData
          */
         CountriesMapComponent.prototype.processInputData = function () {
-            var _this = this;
-            this.googleData = Object.keys(this.data).reduce(function (acc, currKey) {
-                var currVal = _this.data[currKey][valueHolder];
-                acc.push([currKey, currVal]);
+            this.googleData = Object.entries(this.data).reduce(function (acc, _a) {
+                var _b = __read(_a, 2), key = _b[0], val = _b[1];
+                var valContent = val[valueHolder].toString();
+                acc.push([key, valContent]);
                 return acc;
             }, [['Country', 'Value']]);
         };
@@ -354,6 +359,8 @@
                     });
                     _this.registerChartWrapperEvents();
                     _this.redraw();
+                }, function () {
+                    _this.onCharterror({ id: exports.CharErrorCode.loading, message: 'Could not load' });
                 });
             }
         };
@@ -460,7 +467,7 @@
         CountriesMapComponent = __decorate([
             core.Component({
                 selector: 'countries-map',
-                template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\n\n<div class=\"major-block cm-map-content\" [ngClass]=\"{'goes-first': captionBelow}\"></div>\n\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\n  *ngIf=\"!loading && showCaption\">\n  <div class=\"cm-simple-caption\">\n    <div class=\"cm-country-label\">\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\n    </div>\n    <div class=\"cm-value-label\">\n      <span class=\"cm-value-text\"\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\n    </div>\n  </div>\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\n      <span class=\"cm-extended-value\">{{item.val}}</span>\n    </div>\n  </div>\n</div>\n",
+                template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                 styles: [":host{display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:stretch;align-content:stretch}.major-block.loading{flex:0 1 auto;-ms-grid-row-align:center;align-self:center}.loading .text{font-style:italic;font-family:sans-serif;color:gray}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{flex:0 1 auto;display:flex;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{flex:0 1 auto;align-self:flex-start}.cm-value-label{flex:0 1 auto;align-self:flex-end}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){font-style:italic;color:#777}.cm-extended-caption{display:-ms-grid;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));grid-gap:5px}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
             }),
             __metadata("design:paramtypes", [core.ElementRef,

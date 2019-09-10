@@ -31,9 +31,9 @@ export declare class CountriesMapComponent implements OnChanges {
     private selectCountry;
     /**
      * Pasar de una tabla en forma
-     * { GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }
+     * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
      * a un array para Google Charts en forma
-     * [ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]
+     * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
      * y almacernarlo en this.processedData
      */
     private processInputData;
