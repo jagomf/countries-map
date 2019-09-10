@@ -27,8 +27,8 @@ export declare class CountriesMapComponent implements OnChanges {
     loading: boolean;
     readonly selectionValue: string | number;
     constructor(el: ElementRef, loaderService: GoogleChartsLoaderService);
-    private getExtraSelected(country);
-    private selectCountry(country?);
+    private getExtraSelected;
+    private selectCountry;
     /**
      * Pasar de una tabla en forma
      * { GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }
@@ -36,11 +36,11 @@ export declare class CountriesMapComponent implements OnChanges {
      * [ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]
      * y almacernarlo en this.processedData
      */
-    private processInputData();
+    private processInputData;
     ngOnChanges(changes: SimpleChanges): void;
     redraw(): void;
-    private onChartReady();
-    private onCharterror(error);
-    private onMapSelect();
-    private registerChartWrapperEvents();
+    private onChartReady;
+    private onCharterror;
+    private onMapSelect;
+    private registerChartWrapperEvents;
 }
