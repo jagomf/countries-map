@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChartErrorEvent } from './modules/countries-map/chart-events.interface';
 
 @Component({
   selector: 'demo-content',
@@ -29,4 +30,12 @@ export class DemoComponent {
     'BR' : { value:  8, extra: { 'Massa': '', 'Barrichello': '', 'Senna': '', 'Piquet': '' } },
     'DE' : { value:  12, extra: { 'Vettel': '', 'Schumacher': '' } }
   };
+
+  errorLoading = null;
+  mapError(error: ChartErrorEvent) {
+    this.errorLoading = error;
+  }
+  mapReady() {
+    console.log('Map ready');
+  }
 }
