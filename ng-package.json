@@ -4,6 +4,6 @@
     "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "angular", "@jagomf/countrieslist", "core-js", "zone.js"
+    "angular", "@jagomf/countrieslist", "core-js", "rxjs", "zone.js"
   ]
 }
