@@ -85,11 +85,8 @@ export class CountriesMapComponent implements OnChanges {
    */
   private processInputData(): void {
     this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
-      const rawValContent = val[valueHolder]
-      if (rawValContent) {
-        const valContent = rawValContent.toString();
-        acc.push([key, valContent]);
-      }
+      const rawValContent = val[valueHolder];
+      acc.push([key, rawValContent ? rawValContent.toString() : null]);
       return acc;
     }, [['Country', 'Value']]);
   }

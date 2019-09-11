@@ -122,10 +122,7 @@ let CountriesMapComponent = class CountriesMapComponent {
     processInputData() {
         this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
             const rawValContent = val[valueHolder];
-            if (rawValContent) {
-                const valContent = rawValContent.toString();
-                acc.push([key, valContent]);
-            }
+            acc.push([key, rawValContent ? rawValContent.toString() : null]);
             return acc;
         }, [['Country', 'Value']]);
     }

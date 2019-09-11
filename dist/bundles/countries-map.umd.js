@@ -328,10 +328,7 @@
             this.googleData = Object.entries(this.data).reduce(function (acc, _a) {
                 var _b = __read(_a, 2), key = _b[0], val = _b[1];
                 var rawValContent = val[valueHolder];
-                if (rawValContent) {
-                    var valContent = rawValContent.toString();
-                    acc.push([key, valContent]);
-                }
+                acc.push([key, rawValContent ? rawValContent.toString() : null]);
                 return acc;
             }, [['Country', 'Value']]);
         };
