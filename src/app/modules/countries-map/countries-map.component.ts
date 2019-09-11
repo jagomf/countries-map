@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
 import { ChartSelectEvent, ChartErrorEvent, CharErrorCode } from './chart-events.interface';
-import { CountriesData, SelectionExtra, Selection } from './data-types.interface';
+import { CountriesData, SelectionExtra, Selection, ValidCountryData } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
 
 const valueHolder = 'value';
@@ -44,7 +44,7 @@ export class CountriesMapComponent implements OnChanges {
   @Output() public chartError: EventEmitter<ChartErrorEvent>;
   @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
 
-  googleData: string[][];
+  googleData: ValidCountryData[][];
   wrapper: any;
   selection: Selection | null = null;
   loading = true;
@@ -77,18 +77,18 @@ export class CountriesMapComponent implements OnChanges {
   }
 
   /**
-   * Pasar de una tabla en forma
+   * Convert a table (object) formatted as
    * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-   * a un array para Google Charts en forma
+   * to an array for Google Charts formatted as
    * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-   * y almacernarlo en this.processedData
+   * and save to this.processedData
    */
   private processInputData(): void {
     this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
       const rawValContent = val[valueHolder];
-      acc.push([key, rawValContent ? rawValContent.toString() : null]);
+      acc.push([key, rawValContent === null ? null : rawValContent ? +rawValContent.toString() : 0]);
       return acc;
-    }, [['Country', 'Value']]);
+    }, [['Country', 'Value']] as ValidCountryData[][]);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

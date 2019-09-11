@@ -113,16 +113,16 @@ let CountriesMapComponent = class CountriesMapComponent {
         } : null;
     }
     /**
-     * Pasar de una tabla en forma
+     * Convert a table (object) formatted as
      * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-     * a un array para Google Charts en forma
+     * to an array for Google Charts formatted as
      * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-     * y almacernarlo en this.processedData
+     * and save to this.processedData
      */
     processInputData() {
         this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
             const rawValContent = val[valueHolder];
-            acc.push([key, rawValContent ? rawValContent.toString() : null]);
+            acc.push([key, rawValContent === null ? null : rawValContent ? +rawValContent.toString() : 0]);
             return acc;
         }, [['Country', 'Value']]);
     }

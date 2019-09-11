@@ -1,7 +1,7 @@
 import { ElementRef, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
 import { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
-import { CountriesData, Selection } from './data-types.interface';
+import { CountriesData, Selection, ValidCountryData } from './data-types.interface';
 export declare class CountriesMapComponent implements OnChanges {
     private el;
     private loaderService;
@@ -21,20 +21,20 @@ export declare class CountriesMapComponent implements OnChanges {
     chartReady: EventEmitter<void>;
     chartError: EventEmitter<ChartErrorEvent>;
     chartSelect: EventEmitter<ChartSelectEvent>;
-    googleData: string[][];
+    googleData: ValidCountryData[][];
     wrapper: any;
     selection: Selection | null;
     loading: boolean;
-    readonly selectionValue: string | number;
+    readonly selectionValue: ValidCountryData;
     constructor(el: ElementRef, loaderService: GoogleChartsLoaderService);
     private getExtraSelected;
     private selectCountry;
     /**
-     * Pasar de una tabla en forma
+     * Convert a table (object) formatted as
      * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-     * a un array para Google Charts en forma
+     * to an array for Google Charts formatted as
      * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-     * y almacernarlo en this.processedData
+     * and save to this.processedData
      */
     private processInputData;
     ngOnChanges(changes: SimpleChanges): void;

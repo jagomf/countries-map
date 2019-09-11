@@ -120,17 +120,17 @@ var CountriesMapComponent = /** @class */ (function () {
         } : null;
     };
     /**
-     * Pasar de una tabla en forma
+     * Convert a table (object) formatted as
      * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-     * a un array para Google Charts en forma
+     * to an array for Google Charts formatted as
      * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-     * y almacernarlo en this.processedData
+     * and save to this.processedData
      */
     CountriesMapComponent.prototype.processInputData = function () {
         this.googleData = Object.entries(this.data).reduce(function (acc, _a) {
             var _b = __read(_a, 2), key = _b[0], val = _b[1];
             var rawValContent = val[valueHolder];
-            acc.push([key, rawValContent ? rawValContent.toString() : null]);
+            acc.push([key, rawValContent === null ? null : rawValContent ? +rawValContent.toString() : 0]);
             return acc;
         }, [['Country', 'Value']]);
     };

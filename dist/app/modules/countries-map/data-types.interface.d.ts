@@ -1,6 +1,7 @@
+export declare type ValidCountryData = string | number;
 export interface SelectionExtra {
     key: string;
-    val: string | number;
+    val: ValidCountryData;
 }
 export interface Selection {
     countryId: string;
@@ -8,10 +9,10 @@ export interface Selection {
     extra: SelectionExtra[] | null;
 }
 export interface CountryExtraData {
-    [key: string]: string | number;
+    [key: string]: ValidCountryData;
 }
 export interface CountryData {
-    value: string | number;
+    value: ValidCountryData;
     extra?: CountryExtraData;
 }
 export interface CountriesData {
