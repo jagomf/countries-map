@@ -1,5 +1,5 @@
-import { __decorate, __param, __metadata } from 'tslib';
-import { EventEmitter, Injectable, Inject, LOCALE_ID, Input, Output, Component, ElementRef, NgModule } from '@angular/core';
+import { __decorate, __param } from 'tslib';
+import { EventEmitter, Inject, LOCALE_ID, Injectable, ElementRef, Input, Output, Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { en } from '@jagomf/countrieslist';
 
@@ -61,10 +61,12 @@ let GoogleChartsLoaderService = class GoogleChartsLoaderService {
         });
     }
 };
+GoogleChartsLoaderService.ctorParameters = () => [
+    { type: String, decorators: [{ type: Inject, args: [LOCALE_ID,] }] }
+];
 GoogleChartsLoaderService = __decorate([
     Injectable(),
-    __param(0, Inject(LOCALE_ID)),
-    __metadata("design:paramtypes", [String])
+    __param(0, Inject(LOCALE_ID))
 ], GoogleChartsLoaderService);
 
 var CharErrorCode;
@@ -194,78 +196,64 @@ let CountriesMapComponent = class CountriesMapComponent {
         addListener(this.wrapper, 'select', this.onMapSelect.bind(this));
     }
 };
+CountriesMapComponent.ctorParameters = () => [
+    { type: ElementRef },
+    { type: GoogleChartsLoaderService }
+];
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "data", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", String)
+    Input()
 ], CountriesMapComponent.prototype, "apiKey", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "options", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "countryLabel", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "valueLabel", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "showCaption", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "captionBelow", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "minValue", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Number)
+    Input()
 ], CountriesMapComponent.prototype, "maxValue", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "minColor", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "maxColor", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "noDataColor", void 0);
 __decorate([
-    Input(),
-    __metadata("design:type", Object)
+    Input()
 ], CountriesMapComponent.prototype, "exceptionColor", void 0);
 __decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
+    Output()
 ], CountriesMapComponent.prototype, "chartReady", void 0);
 __decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
+    Output()
 ], CountriesMapComponent.prototype, "chartError", void 0);
 __decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
+    Output()
 ], CountriesMapComponent.prototype, "chartSelect", void 0);
 CountriesMapComponent = __decorate([
     Component({
         selector: 'countries-map',
-        template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\n\n<div class=\"major-block cm-map-content\" [ngClass]=\"{'goes-first': captionBelow}\"></div>\n\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\n  *ngIf=\"!loading && showCaption\">\n  <div class=\"cm-simple-caption\">\n    <div class=\"cm-country-label\">\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\n    </div>\n    <div class=\"cm-value-label\">\n      <span class=\"cm-value-text\"\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\n    </div>\n  </div>\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\n      <span class=\"cm-extended-value\">{{item.val}}</span>\n    </div>\n  </div>\n</div>\n",
-        styles: [":host{display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:stretch;align-content:stretch}.major-block.loading{flex:0 1 auto;-ms-grid-row-align:center;align-self:center}.loading .text{font-style:italic;font-family:sans-serif;color:gray}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{flex:0 1 auto;display:flex;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{flex:0 1 auto;align-self:flex-start}.cm-value-label{flex:0 1 auto;align-self:flex-end}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){font-style:italic;color:#777}.cm-extended-caption{display:-ms-grid;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));grid-gap:5px}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
-    }),
-    __metadata("design:paramtypes", [ElementRef,
-        GoogleChartsLoaderService])
+        template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+        styles: [":host{display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:stretch;align-content:stretch}.major-block.loading{flex:0 1 auto;align-self:center}.loading .text{font-style:italic;font-family:sans-serif;color:gray}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{flex:0 1 auto;display:flex;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{flex:0 1 auto;align-self:flex-start}.cm-value-label{flex:0 1 auto;align-self:flex-end}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){font-style:italic;color:#777}.cm-extended-caption{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));grid-gap:5px}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
+    })
 ], CountriesMapComponent);
 
 let CountriesMapModule = class CountriesMapModule {

@@ -25,7 +25,7 @@ export declare class CountriesMapComponent implements OnChanges {
     wrapper: any;
     selection: Selection | null;
     loading: boolean;
-    readonly selectionValue: ValidCountryData;
+    get selectionValue(): ValidCountryData;
     constructor(el: ElementRef, loaderService: GoogleChartsLoaderService);
     private getExtraSelected;
     private selectCountry;
