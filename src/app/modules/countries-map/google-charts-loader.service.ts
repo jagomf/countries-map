@@ -32,7 +32,7 @@ export class GoogleChartsLoaderService {
     });
   }
 
-  private loadGoogleChartsScript(): Promise<any> {
+  private loadGoogleChartsScript(): Promise<void> {
     return new Promise((resolve, reject) => {
 
       if (typeof google !== 'undefined' && google.charts) {
