@@ -15,7 +15,7 @@ export class GoogleChartsLoaderService {
     this.localeId = localeId;
   }
 
-  public load(apiKey?: string): Promise<any> {
+  public load(apiKey?: string): Promise<void> {
     return new Promise((resolve, reject) => {
 
       this.loadGoogleChartsScript().then(() => {
