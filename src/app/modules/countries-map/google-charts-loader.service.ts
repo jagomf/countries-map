@@ -1,21 +1,19 @@
-declare var google: any;
+declare var google: { charts: { load: (version: string, initializer: any) => void } };
 
 import { Injectable, EventEmitter, LOCALE_ID, Inject } from '@angular/core';
 
 @Injectable()
 export class GoogleChartsLoaderService {
 
-  private googleScriptLoadingNotifier: EventEmitter<boolean>;
-  private googleScriptIsLoading: boolean;
-  private localeId: string;
+  private readonly googleScriptLoadingNotifier = new EventEmitter<boolean>();
+  private googleScriptIsLoading = false;
+  private readonly localeId: string;
 
-  public constructor(@Inject(LOCALE_ID) localeId: string) {
-    this.googleScriptLoadingNotifier = new EventEmitter();
-    this.googleScriptIsLoading = false;
+  constructor(@Inject(LOCALE_ID) localeId: string) {
     this.localeId = localeId;
   }
 
-  public load(apiKey?: string): Promise<void> {
+  load(apiKey?: string): Promise<void> {
     return new Promise((resolve, reject) => {
 
       this.loadGoogleChartsScript().then(() => {
