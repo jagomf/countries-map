@@ -75,6 +75,7 @@ minColor | string | `'white'` | No
 maxColor | string | `'red'` | No
 noDataColor | string | `'#CFCFCF'` | No
 exceptionColor | string | `'#FFEE58'` | No
+backgroundColor | string | `'white'` | No
 
 <br>
 
