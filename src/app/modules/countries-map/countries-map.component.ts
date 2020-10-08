@@ -45,6 +45,7 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
   @Input() maxValue: number;
   @Input() minColor = 'white';
   @Input() maxColor = 'red';
+  @Input() backgroundColor = 'white';
   @Input() noDataColor = '#CFCFCF';
   @Input() exceptionColor = '#FFEE58';
 
@@ -131,6 +132,7 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
           maxValue: Number.isInteger(this.maxValue) ? this.maxValue : undefined
         },
         datalessRegionColor: this.noDataColor,
+        backgroundColor: this.backgroundColor,
         defaultColor: this.exceptionColor,
         legend: this.showCaption,
         tooltip: { trigger: 'none' }
