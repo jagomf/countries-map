@@ -1,5 +1,5 @@
 import { __decorate, __param } from 'tslib';
-import { EventEmitter, Inject, LOCALE_ID, Injectable, ElementRef, Input, Output, Component, NgModule } from '@angular/core';
+import { EventEmitter, Inject, LOCALE_ID, Injectable, ChangeDetectorRef, ElementRef, Input, Output, ViewChild, HostListener, Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { en } from '@jagomf/countrieslist';
 
@@ -80,28 +80,41 @@ const countryName = (countryCode) => {
 };
 const ɵ0 = countryName;
 let CountriesMapComponent = class CountriesMapComponent {
-    constructor(el, loaderService) {
+    constructor(cdRef, el, loaderService) {
+        this.cdRef = cdRef;
         this.el = el;
         this.loaderService = loaderService;
         this.countryLabel = 'Country';
         this.valueLabel = 'Value';
         this.showCaption = true;
         this.captionBelow = true;
+        this.autoResize = false;
         this.minValue = 0;
         this.minColor = 'white';
         this.maxColor = 'red';
+        this.backgroundColor = 'white';
         this.noDataColor = '#CFCFCF';
         this.exceptionColor = '#FFEE58';
-        this.selection = null;
-        this.loading = true;
-        this.el = el;
-        this.loaderService = loaderService;
-        this.chartSelect = new EventEmitter();
         this.chartReady = new EventEmitter();
         this.chartError = new EventEmitter();
+        this.chartSelect = new EventEmitter();
+        this.selection = null;
+        this.innerLoading = true;
+        this.el = el;
+        this.loaderService = loaderService;
+    }
+    get loading() {
+        return this.innerLoading;
     }
     get selectionValue() {
         return this.data[this.selection.countryId].value;
+    }
+    screenSizeChanged() {
+        if (!this.loading && this.autoResize) {
+            const map = this.mapContent.nativeElement;
+            map.style.setProperty('height', `${map.clientWidth * this.proportion}px`);
+            this.redraw();
+        }
     }
     getExtraSelected(country) {
         const { extra } = this.data[country];
@@ -113,6 +126,7 @@ let CountriesMapComponent = class CountriesMapComponent {
             countryName: countryName(country),
             extra: this.getExtraSelected(country)
         } : null;
+        this.cdRef.detectChanges();
     }
     /**
      * Convert a table (object) formatted as
@@ -128,9 +142,8 @@ let CountriesMapComponent = class CountriesMapComponent {
             return acc;
         }, [['Country', 'Value']]);
     }
-    ngOnChanges(changes) {
-        const key = 'data';
-        if (changes[key]) {
+    ngOnChanges({ data }) {
+        if (data) {
             if (!this.data) {
                 return;
             }
@@ -141,6 +154,7 @@ let CountriesMapComponent = class CountriesMapComponent {
                     maxValue: Number.isInteger(this.maxValue) ? this.maxValue : undefined
                 },
                 datalessRegionColor: this.noDataColor,
+                backgroundColor: this.backgroundColor,
                 defaultColor: this.exceptionColor,
                 legend: this.showCaption,
                 tooltip: { trigger: 'none' }
@@ -154,6 +168,8 @@ let CountriesMapComponent = class CountriesMapComponent {
                 });
                 this.registerChartWrapperEvents();
                 this.redraw();
+                const self = this.el.nativeElement;
+                this.proportion = self.clientHeight / self.clientWidth;
             }, () => {
                 this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
             });
@@ -163,7 +179,7 @@ let CountriesMapComponent = class CountriesMapComponent {
         this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
     }
     onChartReady() {
-        this.loading = false;
+        this.innerLoading = false;
         this.chartReady.emit();
     }
     onCharterror(error) {
@@ -195,8 +211,15 @@ let CountriesMapComponent = class CountriesMapComponent {
         addListener(this.wrapper, 'error', this.onCharterror.bind(this));
         addListener(this.wrapper, 'select', this.onMapSelect.bind(this));
     }
+    ngOnDestroy() {
+        const { removeListener } = google.visualization.events;
+        removeListener('ready');
+        removeListener('error');
+        removeListener('select');
+    }
 };
 CountriesMapComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
     { type: ElementRef },
     { type: GoogleChartsLoaderService }
 ];
@@ -223,6 +246,9 @@ __decorate([
 ], CountriesMapComponent.prototype, "captionBelow", void 0);
 __decorate([
     Input()
+], CountriesMapComponent.prototype, "autoResize", void 0);
+__decorate([
+    Input()
 ], CountriesMapComponent.prototype, "minValue", void 0);
 __decorate([
     Input()
@@ -233,6 +259,9 @@ __decorate([
 __decorate([
     Input()
 ], CountriesMapComponent.prototype, "maxColor", void 0);
+__decorate([
+    Input()
+], CountriesMapComponent.prototype, "backgroundColor", void 0);
 __decorate([
     Input()
 ], CountriesMapComponent.prototype, "noDataColor", void 0);
@@ -248,10 +277,18 @@ __decorate([
 __decorate([
     Output()
 ], CountriesMapComponent.prototype, "chartSelect", void 0);
+__decorate([
+    ViewChild('mapContent', { static: false })
+], CountriesMapComponent.prototype, "mapContent", void 0);
+__decorate([
+    HostListener('window:deviceorientation'),
+    HostListener('window:resize')
+], CountriesMapComponent.prototype, "screenSizeChanged", null);
 CountriesMapComponent = __decorate([
     Component({
         selector: 'countries-map',
-        template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" #mapContent [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
         styles: [":host{display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:stretch;align-content:stretch}.major-block.loading{flex:0 1 auto;align-self:center}.loading .text{font-style:italic;font-family:sans-serif;color:gray}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{flex:0 1 auto;display:flex;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{flex:0 1 auto;align-self:flex-start}.cm-value-label{flex:0 1 auto;align-self:flex-end}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){font-style:italic;color:#777}.cm-extended-caption{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));grid-gap:5px}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
     })
 ], CountriesMapComponent);

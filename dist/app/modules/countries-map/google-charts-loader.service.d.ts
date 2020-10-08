@@ -1,8 +1,8 @@
 export declare class GoogleChartsLoaderService {
-    private googleScriptLoadingNotifier;
+    private readonly googleScriptLoadingNotifier;
     private googleScriptIsLoading;
-    private localeId;
+    private readonly localeId;
     constructor(localeId: string);
-    load(apiKey?: string): Promise<any>;
+    load(apiKey?: string): Promise<void>;
     private loadGoogleChartsScript;
 }

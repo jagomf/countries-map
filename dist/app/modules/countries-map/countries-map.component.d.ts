@@ -1,10 +1,10 @@
-import { ElementRef, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
+import { ElementRef, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
 import { CountriesData, Selection, ValidCountryData } from './data-types.interface';
-export declare class CountriesMapComponent implements OnChanges {
-    private el;
-    private loaderService;
+export declare class CountriesMapComponent implements OnChanges, OnDestroy {
+    private readonly cdRef;
+    private readonly el;
+    private readonly loaderService;
     data: CountriesData;
     apiKey: string;
     options: any;
@@ -12,21 +12,27 @@ export declare class CountriesMapComponent implements OnChanges {
     valueLabel: string;
     showCaption: boolean;
     captionBelow: boolean;
+    autoResize: boolean;
     minValue: number;
     maxValue: number;
     minColor: string;
     maxColor: string;
+    backgroundColor: string;
     noDataColor: string;
     exceptionColor: string;
-    chartReady: EventEmitter<void>;
-    chartError: EventEmitter<ChartErrorEvent>;
-    chartSelect: EventEmitter<ChartSelectEvent>;
-    googleData: ValidCountryData[][];
-    wrapper: any;
+    private readonly chartReady;
+    private readonly chartError;
+    private readonly chartSelect;
+    private readonly mapContent;
+    private proportion;
+    private googleData;
+    private wrapper;
     selection: Selection | null;
-    loading: boolean;
+    private innerLoading;
+    get loading(): boolean;
     get selectionValue(): ValidCountryData;
-    constructor(el: ElementRef, loaderService: GoogleChartsLoaderService);
+    constructor(cdRef: ChangeDetectorRef, el: ElementRef, loaderService: GoogleChartsLoaderService);
+    screenSizeChanged(): void;
     private getExtraSelected;
     private selectCountry;
     /**
@@ -37,10 +43,13 @@ export declare class CountriesMapComponent implements OnChanges {
      * and save to this.processedData
      */
     private processInputData;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges({ data }: {
+        data: any;
+    }): void;
     redraw(): void;
     private onChartReady;
     private onCharterror;
     private onMapSelect;
     private registerChartWrapperEvents;
+    ngOnDestroy(): void;
 }
