@@ -179,8 +179,10 @@ let CountriesMapComponent = class CountriesMapComponent {
         this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
     }
     onChartReady() {
-        this.innerLoading = false;
-        this.chartReady.emit();
+        if (this.innerLoading) {
+            this.innerLoading = false;
+            this.chartReady.emit();
+        }
     }
     onCharterror(error) {
         this.chartError.emit(error);

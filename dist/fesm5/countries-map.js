@@ -193,8 +193,10 @@ var CountriesMapComponent = /** @class */ (function () {
         this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
     };
     CountriesMapComponent.prototype.onChartReady = function () {
-        this.innerLoading = false;
-        this.chartReady.emit();
+        if (this.innerLoading) {
+            this.innerLoading = false;
+            this.chartReady.emit();
+        }
     };
     CountriesMapComponent.prototype.onCharterror = function (error) {
         this.chartError.emit(error);

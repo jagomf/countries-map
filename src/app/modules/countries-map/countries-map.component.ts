@@ -163,8 +163,10 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
   }
 
   private onChartReady(): void {
-    this.innerLoading = false;
-    this.chartReady.emit();
+    if (this.innerLoading) {
+      this.innerLoading = false;
+      this.chartReady.emit();
+    }
   }
 
   private onCharterror(error: ChartErrorEvent): void {
