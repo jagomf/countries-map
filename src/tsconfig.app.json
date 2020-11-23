@@ -4,7 +4,7 @@
     "outDir": "../out-tsc/app",
     "allowJs": true,
     "baseUrl": "./",
-    "types": []
+    "types": ["google.visualization"]
   },
   "files": [
     "main.ts",

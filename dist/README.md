@@ -2,8 +2,6 @@
 
 > World countries datamaps component for Angular, based on Google GeoCharts.
 
-[![npm version](https://badge.fury.io/js/countries-map.svg)](https://badge.fury.io/js/countries-map)
-
 ## Table of contents
 
 * [Install](#install)
@@ -66,6 +64,7 @@ Attribute | Type | Default | Mandatory
 data | CountriesData (object) | - | Yes
 apiKey | string | - | No
 options | object | - | No
+autoResize | boolean | `false` | No
 countryLabel | string | `'Country'` | No
 valueLabel | string | `'Value'` | No
 showCaption | boolean | `true` | No
@@ -76,6 +75,11 @@ minColor | string | `'white'` | No
 maxColor | string | `'red'` | No
 noDataColor | string | `'#CFCFCF'` | No
 exceptionColor | string | `'#FFEE58'` | No
+backgroundColor | string | `'white'` | No
+
+<br>
+
+If you set `autoResize` attribute to `true`, map will adapt to screen size changes, like in a device orientation switch.
 
 ## Events
 

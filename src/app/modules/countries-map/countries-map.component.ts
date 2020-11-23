@@ -1,12 +1,14 @@
-declare var google: any;
-
 import {
   Component,
   ElementRef,
   OnChanges,
   Input,
   Output,
-  SimpleChanges,
+  OnDestroy,
+  HostListener,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   EventEmitter
 } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
@@ -21,46 +23,64 @@ const countryName = (countryCode: string): string => {
 
 @Component({
   selector: 'countries-map',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './countries-map.component.html',
   styleUrls: ['./countries-map.component.css']
 })
-export class CountriesMapComponent implements OnChanges {
+export class CountriesMapComponent implements OnChanges, OnDestroy {
 
-  @Input() public data: CountriesData;
-  @Input() public apiKey: string;
-  @Input() public options: any;
-  @Input() public countryLabel = 'Country';
-  @Input() public valueLabel = 'Value';
-  @Input() public showCaption = true;
-  @Input() public captionBelow = true;
-  @Input() public minValue = 0;
-  @Input() public maxValue: number;
-  @Input() public minColor = 'white';
-  @Input() public maxColor = 'red';
-  @Input() public noDataColor = '#CFCFCF';
-  @Input() public exceptionColor = '#FFEE58';
+  @Input() data: CountriesData;
+  @Input() apiKey: string;
+  @Input() options: any;
+  @Input() countryLabel = 'Country';
+  @Input() valueLabel = 'Value';
+  @Input() showCaption = true;
+  @Input() captionBelow = true;
+  @Input() autoResize = false;
+  @Input() minValue = 0;
+  @Input() maxValue: number;
+  @Input() minColor = 'white';
+  @Input() maxColor = 'red';
+  @Input() backgroundColor = 'white';
+  @Input() noDataColor = '#CFCFCF';
+  @Input() exceptionColor = '#FFEE58';
 
-  @Output() public chartReady: EventEmitter<void>;
-  @Output() public chartError: EventEmitter<ChartErrorEvent>;
-  @Output() public chartSelect: EventEmitter<ChartSelectEvent>;
+  @Output() private readonly chartReady = new EventEmitter<void>();
+  @Output() private readonly chartError = new EventEmitter<ChartErrorEvent>();
+  @Output() private readonly chartSelect = new EventEmitter<ChartSelectEvent>();
 
-  googleData: ValidCountryData[][];
-  wrapper: any;
+  @ViewChild('mapContent', { static: false }) private readonly mapContent: ElementRef;
+
+  private proportion: number;
+  private googleData: ValidCountryData[][];
+  private wrapper: google.visualization.ChartWrapper;
+
   selection: Selection | null = null;
-  loading = true;
+
+  private innerLoading = true;
+  get loading() {
+    return this.innerLoading;
+  }
+
   get selectionValue() {
     return this.data[this.selection.countryId].value;
   }
 
-  public constructor(
-    private el: ElementRef,
-    private loaderService: GoogleChartsLoaderService
+  constructor(
+    private readonly cdRef: ChangeDetectorRef,
+    private readonly el: ElementRef,
+    private readonly loaderService: GoogleChartsLoaderService
   ) {
-    this.el = el;
-    this.loaderService = loaderService;
-    this.chartSelect = new EventEmitter();
-    this.chartReady = new EventEmitter();
-    this.chartError = new EventEmitter();
+  }
+
+  @HostListener('window:deviceorientation')
+  @HostListener('window:resize')
+  screenSizeChanged(): void {
+    if (!this.loading && this.autoResize) {
+      const map: HTMLElement = this.mapContent.nativeElement;
+      map.style.setProperty('height', `${map.clientWidth * this.proportion}px`);
+      this.redraw();
+    }
   }
 
   private getExtraSelected(country: string): SelectionExtra[] | null {
@@ -74,6 +94,7 @@ export class CountriesMapComponent implements OnChanges {
       countryName: countryName(country),
       extra: this.getExtraSelected(country)
     } : null;
+    this.cdRef.detectChanges();
   }
 
   /**
@@ -91,50 +112,65 @@ export class CountriesMapComponent implements OnChanges {
     }, [['Country', 'Value']] as ValidCountryData[][]);
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    const key = 'data';
-    if (changes[key]) {
+  ngOnChanges({ data }: { data: any }): void {
+    if (data) {
 
       if (!this.data) {
         return;
       }
 
-      const defaultOptions = {
+      this.initializeMap({
+        //#region DEFAULTS (automatically set):
+        // displayMode: 'regions',
+        // region: 'world',
+        // enableRegionInteractivity: true,
+        // keepAspectRatio: true,
+        //#endregion
         colorAxis: {
           colors: [this.minColor, this.maxColor],
           minValue: Number.isInteger(this.minValue) ? this.minValue : undefined,
           maxValue: Number.isInteger(this.maxValue) ? this.maxValue : undefined
         },
         datalessRegionColor: this.noDataColor,
+        backgroundColor: this.backgroundColor,
         defaultColor: this.exceptionColor,
-        legend: this.showCaption,
+        legend: 'none',
         tooltip: { trigger: 'none' }
-      };
-
-      this.loaderService.load(this.apiKey).then(() => {
-        this.processInputData();
-
-        this.wrapper = new google.visualization.ChartWrapper({
-          chartType: 'GeoChart',
-          dataTable: this.googleData,
-          options: Object.assign(defaultOptions, this.options)
-        });
-
-        this.registerChartWrapperEvents();
-        this.redraw();
-      }, () => {
-        this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
       });
     }
   }
 
-  public redraw(): void {
+  private async initializeMap(defaultOptions: google.visualization.GeoChartOptions) {
+    try {
+      await this.loaderService.load(this.apiKey);
+
+      this.processInputData();
+
+      this.wrapper = new google.visualization.ChartWrapper({
+        chartType: 'GeoChart',
+        dataTable: this.googleData,
+        options: Object.assign(defaultOptions, this.options)
+      });
+
+      this.registerChartWrapperEvents();
+      this.redraw();
+
+      const self: HTMLElement = this.el.nativeElement;
+      this.proportion = self.clientHeight / self.clientWidth;
+    } catch (e) {
+      this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
+    }
+  }
+
+  redraw(): void {
     this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
   }
 
   private onChartReady(): void {
-    this.loading = false;
-    this.chartReady.emit();
+    if (this.innerLoading) {
+      this.innerLoading = false;
+      this.chartReady.emit();
+    }
   }
 
   private onCharterror(error: ChartErrorEvent): void {
@@ -148,10 +184,10 @@ export class CountriesMapComponent implements OnChanges {
       country: null
     };
 
-    const selection: any[] = this.wrapper.visualization.getSelection();
+    const selection = this.wrapper.getChart().getSelection();
 
     if (selection.length > 0) {
-      const { row: tableRow }: { row: number } = selection[0];
+      const { row: tableRow } = selection[0];
       const dataTable = this.wrapper.getDataTable();
 
       event.selected = true;
@@ -171,6 +207,13 @@ export class CountriesMapComponent implements OnChanges {
     addListener(this.wrapper, 'ready', this.onChartReady.bind(this));
     addListener(this.wrapper, 'error', this.onCharterror.bind(this));
     addListener(this.wrapper, 'select', this.onMapSelect.bind(this));
+  }
+
+  ngOnDestroy() {
+    const { removeListener } = google.visualization.events;
+    removeListener('ready');
+    removeListener('error');
+    removeListener('select');
   }
 
 }
