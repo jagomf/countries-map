@@ -1,6 +1,6 @@
 import { ElementRef, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import { CountriesData, Selection, ValidCountryData } from './data-types.interface';
+import { CountriesData, Selection } from './data-types.interface';
 export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     private readonly cdRef;
     private readonly el;
@@ -30,7 +30,7 @@ export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     selection: Selection | null;
     private innerLoading;
     get loading(): boolean;
-    get selectionValue(): ValidCountryData;
+    get selectionValue(): string | number;
     constructor(cdRef: ChangeDetectorRef, el: ElementRef, loaderService: GoogleChartsLoaderService);
     screenSizeChanged(): void;
     private getExtraSelected;
@@ -46,6 +46,7 @@ export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     ngOnChanges({ data }: {
         data: any;
     }): void;
+    private initializeMap;
     redraw(): void;
     private onChartReady;
     private onCharterror;

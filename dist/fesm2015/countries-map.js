@@ -1,27 +1,29 @@
-import { __decorate, __param } from 'tslib';
-import { EventEmitter, Inject, LOCALE_ID, Injectable, ChangeDetectorRef, ElementRef, Input, Output, ViewChild, HostListener, Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { EventEmitter, Injectable, Inject, LOCALE_ID, Component, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, Input, Output, ViewChild, HostListener, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { __awaiter } from 'tslib';
 import { en } from '@jagomf/countrieslist';
 
-let GoogleChartsLoaderService = class GoogleChartsLoaderService {
+const chartsVersion = '45.2';
+const chartsScript = 'https://www.gstatic.com/charts/loader.js';
+class GoogleChartsLoaderService {
     constructor(localeId) {
+        this.localeId = localeId;
         this.googleScriptLoadingNotifier = new EventEmitter();
         this.googleScriptIsLoading = false;
-        this.localeId = localeId;
     }
     load(apiKey) {
-        return new Promise((resolve, reject) => {
-            this.loadGoogleChartsScript().then(() => {
-                const initializer = {
-                    packages: ['geochart'],
-                    language: this.localeId,
-                    callback: resolve
-                };
-                if (apiKey) {
-                    initializer.mapsApiKey = apiKey;
-                }
-                google.charts.load('45.2', initializer);
-            }).catch(err => reject());
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.loadGoogleChartsScript();
+            const initializer = {
+                packages: ['geochart'],
+                language: this.localeId
+            };
+            if (apiKey) {
+                return google.charts.load(chartsVersion, initializer, apiKey);
+            }
+            else {
+                return google.charts.load(chartsVersion, initializer);
+            }
         });
     }
     loadGoogleChartsScript() {
@@ -33,7 +35,7 @@ let GoogleChartsLoaderService = class GoogleChartsLoaderService {
                 this.googleScriptIsLoading = true;
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.src = 'https://www.gstatic.com/charts/loader.js';
+                script.src = chartsScript;
                 script.async = true;
                 script.defer = true;
                 script.onload = () => {
@@ -60,14 +62,13 @@ let GoogleChartsLoaderService = class GoogleChartsLoaderService {
             }
         });
     }
-};
+}
+GoogleChartsLoaderService.decorators = [
+    { type: Injectable }
+];
 GoogleChartsLoaderService.ctorParameters = () => [
     { type: String, decorators: [{ type: Inject, args: [LOCALE_ID,] }] }
 ];
-GoogleChartsLoaderService = __decorate([
-    Injectable(),
-    __param(0, Inject(LOCALE_ID))
-], GoogleChartsLoaderService);
 
 var CharErrorCode;
 (function (CharErrorCode) {
@@ -79,7 +80,7 @@ const countryName = (countryCode) => {
     return en[countryCode];
 };
 const ɵ0 = countryName;
-let CountriesMapComponent = class CountriesMapComponent {
+class CountriesMapComponent {
     constructor(cdRef, el, loaderService) {
         this.cdRef = cdRef;
         this.el = el;
@@ -100,8 +101,6 @@ let CountriesMapComponent = class CountriesMapComponent {
         this.chartSelect = new EventEmitter();
         this.selection = null;
         this.innerLoading = true;
-        this.el = el;
-        this.loaderService = loaderService;
     }
     get loading() {
         return this.innerLoading;
@@ -147,7 +146,13 @@ let CountriesMapComponent = class CountriesMapComponent {
             if (!this.data) {
                 return;
             }
-            const defaultOptions = {
+            this.initializeMap({
+                //#region DEFAULTS (automatically set):
+                // displayMode: 'regions',
+                // region: 'world',
+                // enableRegionInteractivity: true,
+                // keepAspectRatio: true,
+                //#endregion
                 colorAxis: {
                     colors: [this.minColor, this.maxColor],
                     minValue: Number.isInteger(this.minValue) ? this.minValue : undefined,
@@ -156,10 +161,15 @@ let CountriesMapComponent = class CountriesMapComponent {
                 datalessRegionColor: this.noDataColor,
                 backgroundColor: this.backgroundColor,
                 defaultColor: this.exceptionColor,
-                legend: this.showCaption,
+                legend: 'none',
                 tooltip: { trigger: 'none' }
-            };
-            this.loaderService.load(this.apiKey).then(() => {
+            });
+        }
+    }
+    initializeMap(defaultOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.loaderService.load(this.apiKey);
                 this.processInputData();
                 this.wrapper = new google.visualization.ChartWrapper({
                     chartType: 'GeoChart',
@@ -170,10 +180,11 @@ let CountriesMapComponent = class CountriesMapComponent {
                 this.redraw();
                 const self = this.el.nativeElement;
                 this.proportion = self.clientHeight / self.clientWidth;
-            }, () => {
+            }
+            catch (e) {
                 this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
-            });
-        }
+            }
+        });
     }
     redraw() {
         this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
@@ -193,7 +204,7 @@ let CountriesMapComponent = class CountriesMapComponent {
             value: null,
             country: null
         };
-        const selection = this.wrapper.visualization.getSelection();
+        const selection = this.wrapper.getChart().getSelection();
         if (selection.length > 0) {
             const { row: tableRow } = selection[0];
             const dataTable = this.wrapper.getDataTable();
@@ -219,97 +230,57 @@ let CountriesMapComponent = class CountriesMapComponent {
         removeListener('error');
         removeListener('select');
     }
-};
+}
+CountriesMapComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'countries-map',
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" #mapContent [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                styles: [":host{align-content:stretch;align-items:stretch;display:flex;flex-flow:column nowrap;justify-content:space-between}.major-block.loading{align-self:center;flex:0 1 auto}.loading .text{color:grey;font-family:sans-serif;font-style:italic}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{display:flex;flex:0 1 auto;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{align-self:flex-start;flex:0 1 auto}.cm-value-label{align-self:flex-end;flex:0 1 auto}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){color:#777;font-style:italic}.cm-extended-caption{display:grid;grid-gap:5px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
+            },] }
+];
 CountriesMapComponent.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: ElementRef },
     { type: GoogleChartsLoaderService }
 ];
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "data", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "apiKey", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "options", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "countryLabel", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "valueLabel", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "showCaption", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "captionBelow", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "autoResize", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "minValue", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "maxValue", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "minColor", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "maxColor", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "backgroundColor", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "noDataColor", void 0);
-__decorate([
-    Input()
-], CountriesMapComponent.prototype, "exceptionColor", void 0);
-__decorate([
-    Output()
-], CountriesMapComponent.prototype, "chartReady", void 0);
-__decorate([
-    Output()
-], CountriesMapComponent.prototype, "chartError", void 0);
-__decorate([
-    Output()
-], CountriesMapComponent.prototype, "chartSelect", void 0);
-__decorate([
-    ViewChild('mapContent', { static: false })
-], CountriesMapComponent.prototype, "mapContent", void 0);
-__decorate([
-    HostListener('window:deviceorientation'),
-    HostListener('window:resize')
-], CountriesMapComponent.prototype, "screenSizeChanged", null);
-CountriesMapComponent = __decorate([
-    Component({
-        selector: 'countries-map',
-        changeDetection: ChangeDetectionStrategy.OnPush,
-        template: "<div class=\"major-block loading\" *ngIf=\"loading\"><span class=\"text\">Loading map...</span></div>\r\n\r\n<div class=\"major-block cm-map-content\" #mapContent [ngClass]=\"{'goes-first': captionBelow}\"></div>\r\n\r\n<div class=\"major-block cm-caption-container\" [ngClass]=\"{'goes-first': !captionBelow}\"\r\n  *ngIf=\"!loading && showCaption\">\r\n  <div class=\"cm-simple-caption\">\r\n    <div class=\"cm-country-label\">\r\n      <span class=\"cm-default-label\" *ngIf=\"!selection\">{{countryLabel}}</span>\r\n      <span class=\"cm-country-name\" *ngIf=\"selection\">{{selection?.countryName}}</span>\r\n    </div>\r\n    <div class=\"cm-value-label\">\r\n      <span class=\"cm-value-text\"\r\n        [ngClass]=\"{'has-value': selection}\">{{valueLabel}}<span *ngIf=\"selection\">: </span></span>\r\n      <span class=\"cm-value-content\" *ngIf=\"selection\">{{selectionValue}}</span>\r\n    </div>\r\n  </div>\r\n  <div class=\"cm-extended-caption\" *ngIf=\"selection?.extra && selection?.extra.length > 0\">\r\n    <div *ngFor=\"let item of selection?.extra\" class=\"cm-extended-item\">\r\n      <span class=\"cm-extended-label\">{{item.key}}</span>:\r\n      <span class=\"cm-extended-value\">{{item.val}}</span>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-        styles: [":host{display:flex;flex-flow:column nowrap;justify-content:space-between;align-items:stretch;align-content:stretch}.major-block.loading{flex:0 1 auto;align-self:center}.loading .text{font-style:italic;font-family:sans-serif;color:gray}.major-block.cm-map-content{flex:0 1 auto}.major-block.goes-first{order:0}.major-block:not(.goes-first){order:1}.major-block.cm-caption-container{flex:0 1 auto;display:flex;flex-flow:column nowrap;justify-content:space-between}.cm-simple-caption{display:flex;flex-flow:row nowrap;justify-content:space-between}.cm-country-label{flex:0 1 auto;align-self:flex-start}.cm-value-label{flex:0 1 auto;align-self:flex-end}.cm-country-label,.cm-value-label{flex:0 1 auto}.cm-country-label .cm-country-name{font-weight:700}.cm-country-label .cm-country-name,.cm-value-label .cm-value-text{color:#333}.cm-country-label .cm-default-label,.cm-value-label .cm-value-text:not(.has-value){font-style:italic;color:#777}.cm-extended-caption{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));grid-gap:5px}.cm-extended-item{margin:5px auto}.cm-extended-item .cm-extended-label{font-weight:700}"]
-    })
-], CountriesMapComponent);
-
-let CountriesMapModule = class CountriesMapModule {
+CountriesMapComponent.propDecorators = {
+    data: [{ type: Input }],
+    apiKey: [{ type: Input }],
+    options: [{ type: Input }],
+    countryLabel: [{ type: Input }],
+    valueLabel: [{ type: Input }],
+    showCaption: [{ type: Input }],
+    captionBelow: [{ type: Input }],
+    autoResize: [{ type: Input }],
+    minValue: [{ type: Input }],
+    maxValue: [{ type: Input }],
+    minColor: [{ type: Input }],
+    maxColor: [{ type: Input }],
+    backgroundColor: [{ type: Input }],
+    noDataColor: [{ type: Input }],
+    exceptionColor: [{ type: Input }],
+    chartReady: [{ type: Output }],
+    chartError: [{ type: Output }],
+    chartSelect: [{ type: Output }],
+    mapContent: [{ type: ViewChild, args: ['mapContent', { static: false },] }],
+    screenSizeChanged: [{ type: HostListener, args: ['window:deviceorientation',] }, { type: HostListener, args: ['window:resize',] }]
 };
-CountriesMapModule = __decorate([
-    NgModule({
-        imports: [
-            CommonModule
-        ],
-        declarations: [CountriesMapComponent],
-        entryComponents: [CountriesMapComponent],
-        providers: [GoogleChartsLoaderService],
-        exports: [
-            CountriesMapComponent
-        ]
-    })
-], CountriesMapModule);
+
+class CountriesMapModule {
+}
+CountriesMapModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule
+                ],
+                declarations: [CountriesMapComponent],
+                providers: [GoogleChartsLoaderService],
+                exports: [
+                    CountriesMapComponent
+                ]
+            },] }
+];
 
 /**
  * Generated bundle index. Do not edit.
