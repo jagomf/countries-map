@@ -8,7 +8,6 @@ import { GoogleChartsLoaderService } from './google-charts-loader.service';
     CommonModule
   ],
   declarations: [CountriesMapComponent],
-  entryComponents: [CountriesMapComponent],
   providers: [GoogleChartsLoaderService],
   exports: [
     CountriesMapComponent
