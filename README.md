@@ -2,6 +2,11 @@
 
 > World countries datamaps component for Angular, based on Google GeoCharts.
 
+[![npm version](https://badge.fury.io/js/countries-map.svg)](https://badge.fury.io/js/countries-map)
+
+
+![screenshot](./screenshot.png)
+
 ## Table of contents
 
 * [Install](#install)
