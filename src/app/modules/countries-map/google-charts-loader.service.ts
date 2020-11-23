@@ -1,33 +1,28 @@
-declare var google: { charts: { load: (version: string, initializer: any) => void } };
-
 import { Injectable, EventEmitter, LOCALE_ID, Inject } from '@angular/core';
+
+const chartsVersion = '45.2';
+const chartsScript = 'https://www.gstatic.com/charts/loader.js';
 
 @Injectable()
 export class GoogleChartsLoaderService {
 
   private readonly googleScriptLoadingNotifier = new EventEmitter<boolean>();
   private googleScriptIsLoading = false;
-  private readonly localeId: string;
 
-  constructor(@Inject(LOCALE_ID) localeId: string) {
-    this.localeId = localeId;
+  constructor(@Inject(LOCALE_ID) private readonly localeId: string) {
   }
 
-  load(apiKey?: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-
-      this.loadGoogleChartsScript().then(() => {
-        const initializer: any = {
-            packages: ['geochart'],
-            language: this.localeId,
-            callback: resolve
-        };
-        if (apiKey) {
-          initializer.mapsApiKey = apiKey;
-        }
-        google.charts.load('45.2', initializer);
-      }).catch(err => reject());
-    });
+  async load(apiKey?: string) {
+    await this.loadGoogleChartsScript();
+    const initializer = {
+      packages: ['geochart'],
+      language: this.localeId
+    };
+    if (apiKey) {
+      return google.charts.load(chartsVersion, initializer, apiKey);
+    } else {
+      return google.charts.load(chartsVersion, initializer);
+    }
   }
 
   private loadGoogleChartsScript(): Promise<void> {
@@ -41,7 +36,7 @@ export class GoogleChartsLoaderService {
 
         const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = 'https://www.gstatic.com/charts/loader.js';
+        script.src = chartsScript;
         script.async = true;
         script.defer = true;
         script.onload = () => {

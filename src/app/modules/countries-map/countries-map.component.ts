@@ -1,7 +1,3 @@
-declare var google: { visualization: { ChartWrapper, events: {
-  addListener: (wrapper, event: string, callback: (args?: any) => void) => void, removeListener: (event: string) => void
-} } };
-
 import {
   Component,
   ElementRef,
@@ -57,7 +53,7 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
 
   private proportion: number;
   private googleData: ValidCountryData[][];
-  private wrapper: any;
+  private wrapper: google.visualization.ChartWrapper;
 
   selection: Selection | null = null;
 
@@ -75,8 +71,6 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
     private readonly el: ElementRef,
     private readonly loaderService: GoogleChartsLoaderService
   ) {
-    this.el = el;
-    this.loaderService = loaderService;
   }
 
   @HostListener('window:deviceorientation')
@@ -125,7 +119,13 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
         return;
       }
 
-      const defaultOptions = {
+      this.initializeMap({
+        //#region DEFAULTS (automatically set):
+        // displayMode: 'regions',
+        // region: 'world',
+        // enableRegionInteractivity: true,
+        // keepAspectRatio: true,
+        //#endregion
         colorAxis: {
           colors: [this.minColor, this.maxColor],
           minValue: Number.isInteger(this.minValue) ? this.minValue : undefined,
@@ -134,27 +134,31 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
         datalessRegionColor: this.noDataColor,
         backgroundColor: this.backgroundColor,
         defaultColor: this.exceptionColor,
-        legend: this.showCaption,
+        legend: 'none',
         tooltip: { trigger: 'none' }
-      };
-
-      this.loaderService.load(this.apiKey).then(() => {
-        this.processInputData();
-
-        this.wrapper = new google.visualization.ChartWrapper({
-          chartType: 'GeoChart',
-          dataTable: this.googleData,
-          options: Object.assign(defaultOptions, this.options)
-        });
-
-        this.registerChartWrapperEvents();
-        this.redraw();
-
-        const self: HTMLElement = this.el.nativeElement;
-        this.proportion = self.clientHeight / self.clientWidth;
-      }, () => {
-        this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
       });
+    }
+  }
+
+  private async initializeMap(defaultOptions: google.visualization.GeoChartOptions) {
+    try {
+      await this.loaderService.load(this.apiKey);
+
+      this.processInputData();
+
+      this.wrapper = new google.visualization.ChartWrapper({
+        chartType: 'GeoChart',
+        dataTable: this.googleData,
+        options: Object.assign(defaultOptions, this.options)
+      });
+
+      this.registerChartWrapperEvents();
+      this.redraw();
+
+      const self: HTMLElement = this.el.nativeElement;
+      this.proportion = self.clientHeight / self.clientWidth;
+    } catch (e) {
+      this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
     }
   }
 
@@ -180,10 +184,10 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
       country: null
     };
 
-    const selection: any[] = this.wrapper.visualization.getSelection();
+    const selection = this.wrapper.getChart().getSelection();
 
     if (selection.length > 0) {
-      const { row: tableRow }: { row: number } = selection[0];
+      const { row: tableRow } = selection[0];
       const dataTable = this.wrapper.getDataTable();
 
       event.selected = true;
