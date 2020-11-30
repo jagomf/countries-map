@@ -223,4 +223,4 @@ Since Google GeoCharts' tooltip customization is very limited and complex, its s
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](https://github.com/jagomf/countries-map/blob/master/LICENSE)
