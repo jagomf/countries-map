@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/countries-map.svg)](https://badge.fury.io/js/countries-map)
 
 
-![screenshot](./screenshot.png)
+![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/master/screenshot.png)
 
 ## Table of contents
 

@@ -1,5 +1,9 @@
 {
   "extends": "../tsconfig.json",
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "skipTemplateCodegen": true
+  },
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "allowJs": true,
