@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ChartErrorEvent } from './modules/countries-map/chart-events.interface';
+import { ChartErrorEvent } from 'countries-map';
 
 @Component({
   selector: 'demo-content',
   templateUrl: './demo.component.html',
-  styleUrls: ['./demo.component.css']
+  styles: ['']
 })
 export class DemoComponent {
   public mapData = {
@@ -32,10 +32,10 @@ export class DemoComponent {
   };
 
   errorLoading = null;
-  mapError(error: ChartErrorEvent) {
+  mapError(error: ChartErrorEvent): void {
     this.errorLoading = error;
   }
-  mapReady() {
+  mapReady(): void {
     console.log('Map ready');
   }
 }
