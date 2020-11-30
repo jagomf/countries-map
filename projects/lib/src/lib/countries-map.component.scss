@@ -1,0 +1,76 @@
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.major-block {
+  &.loading {
+    flex: 0 1 auto;
+    align-self: center;
+    .text {
+      font-style: italic;
+      font-family: sans-serif;
+      color: gray;
+    }
+  }
+  &.cm-map-content {
+    flex: 0 1 auto;
+  }
+  &.goes-first {
+    order: 0;
+  }
+  &:not(.goes-first) {
+    order: 1;
+  }
+
+  &.cm-caption-container {
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+  }
+}
+
+.cm-simple-caption {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.cm-country-label {
+  flex: 0 1 auto;
+  align-self: flex-start;
+}
+.cm-value-label {
+  flex: 0 1 auto;
+  align-self: flex-end;
+}
+.cm-country-label,
+.cm-value-label {
+  flex: 0 1 auto;
+}
+.cm-country-label .cm-country-name {
+  font-weight: bold;
+}
+.cm-country-label .cm-country-name,
+.cm-value-label .cm-value-text {
+  color: #333;
+}
+.cm-country-label .cm-default-label,
+.cm-value-label .cm-value-text:not(.has-value) {
+  font-style: italic;
+  color: #777;
+}
+.cm-extended-caption {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-gap: 5px;
+}
+.cm-extended-item {
+  margin: 5px auto;
+}
+.cm-extended-item .cm-extended-label {
+  font-weight: bold;
+}

@@ -1,0 +1,35 @@
+{
+  "name": "countries-map",
+  "version": "3.4.0",
+  "description": "World countries datamaps component for Angular, based on Google GeoCharts",
+  "license": "MIT",
+  "author": "Jago MF <jago84@gmail.com>",
+  "repository": "github:jagomf/countries-map",
+  "homepage": "https://github.com/jagomf/countries-map",
+  "keywords": [
+    "countries",
+    "country",
+    "map",
+    "datamap",
+    "datamaps",
+    "angular",
+    "Google",
+    "Charts"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^10.2.0",
+    "@angular/core": "^10.2.0"
+  },
+  "dependencies": {
+    "@jagomf/countrieslist": "^2.0.0",
+    "tslib": "^2.0.0"
+  },
+  "main": "bundles/countries-map.umd.js",
+  "module": "fesm2015/countries-map.js",
+  "es2015": "fesm2015/countries-map.js",
+  "esm2015": "esm2015/countries-map.js",
+  "fesm2015": "fesm2015/countries-map.js",
+  "typings": "countries-map.d.ts",
+  "metadata": "countries-map.metadata.json",
+  "sideEffects": false
+}

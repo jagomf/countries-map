@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: sans-serif;
+}
+.demo-maps {
+  .caption-container {
+    padding: 10px;
+    border: 1px dashed #666;
+    border-radius: 15px;
+  }
+  .extended-caption {
+    border-top: 1px solid #666;
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+}
