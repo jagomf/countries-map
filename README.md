@@ -68,18 +68,20 @@ Typing the data input with [`CountriesData`](#interface-countriesdata) is not ma
 
 Element `<countries-map>` accepts the following attributes/inputs:
 
-Attribute | Type | Default | Mandatory | Description
+Attribute | Type | Default | Description
 --- | --- | --- | --- | ---
-`data` | `CountriesData` | - | Yes | Describes list of countries and their value and extra data (if any). See description for interface [`CountriesData`](#interface-countriesdata).
-`countryLabel` | `string` | `'Country'` | No | Caption label for country name.
-`valueLabel` | `string` | `'Value'` | No | Caption label for country's value.
-`showCaption` | `boolean` | `true` | No | Shows/hides caption.
-`captionBelow` | `boolean` | `true` | No | Places caption below or above the map.
-`minColor` | `string` | `'white'` | No | Hex or named color representing the lowest value.
-`maxColor` | `string` | `'red'` | No | Hex or named color representing the highest value.
-`noDataColor` | `string` | `'#CFCFCF'` | No | Hex or named color for countries not included in data list.
-`exceptionColor` | `string` | `'#FFEE58'` | No | Hex or named color for countries with value `null` or `undefined`.
-`backgroundColor` | `string` | `'white'` | No | Hex or named color of the map background.
+`data` | `CountriesData` | - | Describes list of countries and their value and extra data (if any). See description for interface [`CountriesData`](#interface-countriesdata).
+`countryLabel` | `string` | `'Country'` | Caption label for country name.
+`valueLabel` | `string` | `'Value'` | Caption label for country's value.
+`showCaption` | `boolean` | `true` | Shows/hides caption.
+`captionBelow` | `boolean` | `true` | Places caption below or above the map.
+`minValue` | `number` | - | If stated, sets the base to be used as lowest value expected in the color scale (values below `minValue` will have same color).
+`maxValue` | `number` | - | If stated, sets the base to be used as highest value expected in the color scale (values above `maxValue` will have same color).
+`minColor` | `string` | `'white'` | Hex or named color representing the lowest value.
+`maxColor` | `string` | `'red'` | Hex or named color representing the highest value.
+`noDataColor` | `string` | `'#CFCFCF'` | Hex or named color for countries not included in data list.
+`exceptionColor` | `string` | `'#FFEE58'` | Hex or named color for countries with value `null` or `undefined`.
+`backgroundColor` | `string` | `'white'` | Hex or named color of the map background.
 
 
 ### Interface `CountriesData`

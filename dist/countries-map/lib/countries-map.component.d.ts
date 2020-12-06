@@ -7,6 +7,8 @@ export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     valueLabel: string;
     showCaption: boolean;
     captionBelow: boolean;
+    minValue: number;
+    maxValue: number;
     minColor: string;
     maxColor: string;
     backgroundColor: string;

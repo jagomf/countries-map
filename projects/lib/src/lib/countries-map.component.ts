@@ -14,9 +14,12 @@ import {
 import { CharErrorCode } from './chart-events.interface';
 import type { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
 import type { CountriesData, SelectionExtra, DrawableCountries, Selection,
-  ValidExtraData, DrawableCountry } from './data-types.interface';
+  ValidExtraData, DrawableCountry, CountryData } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
 import { scale } from 'chroma-js';
+
+const exists = item => typeof item !== 'undefined' && item !== null;
+const countryNum = (item: CountryData) => parseInt(item.value?.toString());
 
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
@@ -40,6 +43,8 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
   @Input() valueLabel = 'Value';
   @Input() showCaption = true;
   @Input() captionBelow = true;
+  @Input() minValue: number;
+  @Input() maxValue: number;
   @Input() minColor = 'white';
   @Input() maxColor = 'red';
   @Input() backgroundColor = 'white';
@@ -97,27 +102,50 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
 
   private initializeMap(): void {
     try {
-      const { max: maxVal, min: minVal } = this.data ? Object.values(this.data).reduce(
-        ({min, max}: {min: number, max: number}, {value}) => ({
-          max: parseInt(value?.toString()) > max ? parseInt(value?.toString()) : max,
-          min: parseInt(value?.toString()) < min ? parseInt(value?.toString()) : min
-        }), {min: null, max: null}
-      ) : {min: 0, max: 1};
+      // data is provided: might be able to paint countries in colors
+      if (this.data) {
+        // get highest value in range
+        const maxVal = exists(this.maxValue) ? this.maxValue : Object.values(this.data).reduce(
+          (acc, curr) => countryNum(curr) > acc || acc === null? countryNum(curr) : acc, null as number
+        );
+        // get lowest value in range
+        const minVal = exists(this.minValue) ? this.minValue : Object.values(this.data).reduce(
+          (acc, curr) => countryNum(curr) < acc || acc === null? countryNum(curr) : acc, null as number
+        );
 
-      const valToCol = scale([this.minColor, this.maxColor]).colors(maxVal - minVal + 1).reduce((acc, curr, i) =>
-        ({ ...acc, [i + minVal]: curr }), {} as { [key: number]: string }
-      );
+        // map values in range to colors
+        const valToCol = scale([this.minColor, this.maxColor]).colors((maxVal ?? 1) - (minVal ?? 0) + 1).reduce((acc, curr, i) =>
+          ({ ...acc, [i + minVal]: curr }), {} as { [key: number]: string }
+        );
 
-      this.mapData = Object.entries(this.data).reduce((acc, [ countryId, countryVal ]) =>
-        ({ ...acc, [countryId.toLowerCase()]: {...countryVal, color: valToCol[parseInt(countryVal.value.toString())]} as DrawableCountry }),
+        // create local Map using provided data + calculated colors
+        this.mapData = Object.entries(this.data).reduce((acc, [ countryId, countryVal ]) =>
+          ({ ...acc,
+            [countryId.toLowerCase()]: {
+              ...countryVal,
+              color: valToCol[countryNum(countryVal)] // value in between minVal and maxVal
+                || (
+                  // value below minVal
+                  countryNum(countryVal) <= minVal ? valToCol[minVal] :
+                  // value above maxVal
+                  countryNum(countryVal) >= maxVal ? valToCol[maxVal]
+                  // weird; should never get to here
+                    : this.exceptionColor
+                )
+            } as DrawableCountry }),
           {} as DrawableCountries
-      );
+        );
+
+      // no data provided: will paint plain map
+      } else {
+        this.mapData = {};
+      }
 
       const svgMap = this.mapContent.nativeElement.children[0] as SVGSVGElement;
       svgMap.style.backgroundColor = this.backgroundColor;
       svgMap.querySelectorAll<SVGSVGElement>(`.${countryClass}`).forEach(item => {
         const mapItem = this.mapData[item.id.toLowerCase()];
-        const isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
+        const isException = mapItem ? !exists(mapItem.value) : false;
         item.style.fill = mapItem ? isException ? this.exceptionColor : mapItem.color : this.noDataColor;
         item.onmouseenter = this.countryHover.bind(this, item, true);
         item.onmouseleave = this.countryHover.bind(this, item, false);
@@ -173,7 +201,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
     const country = this.mapData[newItem?.id];
     if (country) {
       event.selected = true;
-      event.value = parseInt(country.value.toString());
+      event.value = countryNum(country);
       event.country = newItem.id.toUpperCase();
       this.selectCountry(event.country);
     } else {

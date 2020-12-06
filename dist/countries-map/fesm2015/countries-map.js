@@ -8,16 +8,20 @@ var CharErrorCode;
     CharErrorCode["loading"] = "loading";
 })(CharErrorCode || (CharErrorCode = {}));
 
+const exists = item => typeof item !== 'undefined' && item !== null;
+const ɵ0 = exists;
+const countryNum = (item) => { var _a; return parseInt((_a = item.value) === null || _a === void 0 ? void 0 : _a.toString()); };
+const ɵ1 = countryNum;
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
 const getStrokeWidth = (isHovered) => isHovered ? '3' : '0.75';
-const ɵ0 = getStrokeWidth;
+const ɵ2 = getStrokeWidth;
 const getStrokeColor = (isHovered) => isHovered ? '#aaa' : '#afafaf';
-const ɵ1 = getStrokeColor;
+const ɵ3 = getStrokeColor;
 const countryName = (countryCode) => {
     return en[countryCode];
 };
-const ɵ2 = countryName;
+const ɵ4 = countryName;
 class CountriesMapComponent {
     constructor(cdRef) {
         this.cdRef = cdRef;
@@ -66,17 +70,33 @@ class CountriesMapComponent {
     }
     initializeMap() {
         try {
-            const { max: maxVal, min: minVal } = this.data ? Object.values(this.data).reduce(({ min, max }, { value }) => ({
-                max: parseInt(value === null || value === void 0 ? void 0 : value.toString()) > max ? parseInt(value === null || value === void 0 ? void 0 : value.toString()) : max,
-                min: parseInt(value === null || value === void 0 ? void 0 : value.toString()) < min ? parseInt(value === null || value === void 0 ? void 0 : value.toString()) : min
-            }), { min: null, max: null }) : { min: 0, max: 1 };
-            const valToCol = scale([this.minColor, this.maxColor]).colors(maxVal - minVal + 1).reduce((acc, curr, i) => (Object.assign(Object.assign({}, acc), { [i + minVal]: curr })), {});
-            this.mapData = Object.entries(this.data).reduce((acc, [countryId, countryVal]) => (Object.assign(Object.assign({}, acc), { [countryId.toLowerCase()]: Object.assign(Object.assign({}, countryVal), { color: valToCol[parseInt(countryVal.value.toString())] }) })), {});
+            // data is provided: might be able to paint countries in colors
+            if (this.data) {
+                // get highest value in range
+                const maxVal = exists(this.maxValue) ? this.maxValue : Object.values(this.data).reduce((acc, curr) => countryNum(curr) > acc || acc === null ? countryNum(curr) : acc, null);
+                // get lowest value in range
+                const minVal = exists(this.minValue) ? this.minValue : Object.values(this.data).reduce((acc, curr) => countryNum(curr) < acc || acc === null ? countryNum(curr) : acc, null);
+                // map values in range to colors
+                const valToCol = scale([this.minColor, this.maxColor]).colors((maxVal !== null && maxVal !== void 0 ? maxVal : 1) - (minVal !== null && minVal !== void 0 ? minVal : 0) + 1).reduce((acc, curr, i) => (Object.assign(Object.assign({}, acc), { [i + minVal]: curr })), {});
+                // create local Map using provided data + calculated colors
+                this.mapData = Object.entries(this.data).reduce((acc, [countryId, countryVal]) => (Object.assign(Object.assign({}, acc), { [countryId.toLowerCase()]: Object.assign(Object.assign({}, countryVal), { color: valToCol[countryNum(countryVal)] // value in between minVal and maxVal
+                            || (
+                            // value below minVal
+                            countryNum(countryVal) <= minVal ? valToCol[minVal] :
+                                // value above maxVal
+                                countryNum(countryVal) >= maxVal ? valToCol[maxVal]
+                                    // weird; should never get to here
+                                    : this.exceptionColor) }) })), {});
+                // no data provided: will paint plain map
+            }
+            else {
+                this.mapData = {};
+            }
             const svgMap = this.mapContent.nativeElement.children[0];
             svgMap.style.backgroundColor = this.backgroundColor;
             svgMap.querySelectorAll(`.${countryClass}`).forEach(item => {
                 const mapItem = this.mapData[item.id.toLowerCase()];
-                const isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
+                const isException = mapItem ? !exists(mapItem.value) : false;
                 item.style.fill = mapItem ? isException ? this.exceptionColor : mapItem.color : this.noDataColor;
                 item.onmouseenter = this.countryHover.bind(this, item, true);
                 item.onmouseleave = this.countryHover.bind(this, item, false);
@@ -125,7 +145,7 @@ class CountriesMapComponent {
         const country = this.mapData[newItem === null || newItem === void 0 ? void 0 : newItem.id];
         if (country) {
             event.selected = true;
-            event.value = parseInt(country.value.toString());
+            event.value = countryNum(country);
             event.country = newItem.id.toUpperCase();
             this.selectCountry(event.country);
         }
@@ -152,6 +172,8 @@ CountriesMapComponent.propDecorators = {
     valueLabel: [{ type: Input }],
     showCaption: [{ type: Input }],
     captionBelow: [{ type: Input }],
+    minValue: [{ type: Input }],
+    maxValue: [{ type: Input }],
     minColor: [{ type: Input }],
     maxColor: [{ type: Input }],
     backgroundColor: [{ type: Input }],

@@ -309,16 +309,20 @@
         CharErrorCode["loading"] = "loading";
     })(exports.CharErrorCode || (exports.CharErrorCode = {}));
 
+    var exists = function (item) { return typeof item !== 'undefined' && item !== null; };
+    var ɵ0 = exists;
+    var countryNum = function (item) { var _a; return parseInt((_a = item.value) === null || _a === void 0 ? void 0 : _a.toString()); };
+    var ɵ1 = countryNum;
     var countryClass = 'countryxx';
     var oceanId = 'ocean';
     var getStrokeWidth = function (isHovered) { return isHovered ? '3' : '0.75'; };
-    var ɵ0 = getStrokeWidth;
+    var ɵ2 = getStrokeWidth;
     var getStrokeColor = function (isHovered) { return isHovered ? '#aaa' : '#afafaf'; };
-    var ɵ1 = getStrokeColor;
+    var ɵ3 = getStrokeColor;
     var countryName = function (countryCode) {
         return countrieslist.en[countryCode];
     };
-    var ɵ2 = countryName;
+    var ɵ4 = countryName;
     var CountriesMapComponent = /** @class */ (function () {
         function CountriesMapComponent(cdRef) {
             this.cdRef = cdRef;
@@ -376,28 +380,40 @@
         CountriesMapComponent.prototype.initializeMap = function () {
             var _this = this;
             try {
-                var _a = this.data ? Object.values(this.data).reduce(function (_a, _b) {
-                    var min = _a.min, max = _a.max;
-                    var value = _b.value;
-                    return ({
-                        max: parseInt(value === null || value === void 0 ? void 0 : value.toString()) > max ? parseInt(value === null || value === void 0 ? void 0 : value.toString()) : max,
-                        min: parseInt(value === null || value === void 0 ? void 0 : value.toString()) < min ? parseInt(value === null || value === void 0 ? void 0 : value.toString()) : min
-                    });
-                }, { min: null, max: null }) : { min: 0, max: 1 }, maxVal = _a.max, minVal_1 = _a.min;
-                var valToCol_1 = chromaJs.scale([this.minColor, this.maxColor]).colors(maxVal - minVal_1 + 1).reduce(function (acc, curr, i) {
-                    var _a;
-                    return (Object.assign(Object.assign({}, acc), (_a = {}, _a[i + minVal_1] = curr, _a)));
-                }, {});
-                this.mapData = Object.entries(this.data).reduce(function (acc, _a) {
-                    var _b;
-                    var _c = __read(_a, 2), countryId = _c[0], countryVal = _c[1];
-                    return (Object.assign(Object.assign({}, acc), (_b = {}, _b[countryId.toLowerCase()] = Object.assign(Object.assign({}, countryVal), { color: valToCol_1[parseInt(countryVal.value.toString())] }), _b)));
-                }, {});
+                // data is provided: might be able to paint countries in colors
+                if (this.data) {
+                    // get highest value in range
+                    var maxVal_1 = exists(this.maxValue) ? this.maxValue : Object.values(this.data).reduce(function (acc, curr) { return countryNum(curr) > acc || acc === null ? countryNum(curr) : acc; }, null);
+                    // get lowest value in range
+                    var minVal_1 = exists(this.minValue) ? this.minValue : Object.values(this.data).reduce(function (acc, curr) { return countryNum(curr) < acc || acc === null ? countryNum(curr) : acc; }, null);
+                    // map values in range to colors
+                    var valToCol_1 = chromaJs.scale([this.minColor, this.maxColor]).colors((maxVal_1 !== null && maxVal_1 !== void 0 ? maxVal_1 : 1) - (minVal_1 !== null && minVal_1 !== void 0 ? minVal_1 : 0) + 1).reduce(function (acc, curr, i) {
+                        var _b;
+                        return (Object.assign(Object.assign({}, acc), (_b = {}, _b[i + minVal_1] = curr, _b)));
+                    }, {});
+                    // create local Map using provided data + calculated colors
+                    this.mapData = Object.entries(this.data).reduce(function (acc, _b) {
+                        var _c;
+                        var _d = __read(_b, 2), countryId = _d[0], countryVal = _d[1];
+                        return (Object.assign(Object.assign({}, acc), (_c = {}, _c[countryId.toLowerCase()] = Object.assign(Object.assign({}, countryVal), { color: valToCol_1[countryNum(countryVal)] // value in between minVal and maxVal
+                                || (
+                                // value below minVal
+                                countryNum(countryVal) <= minVal_1 ? valToCol_1[minVal_1] :
+                                    // value above maxVal
+                                    countryNum(countryVal) >= maxVal_1 ? valToCol_1[maxVal_1]
+                                        // weird; should never get to here
+                                        : _this.exceptionColor) }), _c)));
+                    }, {});
+                    // no data provided: will paint plain map
+                }
+                else {
+                    this.mapData = {};
+                }
                 var svgMap = this.mapContent.nativeElement.children[0];
                 svgMap.style.backgroundColor = this.backgroundColor;
                 svgMap.querySelectorAll("." + countryClass).forEach(function (item) {
                     var mapItem = _this.mapData[item.id.toLowerCase()];
-                    var isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
+                    var isException = mapItem ? !exists(mapItem.value) : false;
                     item.style.fill = mapItem ? isException ? _this.exceptionColor : mapItem.color : _this.noDataColor;
                     item.onmouseenter = _this.countryHover.bind(_this, item, true);
                     item.onmouseleave = _this.countryHover.bind(_this, item, false);
@@ -427,8 +443,8 @@
         CountriesMapComponent.prototype.onCharterror = function (error) {
             this.chartError.emit(error);
         };
-        CountriesMapComponent.prototype.onMapSelect = function (_a) {
-            var target = _a.target;
+        CountriesMapComponent.prototype.onMapSelect = function (_b) {
+            var target = _b.target;
             var event = {
                 selected: false,
                 value: null,
@@ -447,7 +463,7 @@
             var country = this.mapData[newItem === null || newItem === void 0 ? void 0 : newItem.id];
             if (country) {
                 event.selected = true;
-                event.value = parseInt(country.value.toString());
+                event.value = countryNum(country);
                 event.country = newItem.id.toUpperCase();
                 this.selectCountry(event.country);
             }
@@ -475,6 +491,8 @@
         valueLabel: [{ type: core.Input }],
         showCaption: [{ type: core.Input }],
         captionBelow: [{ type: core.Input }],
+        minValue: [{ type: core.Input }],
+        maxValue: [{ type: core.Input }],
         minColor: [{ type: core.Input }],
         maxColor: [{ type: core.Input }],
         backgroundColor: [{ type: core.Input }],
