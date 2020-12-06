@@ -1,6 +1,6 @@
 export interface ChartSelectEvent {
   selected: boolean;
-  value: number | null;
+  value?: number;
   country: string;
 }
 
@@ -10,5 +10,4 @@ export interface ChartErrorEvent {
   id: string | CharErrorCode;
   message: string;
   detailedMessage?: string;
-  options?: Object;
 }

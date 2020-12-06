@@ -1,20 +1,26 @@
-export declare type ValidCountryData = string | number;
+export declare type ValidExtraData = string | number;
 export interface SelectionExtra {
     key: string;
-    val: ValidCountryData;
+    val: ValidExtraData;
 }
 export interface Selection {
     countryId: string;
     countryName: string;
-    extra: SelectionExtra[] | null;
+    extra?: SelectionExtra[];
 }
 export interface CountryExtraData {
-    [key: string]: ValidCountryData;
+    [countryCode: string]: ValidExtraData;
 }
 export interface CountryData {
-    value: ValidCountryData;
+    value: number;
     extra?: CountryExtraData;
 }
+export interface DrawableCountry extends CountryData {
+    color: string;
+}
 export interface CountriesData {
-    [key: string]: CountryData;
+    [countryCode: string]: CountryData;
+}
+export interface DrawableCountries {
+    [countryCode: string]: DrawableCountry;
 }

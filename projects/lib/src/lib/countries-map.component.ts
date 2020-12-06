@@ -1,23 +1,27 @@
 import {
   Component,
   ElementRef,
-  OnChanges,
   Input,
   Output,
-  OnDestroy,
-  HostListener,
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  EventEmitter
+  EventEmitter,
+  AfterViewInit,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges
 } from '@angular/core';
-import { GoogleChartsLoaderService } from './google-charts-loader.service';
 import { CharErrorCode } from './chart-events.interface';
 import type { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
-import type { CountriesData, SelectionExtra, Selection, ValidCountryData } from './data-types.interface';
+import type { CountriesData, SelectionExtra, DrawableCountries, Selection,
+  ValidExtraData, DrawableCountry } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
+import { scale } from 'chroma-js';
 
-const valueHolder = 'value';
+const countryClass = 'countryxx';
+const oceanId = 'ocean';
+
 const countryName = (countryCode: string): string => {
   return countriesEN[countryCode];
 };
@@ -28,18 +32,13 @@ const countryName = (countryCode: string): string => {
   templateUrl: './countries-map.component.html',
   styleUrls: ['./countries-map.component.scss']
 })
-export class CountriesMapComponent implements OnChanges, OnDestroy {
+export class CountriesMapComponent implements AfterViewInit, OnChanges {
 
   @Input() data: CountriesData;
-  @Input() apiKey: string;
-  @Input() options: any;
   @Input() countryLabel = 'Country';
   @Input() valueLabel = 'Value';
   @Input() showCaption = true;
   @Input() captionBelow = true;
-  @Input() autoResize = false;
-  @Input() minValue = 0;
-  @Input() maxValue: number;
   @Input() minColor = 'white';
   @Input() maxColor = 'red';
   @Input() backgroundColor = 'white';
@@ -50,12 +49,9 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
   @Output() private readonly chartError = new EventEmitter<ChartErrorEvent>();
   @Output() private readonly chartSelect = new EventEmitter<ChartSelectEvent>();
 
-  @ViewChild('mapContent', { static: false }) private readonly mapContent: ElementRef;
+  @ViewChild('mapContent', { static: false }) private readonly mapContent: ElementRef<HTMLElement>;
 
-  private proportion: number;
-  private googleData: ValidCountryData[][];
-  private wrapper: google.visualization.ChartWrapper;
-
+  mapData: DrawableCountries;
   selection: Selection | null = null;
 
   private innerLoading = true;
@@ -63,26 +59,13 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
     return this.innerLoading;
   }
 
-  get selectionValue(): ValidCountryData {
+  get selectionValue(): ValidExtraData {
     return this.data[this.selection.countryId].value;
   }
 
   constructor(
     private readonly cdRef: ChangeDetectorRef,
-    private readonly el: ElementRef,
-    private readonly loaderService: GoogleChartsLoaderService
-  ) {
-  }
-
-  @HostListener('window:deviceorientation')
-  @HostListener('window:resize')
-  screenSizeChanged(): void {
-    if (!this.loading && this.autoResize) {
-      const map: HTMLElement = this.mapContent.nativeElement;
-      map.style.setProperty('height', `${map.clientWidth * this.proportion}px`);
-      this.redraw();
-    }
-  }
+  ) { }
 
   private getExtraSelected(country: string): SelectionExtra[] | null {
     const { extra } = this.data[country];
@@ -98,73 +81,52 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
     this.cdRef.detectChanges();
   }
 
-  /**
-   * Convert a table (object) formatted as
-   * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-   * to an array for Google Charts formatted as
-   * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-   * and save to this.processedData
-   */
-  private processInputData(): void {
-    this.googleData = Object.entries(this.data).reduce((acc, [key, val]) => {
-      const rawValContent = val[valueHolder];
-      acc.push([key, rawValContent === null ? null : rawValContent ? +rawValContent.toString() : 0]);
-      return acc;
-    }, [['Country', 'Value']] as ValidCountryData[][]);
+  ngAfterViewInit(): void {
+    this.initializeMap();
   }
 
-  ngOnChanges({ data }: { data: any }): void {
-    if (data) {
+  ngOnChanges(changes: SimpleChanges): void {
+    const changedMapValueButNotOnStart = ['data', 'minColor', 'maxColor', 'backgroundColor', 'noDataColor', 'exceptionColor']
+      .some(attr => changes[attr] && !changes[attr].firstChange);
 
-      if (!this.data) {
-        return;
-      }
-
-      this.initializeMap({
-        //#region DEFAULTS (automatically set):
-        // displayMode: 'regions',
-        // region: 'world',
-        // enableRegionInteractivity: true,
-        // keepAspectRatio: true,
-        //#endregion
-        colorAxis: {
-          colors: [this.minColor, this.maxColor],
-          minValue: Number.isInteger(this.minValue) ? this.minValue : undefined,
-          maxValue: Number.isInteger(this.maxValue) ? this.maxValue : undefined
-        },
-        datalessRegionColor: this.noDataColor,
-        backgroundColor: this.backgroundColor,
-        defaultColor: this.exceptionColor,
-        legend: 'none',
-        tooltip: { trigger: 'none' }
-      });
+    if (changedMapValueButNotOnStart) {
+      this.initializeMap();
     }
   }
 
-  private async initializeMap(defaultOptions: google.visualization.GeoChartOptions): Promise<void> {
+  private initializeMap(): void {
     try {
-      await this.loaderService.load(this.apiKey);
+      const { max: maxVal, min: minVal } = this.data ? Object.values(this.data).reduce(
+        ({min, max}: {min: number, max: number}, {value}) => ({
+          max: parseInt(value?.toString()) > max ? parseInt(value?.toString()) : max,
+          min: parseInt(value?.toString()) < min ? parseInt(value?.toString()) : min
+        }), {min: null, max: null}
+      ) : {min: 0, max: 1};
 
-      this.processInputData();
+      const valToCol = scale([this.minColor, this.maxColor]).colors(maxVal - minVal + 1).reduce((acc, curr, i) =>
+        ({ ...acc, [i + minVal]: curr }), {} as { [key: number]: string }
+      );
 
-      this.wrapper = new google.visualization.ChartWrapper({
-        chartType: 'GeoChart',
-        dataTable: this.googleData,
-        options: Object.assign(defaultOptions, this.options)
+      this.mapData = Object.entries(this.data).reduce((acc, [ countryId, countryVal ]) =>
+        ({ ...acc, [countryId.toLowerCase()]: {...countryVal, color: valToCol[parseInt(countryVal.value.toString())]} as DrawableCountry }),
+          {} as DrawableCountries
+      );
+
+      const svgMap = this.mapContent.nativeElement.children[0] as SVGSVGElement;
+      svgMap.style.backgroundColor = this.backgroundColor;
+      svgMap.querySelectorAll<SVGSVGElement>(`.${countryClass}`).forEach(item => {
+        const mapItem = this.mapData[item.id.toLowerCase()];
+        const isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
+        item.style.fill = mapItem ? isException ? this.exceptionColor : mapItem.color : this.noDataColor;
       });
 
-      this.registerChartWrapperEvents();
-      this.redraw();
+      this.innerLoading = false;
+      this.cdRef.detectChanges();
+      this.onChartReady();
 
-      const self: HTMLElement = this.el.nativeElement;
-      this.proportion = self.clientHeight / self.clientWidth;
     } catch (e) {
       this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
     }
-  }
-
-  redraw(): void {
-    this.wrapper.draw(this.el.nativeElement.querySelector('div.cm-map-content'));
   }
 
   private onChartReady(): void {
@@ -178,43 +140,34 @@ export class CountriesMapComponent implements OnChanges, OnDestroy {
     this.chartError.emit(error);
   }
 
-  private onMapSelect(): void {
+  onMapSelect({ target }: { target?: SVGElement }): void {
     const event: ChartSelectEvent = {
       selected: false,
       value: null,
       country: null
     };
 
-    const selection = this.wrapper.getChart().getSelection();
+    let newItem: SVGElement;
+    if (target.id === oceanId) {
+      this.selectCountry(null);
 
-    if (selection.length > 0) {
-      const { row: tableRow } = selection[0];
-      const dataTable = this.wrapper.getDataTable();
+    } else {
+      newItem = target;
+      while (!newItem.classList.contains(countryClass)) {
+        newItem = newItem.parentNode as SVGElement;
+      }
+    }
 
+    const country = this.mapData[newItem?.id];
+    if (country) {
       event.selected = true;
-      event.value = dataTable.getValue(tableRow, 1);
-      event.country = dataTable.getValue(tableRow, 0);
+      event.value = parseInt(country.value.toString());
+      event.country = newItem.id.toUpperCase();
       this.selectCountry(event.country);
-
     } else {
       this.selectCountry(null);
     }
-
     this.chartSelect.emit(event);
-  }
-
-  private registerChartWrapperEvents(): void {
-    const { addListener } = google.visualization.events;
-    addListener(this.wrapper, 'ready', this.onChartReady.bind(this));
-    addListener(this.wrapper, 'error', this.onCharterror.bind(this));
-    addListener(this.wrapper, 'select', this.onMapSelect.bind(this));
-  }
-
-  ngOnDestroy(): void {
-    const { removeListener } = google.visualization.events;
-    removeListener('ready');
-    removeListener('error');
-    removeListener('select');
   }
 
 }

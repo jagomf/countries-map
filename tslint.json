@@ -49,6 +49,7 @@
         ]
       }
     ],
+    "no-bitwise": false,
     "no-console": [
       true,
       "info",
@@ -72,6 +73,7 @@
       true,
       "single"
     ],
+    "radix": false,
     "semicolon": {
       "options": [
         "always"

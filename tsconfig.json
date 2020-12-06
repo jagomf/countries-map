@@ -11,9 +11,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "types": [
-      "google.visualization"
-    ],
+    "types": [],
     "lib": [
       "es2018",
       "dom"

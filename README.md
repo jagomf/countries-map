@@ -1,11 +1,17 @@
 # countries-map
 
-> World countries datamaps component for Angular, based on Google GeoCharts.
+> World countries datamaps component for Angular.
 
 [![npm version](https://badge.fury.io/js/countries-map.svg)](https://badge.fury.io/js/countries-map)
 
 
 ![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/master/screenshot.png)
+
+## We do not depend on Google anymore! 🎉🎊
+
+Starting with v4, this package **does NOT depend on Google GeoCharts**.
+
+If you want to use v3 (which depends on Google GeoCharts), please check [ReadMe v3](https://github.com/jagomf/countries-map/blob/v3/README.md).
 
 ## Table of contents
 
@@ -14,8 +20,6 @@
 * [Attributes](#attributes)
 * [Events](#events)
 * [Styles](#styles)
-* [Advanced usage](#advanced-usage)
-* [FAQ](#faq)
 * [License](#license)
 
 
@@ -43,7 +47,7 @@ export class AppModule { }
 
 In your templates, use the `<countries-map>` component like this:
 ```html
-<countries-map [data]="mapData" [apiKey]="abcdef"></countries-map>
+<countries-map [data]="mapData"></countries-map>
 ```
 and in the corresponding `.ts` file:
 ```ts
@@ -58,33 +62,54 @@ public mapData: CountriesData = {
 
 ### Typing
 
-Typing the data input with `CountriesData` is not mandatory but it is highly recommendable because it will help you correctly define the object to pass to `<countries-map>`'s `[data]` attribute.
+Typing the data input with [`CountriesData`](#interface-countriesdata) is not mandatory but it is highly recommendable because it will help you correctly define the object to pass to `<countries-map>`'s `[data]` attribute.
 
 ## Attributes
 
 Element `<countries-map>` accepts the following attributes/inputs:
 
-Attribute | Type | Default | Mandatory
---- | --- | --- | ---
-data | CountriesData (object) | - | Yes
-apiKey | string | - | No
-options | object | - | No
-autoResize | boolean | `false` | No
-countryLabel | string | `'Country'` | No
-valueLabel | string | `'Value'` | No
-showCaption | boolean | `true` | No
-captionBelow | boolean | `true` | No
-minValue | number | `0` | No
-maxValue | number | - | No
-minColor | string | `'white'` | No
-maxColor | string | `'red'` | No
-noDataColor | string | `'#CFCFCF'` | No
-exceptionColor | string | `'#FFEE58'` | No
-backgroundColor | string | `'white'` | No
+Attribute | Type | Default | Mandatory | Description
+--- | --- | --- | --- | ---
+`data` | `CountriesData` | - | Yes | Describes list of countries and their value and extra data (if any). See description for interface [`CountriesData`](#interface-countriesdata).
+`countryLabel` | `string` | `'Country'` | No | Caption label for country name.
+`valueLabel` | `string` | `'Value'` | No | Caption label for country's value.
+`showCaption` | `boolean` | `true` | No | Shows/hides caption.
+`captionBelow` | `boolean` | `true` | No | Places caption below or above the map.
+`minColor` | `string` | `'white'` | No | Hex or named color representing the lowest value.
+`maxColor` | `string` | `'red'` | No | Hex or named color representing the highest value.
+`noDataColor` | `string` | `'#CFCFCF'` | No | Hex or named color for countries not included in data list.
+`exceptionColor` | `string` | `'#FFEE58'` | No | Hex or named color for countries with value `null` or `undefined`.
+`backgroundColor` | `string` | `'white'` | No | Hex or named color of the map background.
 
-<br>
 
-If you set `autoResize` attribute to `true`, map will adapt to screen size changes, like in a device orientation switch.
+### Interface `CountriesData`
+
+This interface is a convenience for describing the object to be passed to `data` attribute.
+
+The list should look like this:
+
+```ts
+mapData: CountriesData = {
+  'ES': { 'value': 416 },
+  'GB': { 'value': 94, 'extra': { 'foo': 'bar' } },
+  'FR': { 'value': 255, 'extra': { 'baz': 41 } }
+};
+```
+
+Actual implementation:
+
+```ts
+interface CountriesData {
+  [countryCode: string]: CountryData;
+}
+interface CountryData {
+  value: number;
+  extra?: CountryExtraData;
+}
+interface CountryExtraData {
+  [countryCode: string]: number |string;
+}
+```
 
 ## Events
 
@@ -191,35 +216,6 @@ These are the classes you can apply styles to, hierarchically displayed, and ass
     * `cm-extended-item`: each of the single extra items (made of key and value)
       * `cm-extended-label`: key of the single extra item
       * `cm-extended-value`: value of the single extra item
-
-## Advanced usage
-You can access Google Chart's underlying [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the
-`wrapper` property of the component object:
-```html
-<countries-map #cmap [data]="mapData"></countries-map>
-```
-
-```ts
-import { ViewChild } from '@angular/core';
-
-export class AppComponent {
-
-  @ViewChild('cmap') cmap;
-
-  myfunction() {
-    let googleChartWrapper = this.cmap.wrapper;
-
-    //force a redraw
-    this.cmap.redraw();
-  }
-
-}
-```
-
-## FAQ
-
-### Why tooltip on hover is not showing up?
-Since Google GeoCharts' tooltip customization is very limited and complex, its support is currently disabled.
 
 ## License
 

@@ -1,20 +1,12 @@
-import { ElementRef, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { GoogleChartsLoaderService } from './google-charts-loader.service';
-import type { CountriesData, Selection, ValidCountryData } from './data-types.interface';
-export declare class CountriesMapComponent implements OnChanges, OnDestroy {
+import { ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import type { CountriesData, DrawableCountries, Selection, ValidExtraData } from './data-types.interface';
+export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     private readonly cdRef;
-    private readonly el;
-    private readonly loaderService;
     data: CountriesData;
-    apiKey: string;
-    options: any;
     countryLabel: string;
     valueLabel: string;
     showCaption: boolean;
     captionBelow: boolean;
-    autoResize: boolean;
-    minValue: number;
-    maxValue: number;
     minColor: string;
     maxColor: string;
     backgroundColor: string;
@@ -24,33 +16,20 @@ export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     private readonly chartError;
     private readonly chartSelect;
     private readonly mapContent;
-    private proportion;
-    private googleData;
-    private wrapper;
+    mapData: DrawableCountries;
     selection: Selection | null;
     private innerLoading;
     get loading(): boolean;
-    get selectionValue(): ValidCountryData;
-    constructor(cdRef: ChangeDetectorRef, el: ElementRef, loaderService: GoogleChartsLoaderService);
-    screenSizeChanged(): void;
+    get selectionValue(): ValidExtraData;
+    constructor(cdRef: ChangeDetectorRef);
     private getExtraSelected;
     private selectCountry;
-    /**
-     * Convert a table (object) formatted as
-     * `{ GB: { value:123, ...otherdata }, ES: { value:456, ...whatever } }`
-     * to an array for Google Charts formatted as
-     * `[ ['Country', 'Value'], ['GB', 123], ['ES', 456] ]`
-     * and save to this.processedData
-     */
-    private processInputData;
-    ngOnChanges({ data }: {
-        data: any;
-    }): void;
+    ngAfterViewInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     private initializeMap;
-    redraw(): void;
     private onChartReady;
     private onCharterror;
-    private onMapSelect;
-    private registerChartWrapperEvents;
-    ngOnDestroy(): void;
+    onMapSelect({ target }: {
+        target?: SVGElement;
+    }): void;
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CountriesMapModule } from 'countries-map';
+import { CountriesMapModule } from '../../projects/lib/src/public-api'; // TODO: 'countries-map'
 import { DemoComponent } from './demo.component';
 
 
