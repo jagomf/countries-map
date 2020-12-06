@@ -10,10 +10,14 @@ var CharErrorCode;
 
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
+const getStrokeWidth = (isHovered) => isHovered ? '3' : '0.75';
+const ɵ0 = getStrokeWidth;
+const getStrokeColor = (isHovered) => isHovered ? '#aaa' : '#afafaf';
+const ɵ1 = getStrokeColor;
 const countryName = (countryCode) => {
     return en[countryCode];
 };
-const ɵ0 = countryName;
+const ɵ2 = countryName;
 class CountriesMapComponent {
     constructor(cdRef) {
         this.cdRef = cdRef;
@@ -74,6 +78,8 @@ class CountriesMapComponent {
                 const mapItem = this.mapData[item.id.toLowerCase()];
                 const isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
                 item.style.fill = mapItem ? isException ? this.exceptionColor : mapItem.color : this.noDataColor;
+                item.onmouseenter = this.countryHover.bind(this, item, true);
+                item.onmouseleave = this.countryHover.bind(this, item, false);
             });
             this.innerLoading = false;
             this.cdRef.detectChanges();
@@ -82,6 +88,14 @@ class CountriesMapComponent {
         catch (e) {
             this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
         }
+    }
+    countryHover(item, hovered) {
+        item.style.strokeWidth = getStrokeWidth(hovered);
+        item.style.stroke = getStrokeColor(hovered);
+        item.querySelectorAll('.landxx').forEach(i => {
+            i.style.strokeWidth = getStrokeWidth(hovered);
+            i.style.stroke = getStrokeColor(hovered);
+        });
     }
     onChartReady() {
         if (this.innerLoading) {

@@ -311,10 +311,14 @@
 
     var countryClass = 'countryxx';
     var oceanId = 'ocean';
+    var getStrokeWidth = function (isHovered) { return isHovered ? '3' : '0.75'; };
+    var ɵ0 = getStrokeWidth;
+    var getStrokeColor = function (isHovered) { return isHovered ? '#aaa' : '#afafaf'; };
+    var ɵ1 = getStrokeColor;
     var countryName = function (countryCode) {
         return countrieslist.en[countryCode];
     };
-    var ɵ0 = countryName;
+    var ɵ2 = countryName;
     var CountriesMapComponent = /** @class */ (function () {
         function CountriesMapComponent(cdRef) {
             this.cdRef = cdRef;
@@ -395,6 +399,8 @@
                     var mapItem = _this.mapData[item.id.toLowerCase()];
                     var isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
                     item.style.fill = mapItem ? isException ? _this.exceptionColor : mapItem.color : _this.noDataColor;
+                    item.onmouseenter = _this.countryHover.bind(_this, item, true);
+                    item.onmouseleave = _this.countryHover.bind(_this, item, false);
                 });
                 this.innerLoading = false;
                 this.cdRef.detectChanges();
@@ -403,6 +409,14 @@
             catch (e) {
                 this.onCharterror({ id: exports.CharErrorCode.loading, message: 'Could not load' });
             }
+        };
+        CountriesMapComponent.prototype.countryHover = function (item, hovered) {
+            item.style.strokeWidth = getStrokeWidth(hovered);
+            item.style.stroke = getStrokeColor(hovered);
+            item.querySelectorAll('.landxx').forEach(function (i) {
+                i.style.strokeWidth = getStrokeWidth(hovered);
+                i.style.stroke = getStrokeColor(hovered);
+            });
         };
         CountriesMapComponent.prototype.onChartReady = function () {
             if (this.innerLoading) {

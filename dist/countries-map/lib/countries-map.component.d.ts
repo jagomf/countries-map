@@ -27,6 +27,7 @@ export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     private initializeMap;
+    private countryHover;
     private onChartReady;
     private onCharterror;
     onMapSelect({ target }: {

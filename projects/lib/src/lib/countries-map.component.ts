@@ -9,7 +9,6 @@ import {
   EventEmitter,
   AfterViewInit,
   OnChanges,
-  SimpleChange,
   SimpleChanges
 } from '@angular/core';
 import { CharErrorCode } from './chart-events.interface';
@@ -21,6 +20,8 @@ import { scale } from 'chroma-js';
 
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
+const getStrokeWidth = (isHovered: boolean) => isHovered ? '3' : '0.75';
+const getStrokeColor = (isHovered: boolean) => isHovered ? '#aaa' : '#afafaf';
 
 const countryName = (countryCode: string): string => {
   return countriesEN[countryCode];
@@ -118,6 +119,8 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         const mapItem = this.mapData[item.id.toLowerCase()];
         const isException = mapItem ? (typeof mapItem.value === 'undefined' || mapItem.value === null) : false;
         item.style.fill = mapItem ? isException ? this.exceptionColor : mapItem.color : this.noDataColor;
+        item.onmouseenter = this.countryHover.bind(this, item, true);
+        item.onmouseleave = this.countryHover.bind(this, item, false);
       });
 
       this.innerLoading = false;
@@ -127,6 +130,15 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
     } catch (e) {
       this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
     }
+  }
+
+  private countryHover(item: SVGElement, hovered: boolean): void {
+    item.style.strokeWidth = getStrokeWidth(hovered);
+    item.style.stroke = getStrokeColor(hovered);
+    item.querySelectorAll<SVGElement>('.landxx').forEach(i => {
+      i.style.strokeWidth = getStrokeWidth(hovered);
+      i.style.stroke = getStrokeColor(hovered);
+    });
   }
 
   private onChartReady(): void {
