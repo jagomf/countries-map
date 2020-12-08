@@ -28,10 +28,10 @@ export class DemoComponent {
     'CA' : { value:  1, extra: { 'Villeneuve': '1997' } },
     'PT' : { value:  0, extra: { 'Monteiro': null } },
     'MX' : { value:  0, extra: { 'Pérez': null } },
-    'IN' : { value:  0, extra: { 'Chandhok': null, 'Karthikeiyan': null } },
     'RU' : { value:  0, extra: { 'Petrov': null, 'Kviat': null } },
-    'JP' : { value:  0, extra: { 'Sato': null, 'Yamamoto': null } },
-    'MY' : { value:  0, extra: { 'Yoong': null } },
+    'IN' : { value:  null, extra: { 'Chandhok': null, 'Karthikeiyan': null } },
+    'JP' : { value:  null, extra: { 'Sato': null, 'Yamamoto': null } },
+    'MY' : { value:  null, extra: { 'Yoong': null } },
   };
 
   errorLoading = null;
