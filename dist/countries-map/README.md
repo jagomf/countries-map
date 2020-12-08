@@ -70,7 +70,7 @@ Typing the data input with [`CountriesData`](#interface-countriesdata) is not ma
 Element `<countries-map>` accepts the following attributes/inputs:
 
 Attribute | Type | Default | Description
---- | --- | --- | --- | ---
+--- | --- | --- | ---
 `data` | `CountriesData` | - | Describes list of countries and their value and extra data (if any). See description for interface [`CountriesData`](#interface-countriesdata).
 `countryLabel` | `string` | `'Country'` | Caption label for country name.
 `valueLabel` | `string` | `'Value'` | Caption label for country's value.
