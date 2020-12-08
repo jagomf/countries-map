@@ -20,6 +20,7 @@ If you want to use v3 (which depends on Google GeoCharts), please check [ReadMe 
 * [Attributes](#attributes)
 * [Events](#events)
 * [Styles](#styles)
+* [Projects](#projects)
 * [License](#license)
 
 
@@ -109,7 +110,7 @@ interface CountryData {
   extra?: CountryExtraData;
 }
 interface CountryExtraData {
-  [countryCode: string]: number |string;
+  [key: string]: number |string;
 }
 ```
 
@@ -218,6 +219,12 @@ These are the classes you can apply styles to, hierarchically displayed, and ass
     * `cm-extended-item`: each of the single extra items (made of key and value)
       * `cm-extended-label`: key of the single extra item
       * `cm-extended-value`: value of the single extra item
+
+## Projects
+
+Highlighted projects currently using countries-map:
+
+* [Deflaggr](https://deflaggr.com): Collect world flags
 
 ## License
 

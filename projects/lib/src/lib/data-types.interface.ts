@@ -12,7 +12,7 @@ export interface Selection {
 }
 
 export interface CountryExtraData {
-  [countryCode: string]: ValidExtraData;
+  [key: string]: ValidExtraData;
 }
 
 export interface CountryData {

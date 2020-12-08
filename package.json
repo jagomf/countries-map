@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "description": "Builder and demo runner for countries-map",
   "license": "MIT",
-  "author": "Jago MF <jagomf@gmail.com>",
+  "author": "Jago MF <jago@lunadevel.com>",
   "repository": "github:jagomf/countries-map",
   "homepage": "https://github.com/jagomf/countries-map",
   "scripts": {

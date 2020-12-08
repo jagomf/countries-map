@@ -23,8 +23,8 @@ const countryNum = (item: CountryData) => parseInt(item.value?.toString());
 
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
-const getStrokeWidth = (isHovered: boolean) => isHovered ? '3' : '0.75';
-const getStrokeColor = (isHovered: boolean) => isHovered ? '#aaa' : '#afafaf';
+const getStrokeWidth = (isHovered: boolean) => isHovered ? '0.2%' : '0.1%';
+const getStrokeColor = (isHovered: boolean) => isHovered ? '#888' : '#afafaf';
 
 const countryName = (countryCode: string): string => {
   return countriesEN[countryCode];

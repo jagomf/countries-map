@@ -9,7 +9,7 @@ export interface Selection {
     extra?: SelectionExtra[];
 }
 export interface CountryExtraData {
-    [countryCode: string]: ValidExtraData;
+    [key: string]: ValidExtraData;
 }
 export interface CountryData {
     value: number;
