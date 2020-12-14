@@ -55,7 +55,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
   @Output() private readonly chartError = new EventEmitter<ChartErrorEvent>();
   @Output() private readonly chartSelect = new EventEmitter<ChartSelectEvent>();
 
-  @ViewChild('mapContent', { static: false }) private readonly mapContent: ElementRef<HTMLElement>;
+  @ViewChild('mapContent', { static: false, read: ElementRef }) private readonly mapContent: ElementRef<HTMLElement>;
 
   mapData: DrawableCountries;
   selection: Selection | null = null;

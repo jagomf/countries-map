@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChartErrorEvent } from '../../projects/lib/src/public-api';
+import { ChartErrorEvent } from '../../projects/lib/src/public-api'; // TODO: 'countries-map'
 
 @Component({
   selector: 'demo-content',
