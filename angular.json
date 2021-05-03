@@ -35,7 +35,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": true,
               "extractLicenses": true,
               "vendorChunk": true,

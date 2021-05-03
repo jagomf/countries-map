@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/countries-map.svg)](https://badge.fury.io/js/countries-map)
 
 
-![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/v3/screenshot.png)
 
 ## Table of contents
 
@@ -223,4 +223,4 @@ Since Google GeoCharts' tooltip customization is very limited and complex, its s
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](https://github.com/jagomf/countries-map/blob/master/LICENSE)
