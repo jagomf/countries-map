@@ -1,6 +1,6 @@
 {
   "name": "countries-map",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "World countries datamaps component for Angular",
   "license": "MIT",
   "author": "Jago MF <jago@lunadevel.com>",
@@ -16,8 +16,8 @@
     "Charts"
   ],
   "peerDependencies": {
-    "@angular/common": "^10.2.0",
-    "@angular/core": "^10.2.0"
+    "@angular/common": "^11.0.0",
+    "@angular/core": "^11.0.0"
   },
   "dependencies": {
     "@jagomf/countrieslist": "^2.1.0",
