@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="280 0 2400 1200" version="1.1">
+    <!-- Retrieved from https://commons.wikimedia.org/wiki/File:BlankMap-World.svg -->
     <style id="style_css_sheet" type="text/css">
 
 /* <!-- Done up to row 1708 -->
@@ -2736,6 +2737,7 @@
         <path id="path6824" d="m 2171.62,658.85 c 2.9,-0.07 3.9,-2.64 6.33,-3.582 1.08,-0.419 0.6,1.018 0.14,1.391 -1.07,0.865 -1.28,1.026 -1.09,2.528 0,0.121 0.7,5.564 -1.03,4.357 -0.65,-0.456 -2.11,-1.464 -2.55,-2.173 -0.64,-1.021 -0.34,-2.209 -1.8,-2.521"/>
         <path id="Brunei_Temburong" d="m 2178.61,657.63 c -0.22,-1.323 0.49,-0.438 0.86,-1.512 1.05,1.343 1.5,3.288 1.37,4.968 -1.66,-0.373 -2.14,-1.943 -2.23,-3.456"/>
       </g>
+      <circle id="bn_" class="circlexx bn" r="6" cy="659.99" cx="2175.69"/>
     </g>
     <g id="tt" class="countryxx">
       <title>Trinidad and Tobago</title>
@@ -2763,10 +2765,8 @@
         <path id="path4782" d="m 2721.78,815.46 c -0.45,0.217 -0.9,0.24 -1.37,0.07 0.44,1.529 1.8,3.133 3.49,2.119 0.74,-0.44 0.85,-1.316 0.43,-2.016 -0.58,-0.968 -1.74,-0.331 -2.55,-0.172"/>
         <path id="path4784" d="m 2729.62,820.21 c 0.43,-2.068 -3.23,-2.401 -4.39,-1.511 0.94,1.527 2.85,1.324 4.39,1.511"/>
       </g>
+      <circle id="ws_" class="circlexx ws" r="6" cy="816.049" cx="2724.51"/>
     </g>
-    <path id="lu" class="countryxx landxx eu lu" d="m 1348.75,268.58 c 0,-0.218 0.55,0.126 0,-0.02 0.48,-1.267 0.59,-1.79 1.57,-2.109 1.12,-0.365 0.7,0.681 1.08,1.263 0.5,0.78 1.56,1.038 2.13,1.769 0.62,0.793 -0.5,1.993 -0.39,2.909 -0.7,-0.342 -3.47,-0.372 -4.41,-0.666 1.28,-0.881 0.43,-1.622 0,-2.575">
-      <title>Luxembourg</title>
-    </path>
     <g id="km" class="countryxx">
       <title>Comoros</title>
       <g id="km-" class="landxx coastxx km">
@@ -2774,23 +2774,29 @@
         <path id="Comoros_Moheli" d="m 1633.86,805.74 c -0.24,-0.695 -0.88,-1.248 -1.66,-1.091 0,0.997 0.95,0.94 1.66,1.091"/>
         <path id="Comoros_Anjouan" d="m 1638.90,805.66 c 0.85,-2.194 -0.84,-1.376 -2.16,-1.73 0.74,0.545 1.55,1.021 2.16,1.73"/>
       </g>
+      <circle id="km_" class="circlexx km" r="6" cy="801.799" cx="1633.83"/>
     </g>
     <path id="qa" class="countryxx landxx qa" d="m 1679.79,479.79 c 0,-0.39 -0.61,-2.786 0.5,-1.656 -0.1,-0.388 -0.32,-2.542 0.37,-0.72 0,-1.816 0.7,-6.609 3.2,-3.966 0.63,0.663 1.83,1.128 1.84,2.168 0,0.726 -0.36,1.186 -0.52,1.849 -0.15,0.574 0.21,1.32 0.26,1.893 0.1,0.573 0.67,0.584 0.83,1.08 0.26,0.809 0.1,1.543 -0.26,2.29 -0.57,1.293 -0.38,2.237 -1.8,2.662 -1.18,0.354 -2.24,1.291 -3.03,-0.439 -0.72,-1.578 -1.02,-3.477 -1.39,-5.161">
       <title>Qatar</title>
     </path>
-    <path id="mu" class="countryxx landxx coastxx mu" d="m 1734.15,871.618 c -0.53,0.555 -3.04,4.262 -1.29,4.473 2.78,0.335 3.13,-4.871 1.29,-4.473">
+    <g id="mu" class="countryxx">
       <title>Mauritius</title>
-    </path>
+      <path id="mu-" class="landxx coastxx mu" d="m 1734.15,871.618 c -0.53,0.555 -3.04,4.262 -1.29,4.473 2.78,0.335 3.13,-4.871 1.29,-4.473"/>
+      <circle id="mu_" class="circlexx mu" r="6" cy="872.356" cx="1730.8"/>
+    </g>
     <g id="st" class="countryxx">
       <title>Sao Tome and Principe</title>
       <g id="st-" class="landxx coastxx st">
         <path id="Sao_Tome_and_Principe_Principe" d="m 1357.03,685.35 c 0.31,-0.489 0.34,-0.992 0.1,-1.512 -0.6,0.418 -0.63,1.032 -0.1,1.512"/>
         <path id="Sao_Tome_and_Principe_Sao_Tome" d="m 1350.34,698.379 c 0.68,-0.37 1.4,-0.951 1.64,-1.723 0.12,-0.4 0.1,-1.731 -0.69,-1.523 -1.73,0.479 -1.15,2.004 -0.95,3.246"/>
       </g>
+      <circle id="st_" class="circlexx st" r="6" cy="690.576" cx="1353.02"/>
     </g>
-    <path id="dm" class="countryxx landxx coastxx dm" d="m 837.096,567.054 c -0.111,-1.142 -1.084,-2.53 -0.5,-3.672 1.517,0.388 2.312,3.116 0.5,3.672">
+    <g id="dm" class="countryxx">
       <title>Dominica</title>
-    </path>
+      <path id="dm-" class="landxx coastxx dm" d="m 837.096,567.054 c -0.111,-1.142 -1.084,-2.53 -0.5,-3.672 1.517,0.388 2.312,3.116 0.5,3.672"/>
+      <circle id="dm_" class="circlexx dm" r="6" cy="564.194" cx="842.704"/>
+    </g>
     <g id="to" class="countryxx">
       <title>Tonga</title>
       <g id="to-" class="landxx coastxx to">
@@ -2798,6 +2804,7 @@
         <path id="path5932" d="m 2687.86,884.219 c 0,-0.28 -0.1,-0.547 -0.21,-0.8 0.1,0.267 0.14,0.533 0.21,0.8"/>
         <path d="m 2701.98,859.229 c -0.62,0.08 -0.98,0.525 -0.8,1.15 0.38,-0.305 0.64,-0.688 0.8,-1.15"/>
       </g>
+      <circle id="to_" class="circlexx to" r="6" cy="881.448" cx="2687.31"/>
     </g>
     <g id="ki" class="countryxx">
       <title>Kiribati</title>
@@ -2805,84 +2812,73 @@
         <path id="path4790" d="m 98.9553,683.838 c 0.144,-0.05 0.288,-0.1 0.432,-0.145 -0.548,-0.608 -1.13,-2.463 -2.088,-2.52 0.364,0.886 0.538,1.59 -0.576,1.368 0.608,0.668 1.578,0.697 2.232,1.297"/>
         <path id="path4788" d="m 2630.31,681.384 c 0.23,-0.648 0.17,-1.237 -0.72,-0.5 0.24,0.167 0.48,0.334 0.72,0.5"/>
       </g>
+      <circle id="ki_" class="circlexx ki" r="6" cy="682.234" cx="2627.54"/>
     </g>
     <path id="fm" class="countryxx landxx coastxx fm" d="m 2507.21,639.918 c 1.31,-0.308 0.32,-1.855 -0.72,-1.513 0,0.605 0.27,1.109 0.72,1.513">
       <title>Micronesia</title>
     </path>
-    <path id="bh" class="countryxx landxx coastxx bh" d="m 1676.91,472.086 c 0.23,0.479 0.32,0.982 0.29,1.512 -0.14,0.691 0.7,1.188 0.86,1.8 0.29,-0.76 0.33,-4.892 -1.15,-3.312">
-      <title>Bahrain</title>
-    </path>
-    <path id="ad" class="countryxx landxx ad" d="m 1317.49,330.318 c 0.55,-0.716 1.85,-0.365 2.3,0.288 -0.49,0.647 -1.31,0.987 -2.09,1.08 0,-0.461 -0.11,-0.917 -0.21,-1.368">
-      <title>Andorra</title>
-    </path>
-    <path id="pw" class="countryxx landxx coastxx pw" d="m 2326.14,634.95 c 0.57,-0.779 1.04,-2.01 0.57,-2.952 -0.63,0.75 -1.31,2.033 -0.57,2.952">
+    <g id="pw" class="countryxx">
       <title>Palau</title>
-    </path>
-    <path id="sc" class="countryxx landxx coastxx sc" d="m 1724.5,740 c 0.1,-0.7 -0.19,-1.573 -1.08,-1.37 0.53,0.28 0.95,0.774 1.08,1.37">
-      <title>Seychelles</title>
-    </path>
+      <path id="pw-" class="landxx coastxx pw" d="m 2326.14,634.95 c 0.57,-0.779 1.04,-2.01 0.57,-2.952 -0.63,0.75 -1.31,2.033 -0.57,2.952"/>
+      <circle id="pw_" class="circlexx pw" r="6" cy="630.098" cx="2322.37"/>
+    </g>
+    <g id="sc" class="countryxx">
+      <title>Seychelles, Republic of</title>
+      <path id="sc-" class="landxx coastxx sc" d="m 1724.5,740 c 0.1,-0.7 -0.19,-1.573 -1.08,-1.37 0.53,0.28 0.95,0.774 1.08,1.37"/>
+      <circle id="sc_" class="circlexx sc" r="6" cy="734.022" cx="1725.24"/>
+    </g>
     <g id="ag" class="countryxx">
       <title>Antigua and Barbuda</title>
       <g id="ag-" class="landxx coastxx ag">
         <path id="path6116" d="m 835.656,551.575 c -0.94,0.04 -1.243,-1.335 -0.21,-1.441 0.927,-0.1 0.575,1.051 0.21,1.441"/>
         <path id="path6118" d="m 836.096,546.822 c -0.578,-0.111 -0.923,-0.563 -0.87,-1.151 0.839,-0.296 1.103,0.496 0.87,1.151"/>
       </g>
+      <circle id="ag_" class="circlexx ag" r="6" cy="543.909" cx="840.745"/>
     </g>
     <path id="bb" class="countryxx landxx coastxx bb" d="m 849.556,585.63 c -0.959,-0.41 -0.79,-1.311 -0.79,-2.16 0.802,0.298 2.27,1.636 0.79,2.16">
       <title>Barbados</title>
     </path>
-    <path id="vc" class="countryxx landxx coastxx vc" d="m 837.026,584.982 c -1.021,-0.618 -0.314,-1.585 0.22,-2.231 0.528,0.735 0.282,1.573 -0.22,2.231">
+    <g id="vc" class="countryxx">
       <title>Saint Vincent and the Grenadines</title>
-    </path>
-    <path id="lc" class="countryxx landxx coastxx lc" d="m 839.185,579.942 c -1.39,-0.555 -0.666,-1.98 0,-2.808 1.025,0.543 0.674,2.138 0,2.808">
+      <path id="vc-" class="landxx coastxx vc" d="m 837.026,584.982 c -1.021,-0.618 -0.314,-1.585 0.22,-2.231 0.528,0.735 0.282,1.573 -0.22,2.231"/>
+      <circle id="vc_" class="circlexx vc" r="6" cy="587.654" cx="840.2"/>
+    </g>
+    <g id="lc" class="countryxx">
       <title>Saint Lucia</title>
-    </path>
-    <path id="gd" class="countryxx landxx coastxx gd" d="m 832.486,594.702 c -0.768,-0.732 -0.124,-1.668 0.65,-2.017 0.29,0.759 0.06,1.587 -0.65,2.017">
+      <path id="lc-" class="landxx coastxx lc" d="m 839.185,579.942 c -1.39,-0.555 -0.666,-1.98 0,-2.808 1.025,0.543 0.674,2.138 0,2.808"/>
+      <circle id="lc_" class="circlexx lc" r="6" cy="576.635" cx="834.065"/>
+    </g>
+    <g id="gd" class="countryxx">
       <title>Grenada</title>
-    </path>
-    <path id="mt" class="countryxx landxx coastxx eu mt" d="m 1409.36,388.854 c -0.8,-0.08 -1.55,-0.824 -1.15,-1.655 0.58,0.34 1.94,0.768 1.15,1.655">
-      <title>Malta</title>
-    </path>
-    <path id="mv" class="countryxx landxx coastxx mv" d="m 1845.09,675.359 c 0.1,-0.7 -0.19,-1.573 -1.08,-1.37 0.53,0.28 0.95,0.774 1.08,1.37">
-      <title>Maldives</title>
-    </path>
+      <path id="gd-" class="landxx coastxx gd" d="m 832.486,594.702 c -0.768,-0.732 -0.124,-1.668 0.65,-2.017 0.29,0.759 0.06,1.587 -0.65,2.017"/>
+      <circle id="gd_" class="circlexx gd" r="6" cy="594.891" cx="830.456"/>
+    </g>
+    <g id="mv" class="countryxx">
+      <title>Maldives, Republic of</title>
+      <path id="mv-" class="landxx coastxx mv" d="m 1845.09,675.359 c 0.1,-0.7 -0.19,-1.573 -1.08,-1.37 0.53,0.28 0.95,0.774 1.08,1.37"/>
+      <circle id="mv_" class="circlexx mv" r="6" cy="669.374" cx="1844.22"/>
+    </g>
     <g id="kn" class="countryxx">
       <title>Saint Kitts and Nevis</title>
       <g id="kn-" class="landxx coastxx kn">
         <path id="Saint_Kitts_and_Nevis_Saint_Kitts" d="m 828.886,549.63 c -0.501,-0.434 -0.981,-0.89 -1.44,-1.368 0.858,-0.412 1.487,0.631 1.44,1.368"/>
         <path id="Saint_Kitts_and_Nevis_Nevis" d="m 829.326,550.71 c -0.05,-0.264 -0.1,-0.528 -0.15,-0.792 0.354,0.344 0.37,0.432 0.15,0.792"/>
       </g>
-    </g>
-    <path id="li" class="countryxx landxx li" d="m 1373.36,292.374 c 0,-0.628 0.16,-1.228 0.43,-1.799 0.46,0.645 0.94,2.092 -0.43,1.799">
-      <title>Liechtenstein</title>
-    </path>
-    <g id="sm" class="countryxx">
-      <title>San Marino</title>
-      <path id="sm-" class="landxx sm" d="m 1393.24,320.462 0.47,-0.69 0.68,0.536 -0.56,0.595 -0.59,-0.441 z"/>
-      <circle xmlns="http://www.w3.org/2000/svg" id="sm_" class="circlexx sm" r="6" cy="319.693" cx="1394.44"/>
+      <circle id="kn_" class="circlexx kn" r="6" cy="555.652" cx="820.219"/>
     </g>
     <path id="bm" class="countryxx landxx coastxx bm" d="m 832.056,419.454 c 0.25,-0.174 0.517,-0.318 0.8,-0.433 -0.267,0.145 -0.534,0.289 -0.8,0.433">
       <title>Bermuda</title>
     </path>
-    <path id="tv" class="countryxx landxx coastxx tv" d="m 2660.34,771.243 c -0.63,0.08 -0.98,0.525 -0.81,1.15 0.39,-0.305 0.65,-0.688 0.81,-1.15">
+    <g id="tv" class="countryxx">
       <title>Tuvalu</title>
-    </path>
-    <path id="nr" class="countryxx landxx coastxx nr" d="m 2561.1,682.146 c 0.22,-0.1 0.43,-0.193 0.65,-0.29 -0.24,-0.597 -0.75,-0.852 -1.3,-0.43 0.19,0.265 0.4,0.505 0.65,0.72">
+      <path id="tv-" class="landxx coastxx tv" d="m 2660.34,771.243 c -0.63,0.08 -0.98,0.525 -0.81,1.15 0.39,-0.305 0.65,-0.688 0.81,-1.15"/>
+      <circle id="tv_" class="circlexx tv" r="6" cy="769.452" cx="2658.55"/>
+    </g>
+    <g id="nr" class="countryxx">
       <title>Nauru</title>
-    </path>
-    <g id="mc" class="countryxx">
-      <title>Monaco</title>
-      <path id="mc-" class="landxx mc" d="m 1358.89,320.67 c -0.12,-0.144 0.15,-0.405 0.39,-0.45 0.22,-0.04 -0.1,0.553 -0.39,0.45"/>
-      <circle xmlns="http://www.w3.org/2000/svg" id="mc_" class="circlexx mc" r="6" cy="320.304" cx="1357.15"/>
+      <path id="nr-" class="landxx coastxx nr" d="m 2561.1,682.146 c 0.22,-0.1 0.43,-0.193 0.65,-0.29 -0.24,-0.597 -0.75,-0.852 -1.3,-0.43 0.19,0.265 0.4,0.505 0.65,0.72"/>
+      <circle id="nr_" class="circlexx nr" r="6" cy="680.483" cx="2562.7"/>
     </g>
-    <g id="va" class="countryxx">
-      <title>Vatican City</title>
-      <path id="va-" class="landxx va" d="m 1394.48,337.712 -0.1,0.03 -0.11,-0.04 0.1,-0.08 0.11,-0.02"/>
-      <circle xmlns="http://www.w3.org/2000/svg" id="va_" class="circlexx va" r="6" cy="337.096" cx="1394.53"/>
-    </g>
-    <path id="sg" class="countryxx landxx coastxx sg" d="m 2093.43,686.214 c -0.96,0.252 0.51,2.079 1.8,0.359 -0.57,-0.271 -1.17,-0.391 -1.8,-0.359">
-      <title>Singapore</title>
-    </path>
     <g id="au" class="countryxx landxx coastxx au">
       <title>Australia</title>
       <path id="path3366" d="m 2402.74,858.58 c 0.95,-0.581 0.16,-1.505 -0.1,-2.23 -0.83,0.637 -0.44,1.545 0.1,2.23"/>
@@ -2953,26 +2949,10 @@
         <path id="path2724" d="m 2150.31,501.822 c 0.1,0.436 0.1,0.593 0.58,0.721 -0.2,-0.241 -0.39,-0.481 -0.58,-0.721"/>
       </g>
     </g>
-    <g id="hk" class="countryxx">
-      <title>Hong Kong</title>
-      <g id="hk-" class="landxx coastxx hk">
-        <path id="path2764" class="landxx hk" d="m 2154.34,503.838 c 0.75,-0.259 1.47,-0.625 2.09,0.144 -0.23,0.215 -0.47,0.406 -0.72,0.576 0.3,-0.263 0.86,-0.448 1.22,-0.17 1.12,0.867 -1.25,0.08 -0.28,1.395 -0.85,-0.179 -4.02,-0.834 -2.31,-1.945"/>
-        <path id="path2762" d="m 2153.33,506.502 c 0,-0.753 0.9,-0.923 1.37,-1.224 0.1,0.788 -0.68,1.256 -1.37,1.224"/>
-        <path id="path2760" d="m 2155.78,505.782 c 0,0.375 0.19,0.615 0.58,0.72 -0.1,-0.326 -0.29,-0.566 -0.58,-0.72"/>
-      </g>
-      <circle id="hk_" class="subxx hk" r="4" cy="505.868" cx="2156.87"/>
-    </g>
-    <g id="mo" class="countryxx">
-      <title>Macao</title>
-      <path id="mo-" class="landxx mo" d="m 2151.1,506.502 c 0.13,-0.08 0.24,0.421 0.15,-0.145 0.12,0.278 0.14,0.566 0.1,0.864 -0.1,-0.239 -0.15,-0.479 -0.22,-0.719"/>
-      <circle id="mo_" class="subxx mo" r="4" cy="508.462" cx="2148.72"/>
-    </g>
     <g id="tw" class="countryxx landxx coastxx tw">
       <title>Taiwan</title>
-      <path id="path2738" d="m 2183.73,486.335 c -0.26,0.216 -0.54,0.384 -0.86,0.504 0.45,0.267 0.93,0.339 1.44,0.217 -0.17,-0.26 -0.36,-0.5 -0.58,-0.721"/>
       <path id="path2746" d="m 2197.91,494.903 c 0.19,0.717 0.58,1.315 0.34,2.076 -0.19,0.624 -0.39,1.169 0.15,1.7 1,0.976 1.33,2.582 1.97,3.848 0.74,1.471 2.34,1.896 3.29,3.167 0.3,0.408 0.94,3.044 1.69,2.651 0.98,-0.507 0.4,-2.174 0.29,-2.985 -0.18,-1.308 0.19,-2.287 0.93,-3.354 1.77,-2.551 2.09,-7.293 1.89,-10.309 -0.1,-0.624 -0.46,-1.561 -0.25,-2.175 0.2,-0.617 0.53,-0.972 0.6,-1.652 0.16,-1.583 -0.38,-2.74 -0.38,-4.271 0,-0.792 0.79,-1.433 0.1,-2.078 -0.44,-0.394 -2.71,-2.193 -3.28,-1.623 -0.91,0.903 -2.71,1.127 -3.22,2.396 -0.52,1.309 -0.37,2.075 -1.3,3.197 -0.86,1.024 -1.05,2.491 -1.39,3.733 -0.5,1.832 -1.83,3.698 -1.4,5.679"/>
       <g id="tw-" class="limitxx tw">
-        <path id="path2738-" d="m 2183.73,486.335 c -0.26,0.216 -0.54,0.384 -0.86,0.504 0.45,0.267 0.93,0.339 1.44,0.217 -0.17,-0.26 -0.36,-0.5 -0.58,-0.721"/>
         <path id="path2746-" d="m 2197.91,494.903 c 0.19,0.717 0.58,1.315 0.34,2.076 -0.19,0.624 -0.39,1.169 0.15,1.7 1,0.976 1.33,2.582 1.97,3.848 0.74,1.471 2.34,1.896 3.29,3.167 0.3,0.408 0.94,3.044 1.69,2.651 0.98,-0.507 0.4,-2.174 0.29,-2.985 -0.18,-1.308 0.19,-2.287 0.93,-3.354 1.77,-2.551 2.09,-7.293 1.89,-10.309 -0.1,-0.624 -0.46,-1.561 -0.25,-2.175 0.2,-0.617 0.53,-0.972 0.6,-1.652 0.16,-1.583 -0.38,-2.74 -0.38,-4.271 0,-0.792 0.79,-1.433 0.1,-2.078 -0.44,-0.394 -2.71,-2.193 -3.28,-1.623 -0.91,0.903 -2.71,1.127 -3.22,2.396 -0.52,1.309 -0.37,2.075 -1.3,3.197 -0.86,1.024 -1.05,2.491 -1.39,3.733 -0.5,1.832 -1.83,3.698 -1.4,5.679"/>
       </g>
     </g>
@@ -3083,6 +3063,73 @@
         <title>Aruba</title>
         <path id="aw-" class="landxx coastxx nl aw" d="m 769.776,590.526 c -0.12,-0.24 -0.24,-0.479 -0.36,-0.72 0.795,-0.313 1.129,0.837 1.229,1.368 -0.315,-0.182 -0.605,-0.398 -0.869,-0.648"/>
       </g>
+    </g>
+
+    <!--
+    /*
+     * Small territories that might get covered by other countries
+     */
+    -->
+
+    <g id="ad" class="countryxx">
+      <title>Andorra</title>
+      <path id="ad-" class="landxx ad" d="m 1317.49,330.318 c 0.55,-0.716 1.85,-0.365 2.3,0.288 -0.49,0.647 -1.31,0.987 -2.09,1.08 0,-0.461 -0.11,-0.917 -0.21,-1.368"/>
+      <circle id="ad_" class="circlexx ad" r="6" cy="330.84" cx="1317.89"/>
+    </g>
+    <g id="mc" class="countryxx">
+      <title>Monaco</title>
+      <path id="mc-" class="landxx mc" d="m 1358.89,320.67 c -0.12,-0.144 0.15,-0.405 0.39,-0.45 0.22,-0.04 -0.1,0.553 -0.39,0.45"/>
+      <circle id="mc_" class="circlexx mc" r="6" cy="320.304" cx="1357.15"/>
+    </g>
+    <g id="lu" class="countryxx">
+      <title>Luxembourg</title>
+      <path id="lu-" class="landxx eu lu" d="m 1348.75,268.58 c 0,-0.218 0.55,0.126 0,-0.02 0.48,-1.267 0.59,-1.79 1.57,-2.109 1.12,-0.365 0.7,0.681 1.08,1.263 0.5,0.78 1.56,1.038 2.13,1.769 0.62,0.793 -0.5,1.993 -0.39,2.909 -0.7,-0.342 -3.47,-0.372 -4.41,-0.666 1.28,-0.881 0.43,-1.622 0,-2.575"/>
+      <circle id="lu_" class="circlexx eu lu" r="6" cy="270.71" cx="1350.91"/>
+    </g>
+    <g id="sm" class="countryxx">
+      <title>San Marino</title>
+      <path id="sm-" class="landxx sm" d="m 1393.24,320.462 0.47,-0.69 0.68,0.536 -0.56,0.595 -0.59,-0.441 z"/>
+      <circle id="sm_" class="circlexx sm" r="6" cy="319.693" cx="1394.44"/>
+    </g>
+    <g id="va" class="countryxx">
+      <title>Vatican City</title>
+      <path id="va-" class="landxx va" d="m 1394.48,337.712 -0.1,0.03 -0.11,-0.04 0.1,-0.08 0.11,-0.02"/>
+      <circle id="va_" class="circlexx va" r="6" cy="337.096" cx="1394.53"/>
+    </g>
+    <g id="li" class="countryxx">
+      <title>Liechtenstein</title>
+      <path id="li-" class="landxx li" d="m 1373.36,292.374 c 0,-0.628 0.16,-1.228 0.43,-1.799 0.46,0.645 0.94,2.092 -0.43,1.799"/>
+      <circle id="li_" class="circlexx li" r="6" cy="291.921" cx="1373.18"/>
+    </g>
+    <g id="mt" class="countryxx">
+      <title>Malta</title>
+      <path id="mt-" class="landxx coastxx eu mt" d="m 1409.36,388.854 c -0.8,-0.08 -1.55,-0.824 -1.15,-1.655 0.58,0.34 1.94,0.768 1.15,1.655"/>
+      <circle id="mt_" class="circlexx eu mt" r="6" cy="389.232" cx="1410"/>
+    </g>
+
+    <g id="bh" class="countryxx">
+      <title>Bahrain</title>
+      <path id="bh-" class="landxx coastxx bh" d="m 1676.91,472.086 c 0.23,0.479 0.32,0.982 0.29,1.512 -0.14,0.691 0.7,1.188 0.86,1.8 0.29,-0.76 0.33,-4.892 -1.15,-3.312"/>
+      <circle id="bh_" class="circlexx bh" r="6" cy="470.454" cx="1675.59"/>
+    </g>
+    <g id="sg" class="countryxx">
+      <title>Singapore</title>
+      <path id="sg-" class="landxx coastxx sg" d="m 2093.43,686.214 c -0.96,0.252 0.51,2.079 1.8,0.359 -0.57,-0.271 -1.17,-0.391 -1.8,-0.359"/>
+      <circle id="sg_" class="circlexx sg" r="6" cy="687.1" cx="2095.06"/>
+    </g>
+    <g id="hk" class="countryxx">
+      <title>Hong Kong</title>
+      <g id="hk-" class="landxx coastxx hk">
+        <path id="path2764" class="landxx hk" d="m 2154.34,503.838 c 0.75,-0.259 1.47,-0.625 2.09,0.144 -0.23,0.215 -0.47,0.406 -0.72,0.576 0.3,-0.263 0.86,-0.448 1.22,-0.17 1.12,0.867 -1.25,0.08 -0.28,1.395 -0.85,-0.179 -4.02,-0.834 -2.31,-1.945"/>
+        <path id="path2762" d="m 2153.33,506.502 c 0,-0.753 0.9,-0.923 1.37,-1.224 0.1,0.788 -0.68,1.256 -1.37,1.224"/>
+        <path id="path2760" d="m 2155.78,505.782 c 0,0.375 0.19,0.615 0.58,0.72 -0.1,-0.326 -0.29,-0.566 -0.58,-0.72"/>
+      </g>
+      <circle id="hk_" class="circlexx hk" r="4" cy="505.868" cx="2156.87"/>
+    </g>
+    <g id="mo" class="countryxx">
+      <title>Macao</title>
+      <path id="mo-" class="landxx mo" d="m 2151.1,506.502 c 0.13,-0.08 0.24,0.421 0.15,-0.145 0.12,0.278 0.14,0.566 0.1,0.864 -0.1,-0.239 -0.15,-0.479 -0.22,-0.719"/>
+      <circle id="mo_" class="circlexx mo" r="4" cy="508.462" cx="2148.72"/>
     </g>
 
   <!--

@@ -7,7 +7,7 @@
 
 ![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/master/screenshot.png)
 
-## We do not depend on Google anymore! 🎉🎊
+## This package does not depend on 3rd parties
 
 Starting with v4, this package **does NOT depend on Google GeoCharts**.
 
