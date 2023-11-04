@@ -151,9 +151,9 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         item.onmouseleave = this.countryHover.bind(this, item, false);
       });
 
-      this.innerLoading = false;
-      this.cdRef.detectChanges();
+      // this.innerLoading = false;
       this.onChartReady();
+      this.cdRef.detectChanges();
 
     } catch (e) {
       this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
