@@ -1,6 +1,6 @@
 {
   "name": "countries-map",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "World countries datamaps component for Angular, based on Google GeoCharts",
   "license": "MIT",
   "author": "Jago MF <jago84@gmail.com>",
@@ -17,8 +17,8 @@
     "Charts"
   ],
   "peerDependencies": {
-    "@angular/common": "^12.0.0",
-    "@angular/core": "^12.0.0"
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
   },
   "dependencies": {
     "@jagomf/countrieslist": "^2.0.0",

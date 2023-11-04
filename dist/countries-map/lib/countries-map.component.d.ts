@@ -1,6 +1,7 @@
 import { ElementRef, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GoogleChartsLoaderService } from './google-charts-loader.service';
 import type { CountriesData, Selection, ValidCountryData } from './data-types.interface';
+import * as i0 from "@angular/core";
 export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     private readonly cdRef;
     private readonly el;
@@ -53,4 +54,6 @@ export declare class CountriesMapComponent implements OnChanges, OnDestroy {
     private onMapSelect;
     private registerChartWrapperEvents;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<CountriesMapComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapComponent, "countries-map", never, { "data": "data"; "apiKey": "apiKey"; "options": "options"; "countryLabel": "countryLabel"; "valueLabel": "valueLabel"; "showCaption": "showCaption"; "captionBelow": "captionBelow"; "autoResize": "autoResize"; "minValue": "minValue"; "maxValue": "maxValue"; "minColor": "minColor"; "maxColor": "maxColor"; "backgroundColor": "backgroundColor"; "noDataColor": "noDataColor"; "exceptionColor": "exceptionColor"; }, { "chartReady": "chartReady"; "chartError": "chartError"; "chartSelect": "chartSelect"; }, never, never>;
 }

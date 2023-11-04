@@ -1,6 +1,6 @@
 {
   "name": "countries-map",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "World countries datamaps component for Angular, based on Google GeoCharts",
   "license": "MIT",
   "author": "Jago MF <jago84@gmail.com>",
@@ -17,19 +17,31 @@
     "Charts"
   ],
   "peerDependencies": {
-    "@angular/common": "^12.0.0",
-    "@angular/core": "^12.0.0"
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
   },
   "dependencies": {
     "@jagomf/countrieslist": "^2.0.0",
     "tslib": "^2.0.0"
   },
-  "main": "bundles/countries-map.umd.js",
-  "module": "fesm2015/countries-map.js",
-  "es2015": "fesm2015/countries-map.js",
-  "esm2015": "esm2015/countries-map.js",
-  "fesm2015": "fesm2015/countries-map.js",
+  "module": "fesm2015/countries-map.mjs",
+  "es2020": "fesm2020/countries-map.mjs",
+  "esm2020": "esm2020/countries-map.mjs",
+  "fesm2020": "fesm2020/countries-map.mjs",
+  "fesm2015": "fesm2015/countries-map.mjs",
   "typings": "countries-map.d.ts",
-  "metadata": "countries-map.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./countries-map.d.ts",
+      "esm2020": "./esm2020/countries-map.mjs",
+      "es2020": "./fesm2020/countries-map.mjs",
+      "es2015": "./fesm2015/countries-map.mjs",
+      "node": "./fesm2015/countries-map.mjs",
+      "default": "./fesm2020/countries-map.mjs"
+    }
+  },
   "sideEffects": false
 }
