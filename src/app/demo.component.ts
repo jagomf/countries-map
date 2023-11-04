@@ -26,6 +26,7 @@ export class DemoComponent {
     'JP' : { value:  0, extra: { 'Sato': '', 'Yamamoto': '' } },
     'NZ' : { value:  1, extra: { 'Hulme': '' } },
     'ZA' : { value:  1, extra: { 'Scheckter': '' } },
+    'NL' : { value:  3, extra: { 'Verstappen': '' } },
     'IN' : { value:  0, extra: { 'Karthikeiyan': '', 'Chandhok': '' } },
     'BR' : { value:  8, extra: { 'Massa': '', 'Barrichello': '', 'Senna': '', 'Piquet': '' } },
     'DE' : { value:  12, extra: { 'Vettel': '', 'Schumacher': '' } }
