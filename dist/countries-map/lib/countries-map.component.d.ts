@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import type { CountriesData, DrawableCountries, Selection, ValidExtraData } from './data-types.interface';
+import * as i0 from "@angular/core";
 export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     private readonly cdRef;
     data: CountriesData;
@@ -35,4 +36,6 @@ export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     onMapSelect({ target }: {
         target?: SVGElement;
     }): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<CountriesMapComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapComponent, "countries-map", never, { "data": "data"; "countryLabel": "countryLabel"; "valueLabel": "valueLabel"; "showCaption": "showCaption"; "captionBelow": "captionBelow"; "minValue": "minValue"; "maxValue": "maxValue"; "minColor": "minColor"; "maxColor": "maxColor"; "backgroundColor": "backgroundColor"; "noDataColor": "noDataColor"; "exceptionColor": "exceptionColor"; }, { "chartReady": "chartReady"; "chartError": "chartError"; "chartSelect": "chartSelect"; }, never, never>;
 }
