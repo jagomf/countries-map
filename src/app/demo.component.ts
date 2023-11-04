@@ -21,6 +21,7 @@ export class DemoComponent {
     'AT' : { value:  4, extra: { 'Lauda': '1975, 1977, 1984', 'Rindt': '1970' } },
     'FR' : { value:  4, extra: { 'Prost': '1985-1986, 1989, 1993' } },
     'IT' : { value:  3, extra: { 'Ascari': '1952-1953', 'Farina': '1950' } },
+    'NL' : { value:  3, extra: { 'Verstappen': '2021-2023' } },
     'US' : { value:  2, extra: { 'Hill, P.': '1961', 'Andretti': '1978' } },
     'ES' : { value:  2, extra: { 'Alonso': '2005-2006' } },
     'NZ' : { value:  1, extra: { 'Hulme': '1967' } },
