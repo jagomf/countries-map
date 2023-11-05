@@ -84,6 +84,6 @@
           }
         }
       }
-    }},
-  "defaultProject": "countries-map"
+    }
+  }
 }

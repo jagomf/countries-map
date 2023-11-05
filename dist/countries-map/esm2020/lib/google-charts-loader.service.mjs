@@ -58,9 +58,9 @@ export class GoogleChartsLoaderService {
         });
     }
 }
-GoogleChartsLoaderService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.4.0", ngImport: i0, type: GoogleChartsLoaderService, deps: [{ token: LOCALE_ID }], target: i0.ɵɵFactoryTarget.Injectable });
-GoogleChartsLoaderService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.4.0", ngImport: i0, type: GoogleChartsLoaderService });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.4.0", ngImport: i0, type: GoogleChartsLoaderService, decorators: [{
+GoogleChartsLoaderService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.3.0", ngImport: i0, type: GoogleChartsLoaderService, deps: [{ token: LOCALE_ID }], target: i0.ɵɵFactoryTarget.Injectable });
+GoogleChartsLoaderService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.3.0", ngImport: i0, type: GoogleChartsLoaderService });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.3.0", ngImport: i0, type: GoogleChartsLoaderService, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
