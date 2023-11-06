@@ -16,6 +16,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "chroma-js"
+            ],
             "outputPath": "dist/demo",
             "index": "src/index.html",
             "main": "src/main.ts",
