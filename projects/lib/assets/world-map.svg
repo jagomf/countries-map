@@ -1141,6 +1141,10 @@
         <title>Isle of Man</title>
         <path id="im-" class="landxx coastxx gb im" d="m 1281.85,233.982 c 0.89,-0.203 2.61,-0.724 3.03,-1.626 0.28,-0.611 -0.67,-0.963 -1.12,-0.78 -0.93,0.378 -1.46,1.593 -1.91,2.406"/>
       </g>
+      <g id="bm">
+        <title>Bermuda</title>
+        <path id="bm-" class="landxx coastxx gb bm" d="m 832.056,419.454 c 0.25,-0.174 0.517,-0.318 0.8,-0.433 -0.267,0.145 -0.534,0.289 -0.8,0.433"/>
+      </g>
     </g>
     <g id="cr" class="countryxx landxx coastxx cr">
       <title>Costa Rica</title>
@@ -2867,11 +2871,6 @@
         <path id="Saint_Kitts_and_Nevis_Nevis" d="m 829.326,550.71 c -0.05,-0.264 -0.1,-0.528 -0.15,-0.792 0.354,0.344 0.37,0.432 0.15,0.792"/>
       </g>
       <circle id="kn_" class="circlexx kn" r="6" cy="555.652" cx="820.219"/>
-    </g>
-    <g id="bm" class="countryxx">
-      <title>Bermuda</title>
-      <path id="bm-" class="landxx coastxx bm" d="m 832.056,419.454 c 0.25,-0.174 0.517,-0.318 0.8,-0.433 -0.267,0.145 -0.534,0.289 -0.8,0.433"/>
-      <circle id="bm_" class="circlexx bm" r="6" cy="417.566" cx="831.674"/>
     </g>
     <g id="tv" class="countryxx">
       <title>Tuvalu</title>

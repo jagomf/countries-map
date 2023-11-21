@@ -7,9 +7,9 @@
 
 ![screenshot](https://raw.githubusercontent.com/jagomf/countries-map/master/screenshot.png)
 
-## This package does not depend on 3rd parties
+## This package does not depend on 3rd parties' maps
 
-Starting with v4, this package **does NOT depend on Google GeoCharts**.
+Starting with v4, this package **does NOT depend on Google GeoCharts** but uses its own embedded map.
 
 If you want to use v3 (which depends on Google GeoCharts), please check [ReadMe v3](https://github.com/jagomf/countries-map/blob/v3/README.md).
 
@@ -71,13 +71,13 @@ Element `<countries-map>` accepts the following attributes/inputs:
 
 Attribute | Type | Default | Description
 --- | --- | --- | ---
-`data` | `CountriesData` | - | Describes list of countries and their value and extra data (if any). See description for interface [`CountriesData`](#interface-countriesdata).
+`data` | `CountriesData` | Required | Describes list of countries and their value and extra data (if any). See below description for interface [`CountriesData`](#interface-countriesdata).
 `countryLabel` | `string` | `'Country'` | Caption label for country name.
 `valueLabel` | `string` | `'Value'` | Caption label for country's value.
 `showCaption` | `boolean` | `true` | Shows/hides caption.
 `captionBelow` | `boolean` | `true` | Places caption below or above the map.
-`minValue` | `number` | - | If stated, sets the base to be used as lowest value expected in the color scale (values below `minValue` will have same color).
-`maxValue` | `number` | - | If stated, sets the base to be used as highest value expected in the color scale (values above `maxValue` will have same color).
+`minValue` | `number` | Optional | If stated, sets the base to be used as lowest value expected in the color scale (values below `minValue` will have same color).
+`maxValue` | `number` | Optional | If stated, sets the base to be used as highest value expected in the color scale (values above `maxValue` will have same color).
 `minColor` | `string` | `'white'` | Hex or named color representing the lowest value.
 `maxColor` | `string` | `'red'` | Hex or named color representing the highest value.
 `noDataColor` | `string` | `'#CFCFCF'` | Hex or named color for countries not included in data list.
@@ -220,11 +220,17 @@ These are the classes you can apply styles to, hierarchically displayed, and ass
       * `cm-extended-label`: key of the single extra item
       * `cm-extended-value`: value of the single extra item
 
+## Countries
+
+Current valid country codes are widely-recognized sovereign nations plus some other autonomous realms. Check the currently valid list at [`@jagomf/countrieslist`](https://github.com/jagomf/countrieslist).
+
 ## Projects
 
 Highlighted projects currently using countries-map:
 
 * [Deflaggr](https://deflaggr.com): Collect world flags
+
+Contact us if you want to get highlighted.
 
 ## License
 

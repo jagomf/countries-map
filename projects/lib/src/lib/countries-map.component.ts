@@ -106,11 +106,11 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
       if (this.data) {
         // get highest value in range
         const maxVal = exists(this.maxValue) ? this.maxValue : Object.values(this.data).reduce(
-          (acc, curr) => countryNum(curr) > acc || acc === null? countryNum(curr) : acc, null as number
+          (acc, curr) => countryNum(curr) > acc || acc === null ? countryNum(curr) : acc, null as number
         );
         // get lowest value in range
         const minVal = exists(this.minValue) ? this.minValue : Object.values(this.data).reduce(
-          (acc, curr) => countryNum(curr) < acc || acc === null? countryNum(curr) : acc, null as number
+          (acc, curr) => countryNum(curr) < acc || acc === null ? countryNum(curr) : acc, null as number
         );
 
         // map values in range to colors
