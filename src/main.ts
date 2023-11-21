@@ -1,6 +1,9 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { DemoComponent } from './demo/demo.component';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { CountriesMapModule } from 'countries-map';
 
-import { DemoModule } from './demo/demo.module';
-
-platformBrowserDynamic().bootstrapModule(DemoModule)
+bootstrapApplication(DemoComponent, {
+  providers: [importProvidersFrom(CountriesMapModule, BrowserModule)]
+})
   .catch(err => console.error(err));
