@@ -4,5 +4,5 @@ import * as i0 from "@angular/core";
  */
 export declare class CountriesMapBaseComponent {
     static ɵfac: i0.ɵɵFactoryDeclaration<CountriesMapBaseComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapBaseComponent, "countries-map-base", never, {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapBaseComponent, "countries-map-base", never, {}, {}, never, never, false, never>;
 }

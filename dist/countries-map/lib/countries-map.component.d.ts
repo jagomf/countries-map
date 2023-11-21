@@ -37,5 +37,5 @@ export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
         target?: SVGElement;
     }): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<CountriesMapComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapComponent, "countries-map", never, { "data": "data"; "countryLabel": "countryLabel"; "valueLabel": "valueLabel"; "showCaption": "showCaption"; "captionBelow": "captionBelow"; "minValue": "minValue"; "maxValue": "maxValue"; "minColor": "minColor"; "maxColor": "maxColor"; "backgroundColor": "backgroundColor"; "noDataColor": "noDataColor"; "exceptionColor": "exceptionColor"; }, { "chartReady": "chartReady"; "chartError": "chartError"; "chartSelect": "chartSelect"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapComponent, "countries-map", never, { "data": "data"; "countryLabel": "countryLabel"; "valueLabel": "valueLabel"; "showCaption": "showCaption"; "captionBelow": "captionBelow"; "minValue": "minValue"; "maxValue": "maxValue"; "minColor": "minColor"; "maxColor": "maxColor"; "backgroundColor": "backgroundColor"; "noDataColor": "noDataColor"; "exceptionColor": "exceptionColor"; }, { "chartReady": "chartReady"; "chartError": "chartError"; "chartSelect": "chartSelect"; }, never, never, false, never>;
 }

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { ChartErrorEvent } from '../../projects/lib/src/public-api'; // TODO: 'countries-map'
+import { ChartErrorEvent, CountriesMapModule } from 'countries-map';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'demo-content',
-  templateUrl: './demo.component.html',
-  styles: ['']
+    selector: 'demo-content',
+    templateUrl: './demo.component.html',
+    styles: [''],
+    standalone: true,
+    imports: [NgIf, CountriesMapModule]
 })
 export class DemoComponent {
   public mapData = {

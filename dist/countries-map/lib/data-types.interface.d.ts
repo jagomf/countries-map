@@ -1,4 +1,4 @@
-export declare type ValidExtraData = string | number;
+export type ValidExtraData = string | number;
 export interface SelectionExtra {
     key: string;
     val: ValidExtraData;
