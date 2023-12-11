@@ -12,7 +12,7 @@ export class GoogleChartsLoaderService {
   constructor(@Inject(LOCALE_ID) private readonly localeId: string) {
   }
 
-  async load(apiKey?: string) {
+  async load(apiKey?: string): Promise<void> {
     await this.loadGoogleChartsScript();
     const initializer = {
       packages: ['geochart'],

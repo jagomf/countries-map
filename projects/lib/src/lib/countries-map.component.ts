@@ -30,7 +30,7 @@ const countryName = (countryCode: string): string => {
 })
 export class CountriesMapComponent implements OnChanges, OnDestroy {
 
-  @Input() data: CountriesData;
+  @Input({ required: true }) data: CountriesData;
   @Input() apiKey: string;
   @Input() options: any;
   @Input() countryLabel = 'Country';

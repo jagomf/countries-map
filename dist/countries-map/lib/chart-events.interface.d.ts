@@ -10,5 +10,5 @@ export interface ChartErrorEvent {
     id: string | CharErrorCode;
     message: string;
     detailedMessage?: string;
-    options?: Object;
+    options?: object;
 }
