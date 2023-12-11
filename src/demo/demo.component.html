@@ -13,9 +13,9 @@
     (chartError)="mapError($event)"
     (chartReady)="mapReady()"
     [showCaption]="true"
-    [captionBelow]="false">
-    <!-- Caption intentionally left above the map for demo so that it is clearly seen -->
-  </countries-map>
+    [captionBelow]="false"
+  />
+  <!-- Caption intentionally left above the map for demo so that it is clearly seen -->
 </div>
 <ng-template #errorOnLoad>
   <span>{{errorLoading?.message}}</span>

@@ -38,7 +38,7 @@ const countryName = (countryCode: string): string => {
 })
 export class CountriesMapComponent implements AfterViewInit, OnChanges {
 
-  @Input() data: CountriesData;
+  @Input({ required: true }) data: CountriesData;
   @Input() countryLabel = 'Country';
   @Input() valueLabel = 'Value';
   @Input() showCaption = true;
