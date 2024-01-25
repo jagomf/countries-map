@@ -184,7 +184,8 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
     const event: ChartSelectEvent = {
       selected: false,
       value: null,
-      country: null
+      country: null,
+      extra: null,
     };
 
     let newItem: SVGElement;
@@ -203,6 +204,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
       event.selected = true;
       event.value = countryNum(country);
       event.country = newItem.id.toUpperCase();
+      event.extra = country.extra;
       this.selectCountry(event.country);
     } else {
       this.selectCountry(null);
