@@ -201,7 +201,6 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
 
     const country = this.mapData[newItem?.id];
     if (country) {
-      console.warn(`#CountriesMapComponent -> onMapSelect() -> country: `, country);
       event.selected = true;
       event.value = countryNum(country);
       event.country = newItem.id.toUpperCase();
