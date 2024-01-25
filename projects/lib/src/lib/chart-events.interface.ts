@@ -1,7 +1,10 @@
+import { CountryExtraData } from "./data-types.interface";
+
 export interface ChartSelectEvent {
   selected: boolean;
   value?: number;
   country: string;
+  extra?: CountryExtraData;
 }
 
 export enum CharErrorCode {loading = 'loading'}
