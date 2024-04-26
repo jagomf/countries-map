@@ -51,11 +51,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "countries-map-dev:build"
+            "buildTarget": "countries-map-dev:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "countries-map-dev:build:production"
+              "buildTarget": "countries-map-dev:build:production"
             }
           }
         }
