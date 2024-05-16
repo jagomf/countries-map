@@ -2,7 +2,10 @@
   <h1>countries-map demo</h1>
 </div>
 <h2>Map with data</h2>
-<div *ngIf="!errorLoading; else errorOnLoad">
+@if (errorLoading) {
+<span>{{errorLoading?.message}}</span>
+} @else {
+<div>
   <countries-map
     class="demo-maps"
     [data]="mapData"
@@ -16,6 +19,4 @@
     [captionBelow]="false"
   />
 </div>
-<ng-template #errorOnLoad>
-  <span>{{errorLoading?.message}}</span>
-</ng-template>
+}

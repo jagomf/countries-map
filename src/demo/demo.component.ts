@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { ChartErrorEvent, CountriesMapModule } from 'countries-map';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'demo-content',
     templateUrl: './demo.component.html',
     styles: [''],
     standalone: true,
-    imports: [NgIf, CountriesMapModule]
+    imports: [CountriesMapModule]
 })
 export class DemoComponent {
   public mapData = {

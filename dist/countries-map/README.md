@@ -43,7 +43,7 @@ export class AppModule { }
 
 In your templates, use the `<countries-map>` component like this:
 ```html
-<countries-map [data]="mapData" [apiKey]="abcdef"></countries-map>
+<countries-map [data]="mapData" [apiKey]="abcdef"/>
 ```
 and in the corresponding `.ts` file:
 ```ts
@@ -96,7 +96,7 @@ The `chartReady` event is fired when a chart is completely loaded.
 
 Bind the `chartReady` event in the `countries-map` component like this:
 ```html
-<countries-map [data]="mapData" (chartReady)="ready()"></countries-map>
+<countries-map [data]="mapData" (chartReady)="ready()"/>
 ```
 
 Your `ready()` function receives no parameters. You can use it like:
@@ -112,7 +112,7 @@ The `chartError` event is fired if there are some errors with a chart.
 
 Bind the `chartError` event in the `countries-map` component, like this:
 ```html
-<countries-map [data]="mapData" (chartError)="error($event)"></countries-map>
+<countries-map [data]="mapData" (chartError)="error($event)"/>
 ```
 
 Your `error()` function is passed an event which interface looks like this:
@@ -148,7 +148,7 @@ The `chartSelect` event is fired when a chart is selected/clicked.
 
 Bind the `chartSelect` event in the `countries-map` component, like this:
 ```html
-<countries-map [data]="mapData" (chartSelect)="select($event)"></countries-map>
+<countries-map [data]="mapData" (chartSelect)="select($event)"/>
 ```
 
 Your `select()` function is passed an event whose interface looks like this:
@@ -196,7 +196,7 @@ These are the classes you can apply styles to, hierarchically displayed, and ass
 You can access Google Chart's underlying [ChartWrapper](https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject) through the
 `wrapper` property of the component object:
 ```html
-<countries-map #cmap [data]="mapData"></countries-map>
+<countries-map #cmap [data]="mapData"/>
 ```
 
 ```ts
