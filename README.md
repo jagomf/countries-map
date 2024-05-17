@@ -9,7 +9,7 @@
 
 ## This package does not depend on 3rd parties' maps
 
-Starting with v4, this package **does NOT depend on Google GeoCharts** but uses its own embedded map.
+Version v4 of this package **does NOT depend on Google GeoCharts** but uses its own embedded map.
 
 If you want to use v3 (which depends on Google GeoCharts), please check [ReadMe v3](https://github.com/jagomf/countries-map/blob/v3/README.md).
 

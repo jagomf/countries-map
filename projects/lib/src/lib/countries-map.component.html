@@ -1,25 +1,36 @@
-<div class="major-block loading" *ngIf="loading"><span class="text">Loading map...</span></div>
+@if (loading) {
+<div class="major-block loading"><span class="text">Loading map...</span></div>
+}
 
-<countries-map-base class="major-block cm-map-content" #mapContent (click)="onMapSelect($event)" [ngClass]="{'goes-first': captionBelow}">
-</countries-map-base>
+<countries-map-base class="major-block cm-map-content" #mapContent (click)="onMapSelect($event)" [ngClass]="{'goes-first': captionBelow}"/>
 
-<div class="major-block cm-caption-container" [ngClass]="{'goes-first': !captionBelow}"
-  *ngIf="!loading && showCaption">
+@if (!loading && showCaption) {
+<div class="major-block cm-caption-container" [ngClass]="{'goes-first': !captionBelow}">
   <div class="cm-simple-caption">
     <div class="cm-country-label">
-      <span class="cm-default-label" *ngIf="!selection">{{countryLabel}}</span>
-      <span class="cm-country-name" *ngIf="selection">{{selection?.countryName}}</span>
+      @if (selection) {
+        <span class="cm-country-name">{{selection?.countryName}}</span>
+      } @else {
+        <span class="cm-default-label">{{countryLabel}}</span>
+      }
     </div>
     <div class="cm-value-label">
       <span class="cm-value-text"
-        [ngClass]="{'has-value': selection}">{{valueLabel}}<span *ngIf="selection">: </span></span>
-      <span class="cm-value-content" *ngIf="selection">{{selectionValue}}</span>
+        [ngClass]="{'has-value': selection}">{{valueLabel}}@if (selection) {<span>: </span>}</span>
+      @if (selection) {
+        <span class="cm-value-content">{{selectionValue}}</span>
+      }
     </div>
   </div>
-  <div class="cm-extended-caption" *ngIf="selection?.extra && selection?.extra.length > 0">
-    <div *ngFor="let item of selection?.extra" class="cm-extended-item">
-      <span class="cm-extended-label">{{item.key}}</span>:
-      <span class="cm-extended-value">{{item.val}}</span>
+  @if (selection?.extra?.length > 0) {
+    <div class="cm-extended-caption">
+      @for (item of selection?.extra; track item.key) {
+        <div class="cm-extended-item">
+          <span class="cm-extended-label">{{item.key}}</span>:
+          <span class="cm-extended-value">{{item.val}}</span>
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>
+}

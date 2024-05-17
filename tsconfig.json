@@ -10,10 +10,10 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "es2020",
+    "module": "ES2022",
     "types": [],
     "lib": [
-      "es2018",
+      "ES2022",
       "dom"
     ],
     "paths": {
@@ -22,5 +22,8 @@
       ]
     },
     "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }

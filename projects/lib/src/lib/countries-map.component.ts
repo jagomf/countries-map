@@ -180,7 +180,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
     this.chartError.emit(error);
   }
 
-  onMapSelect({ target }: { target?: SVGElement }): void {
+  onMapSelect(ev: MouseEvent): void {
     const event: ChartSelectEvent = {
       selected: false,
       value: null,
@@ -188,11 +188,11 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
     };
 
     let newItem: SVGElement;
-    if (target.id === oceanId) {
+    if ((ev.target as SVGElement)?.id === oceanId) {
       this.selectCountry(null);
 
     } else {
-      newItem = target;
+      newItem = ev.target as SVGElement;
       while (!newItem.classList.contains(countryClass)) {
         newItem = newItem.parentNode as SVGElement;
       }

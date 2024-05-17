@@ -33,9 +33,7 @@ export declare class CountriesMapComponent implements AfterViewInit, OnChanges {
     private countryHover;
     private onChartReady;
     private onCharterror;
-    onMapSelect({ target }: {
-        target?: SVGElement;
-    }): void;
+    onMapSelect(ev: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<CountriesMapComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<CountriesMapComponent, "countries-map", never, { "data": { "alias": "data"; "required": true; }; "countryLabel": { "alias": "countryLabel"; "required": false; }; "valueLabel": { "alias": "valueLabel"; "required": false; }; "showCaption": { "alias": "showCaption"; "required": false; }; "captionBelow": { "alias": "captionBelow"; "required": false; }; "minValue": { "alias": "minValue"; "required": false; }; "maxValue": { "alias": "maxValue"; "required": false; }; "minColor": { "alias": "minColor"; "required": false; }; "maxColor": { "alias": "maxColor"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "noDataColor": { "alias": "noDataColor"; "required": false; }; "exceptionColor": { "alias": "exceptionColor"; "required": false; }; }, { "chartReady": "chartReady"; "chartError": "chartError"; "chartSelect": "chartSelect"; }, never, never, false, never>;
 }
