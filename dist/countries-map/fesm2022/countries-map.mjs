@@ -143,6 +143,7 @@ class CountriesMapComponent {
         const event = {
             selected: false,
             value: null,
+            extra: null,
             country: null
         };
         let newItem;
@@ -160,6 +161,7 @@ class CountriesMapComponent {
             event.selected = true;
             event.value = countryNum(country);
             event.country = newItem.id.toUpperCase();
+            event.extra = country.extra;
             this.selectCountry(event.country);
         }
         else {

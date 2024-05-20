@@ -185,6 +185,7 @@ interface ChartSelectEvent {
   selected: boolean;
   value: number | null;
   country: string;
+  extra?: CountryExtraData;
 }
 ```
 
