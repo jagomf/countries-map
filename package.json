@@ -13,7 +13,7 @@
     "start": "npm run demo",
     "dist": "npm run build:prod",
     "dist:publish": "npm run dist && cd dist/countries-map && npm publish",
-    "dist:copy": "cp ./{README.md,LICENSE} dist/countries-map/",
+    "dist:copy": "cp ./README.md dist/countries-map/ && cp ./LICENSE dist/countries-map/",
     "lint": "ng lint"
   },
   "private": true,
