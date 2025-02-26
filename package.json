@@ -25,7 +25,7 @@
     "@angular/core": "^18.2.13",
     "@angular/platform-browser": "^18.2.13",
     "@angular/platform-browser-dynamic": "^18.2.13",
-    "@jagomf/countrieslist": "^3.0.1",
+    "@jagomf/countrieslist": "^4.0.0",
     "chroma-js": "^2.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.6.2",
