@@ -1,10 +1,13 @@
 {
   "name": "countries-map-dev",
-  "version": "4.11.1",
+  "version": "4.11.2",
   "description": "Builder and demo runner for countries-map",
   "license": "MIT",
   "author": "Jago MF <jago@lunadevel.com>",
-  "repository": "github:jagomf/countries-map",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jagomf/countries-map.git"
+  },
   "homepage": "https://github.com/jagomf/countries-map",
   "scripts": {
     "demo": "npm run minify && ng serve",

@@ -1,10 +1,13 @@
 {
   "name": "countries-map",
-  "version": "4.11.0",
+  "version": "4.11.2",
   "description": "World countries datamaps component for Angular",
   "license": "MIT",
   "author": "Jago MF <jago@lunadevel.com>",
-  "repository": "github:jagomf/countries-map",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jagomf/countries-map.git"
+  },
   "homepage": "https://github.com/jagomf/countries-map",
   "keywords": [
     "countries",
