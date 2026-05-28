@@ -1,6 +1,6 @@
 {
   "name": "countries-map-dev",
-  "version": "3.14.3",
+  "version": "3.14.4",
   "description": "Builder and demo runner for countries-map",
   "license": "MIT",
   "author": "Jago MF <jago84@gmail.com>",
@@ -15,7 +15,7 @@
     "build:prod": "ng build countries-map --configuration=production && npm run dist:copy",
     "start": "npm run demo",
     "dist": "npm run build:prod",
-    "dist:publish": "npm run dist && cd dist/countries-map && npm publish --tag v3",
+    "dist:publish": "npm run dist && cd dist/countries-map && npm publish --tag legacy",
     "dist:copy": "cp ./README.md dist/countries-map/ && cp ./LICENSE dist/countries-map/",
     "lint": "ng lint"
   },
