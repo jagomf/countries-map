@@ -16,7 +16,7 @@ import type { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface
 import type { CountriesData, SelectionExtra, DrawableCountries, Selection,
   ValidExtraData, DrawableCountry, CountryData } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
-import { scale } from 'chroma-js';
+import chroma from 'chroma-js';
 
 const exists = item => typeof item !== 'undefined' && item !== null;
 const countryNum = (item: CountryData) => parseInt(item.value?.toString());
@@ -114,7 +114,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         );
 
         // map values in range to colors
-        const valToCol = scale([this.minColor, this.maxColor]).colors((maxVal ?? 1) - (minVal ?? 0) + 1).reduce((acc, curr, i) =>
+        const valToCol = chroma.scale([this.minColor, this.maxColor]).colors((maxVal ?? 1) - (minVal ?? 0) + 1).reduce((acc, curr, i) =>
           ({ ...acc, [i + minVal]: curr }), {} as { [key: number]: string }
         );
 
