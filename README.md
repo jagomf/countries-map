@@ -84,6 +84,8 @@ Attribute | Type | Default | Description
 `exceptionColor` | `string` | `'#FFEE58'` | Hex or named color for countries with value `null` or `undefined`.
 `backgroundColor` | `string` | `'white'` | Hex or named color of the map background.
 
+The colors between `minColor` and `maxColor` are computed with CSS `color-mix()` in sRGB, so values with different opacities blend with premultiplied alpha.
+
 
 ### Interface `CountriesData`
 

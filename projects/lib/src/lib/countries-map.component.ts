@@ -16,10 +16,14 @@ import type { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface
 import type { CountriesData, SelectionExtra, DrawableCountries, Selection,
   ValidExtraData, DrawableCountry, CountryData } from './data-types.interface';
 import { en as countriesEN } from '@jagomf/countrieslist';
-import chroma from 'chroma-js';
 
 const exists = item => typeof item !== 'undefined' && item !== null;
 const countryNum = (item: CountryData) => parseInt(item.value?.toString());
+
+// A single step yields the midpoint between both colors.
+const colorScale = (from: string, to: string, steps: number): string[] =>
+  Array.from({ length: steps }, (_, i) =>
+    `color-mix(in srgb, ${to} ${steps === 1 ? 50 : i / (steps - 1) * 100}%, ${from})`);
 
 const countryClass = 'countryxx';
 const oceanId = 'ocean';
@@ -114,7 +118,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         );
 
         // map values in range to colors
-        const valToCol = chroma.scale([this.minColor, this.maxColor]).colors((maxVal ?? 1) - (minVal ?? 0) + 1).reduce((acc, curr, i) =>
+        const valToCol = colorScale(this.minColor, this.maxColor, (maxVal ?? 1) - (minVal ?? 0) + 1).reduce((acc, curr, i) =>
           ({ ...acc, [i + minVal]: curr }), {} as { [key: number]: string }
         );
 

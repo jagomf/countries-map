@@ -1,6 +1,6 @@
 {
   "name": "countries-map-dev",
-  "version": "4.12.0",
+  "version": "4.13.0",
   "description": "Builder and demo runner for countries-map",
   "license": "MIT",
   "author": "Jago MF <jago@lunadevel.com>",
@@ -10,8 +10,8 @@
   },
   "homepage": "https://github.com/jagomf/countries-map",
   "scripts": {
-    "demo": "npm run minify && ng serve",
-    "build:demo": "npm run minify && ng build countries-map-dev",
+    "demo": "npm run minify && ng build countries-map && ng serve",
+    "build:demo": "npm run minify && ng build countries-map && ng build countries-map-dev",
     "build:prod": "npm run minify && ng build countries-map --configuration production && npm run dist:copy",
     "start": "npm run demo",
     "minify:pre": "cp projects/lib/assets/world-map.svg projects/lib/src/lib/base-map.component.svg",
@@ -27,9 +27,7 @@
     "@angular/compiler": "^18.2.13",
     "@angular/core": "^18.2.13",
     "@angular/platform-browser": "^18.2.13",
-    "@angular/platform-browser-dynamic": "^18.2.13",
-    "@jagomf/countrieslist": "^4.0.0",
-    "chroma-js": "^2.1.0",
+    "@jagomf/countrieslist": "^4.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.10"
@@ -43,14 +41,11 @@
     "@angular-eslint/template-parser": "18.4.3",
     "@angular/cli": "^18.2.14",
     "@angular/compiler-cli": "^18.2.13",
-    "@types/chroma-js": "^2.1.2",
-    "@types/node": "^12.19.9",
     "@typescript-eslint/eslint-plugin": "7.11.0",
     "@typescript-eslint/parser": "7.11.0",
     "eslint": "8.57.0",
     "ng-packagr": "^18.2.1",
     "svgo": "^1.3.2",
-    "ts-node": "~8.3.0",
     "typescript": "~5.4.5"
   }
 }
