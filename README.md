@@ -150,8 +150,7 @@ Your `error()` function is passed an event which interface looks like this:
 interface ChartErrorEvent {
   id: string | CharErrorCode;
   message: string;
-  detailedMessage: string;
-  options: Object;
+  detailedMessage?: string;
 }
 ```
 
@@ -169,8 +168,6 @@ public error(event: ChartErrorEvent) {
   // your logic
 }
 ```
-
-See more details about [returned values for error event][google-charts-error-event].
 
 ### chartSelect
 
@@ -213,7 +210,7 @@ These are the classes you can apply styles to, hierarchically displayed, and ass
 * `cm-caption-container`: full caption area
   * `cm-simple-caption`: main caption section (`countryLabel`/`valueLabel` area)
     * `cm-country-label`: `countryLabel` keyword or country name (whichever is shown)
-      * `cm-defaut-label`: `countryLabel` keyword
+      * `cm-default-label`: `countryLabel` keyword
       * `cm-country-name`: country name
     * `cm-value-label`: `valueLabel` keyword or value label, plus actual value
       * `cm-value-text`: `valueLabel` keyword or value label (whichever is shown)
