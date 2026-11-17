@@ -38,7 +38,8 @@ const countryName = (countryCode: string): string => {
   selector: 'countries-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './countries-map.component.html',
-  styleUrls: ['./countries-map.component.scss']
+  styleUrls: ['./countries-map.component.scss'],
+  standalone: false
 })
 export class CountriesMapComponent implements AfterViewInit, OnChanges {
 

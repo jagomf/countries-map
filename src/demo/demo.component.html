@@ -2,20 +2,21 @@
   <h1>countries-map demo</h1>
 </div>
 <h2>Map with data</h2>
-<div *ngIf="!errorLoading; else errorOnLoad">
-  <countries-map
-    class="demo-maps"
-    [data]="mapData"
-    valueLabel="F1 World Cups"
-    countryLabel="Nationality"
-    minColor="lightyellow"
-    (chartError)="mapError($event)"
-    (chartReady)="mapReady()"
-    [showCaption]="true"
-    [captionBelow]="false"
-  />
-  <!-- Caption intentionally left above the map for demo so that it is clearly seen -->
-</div>
-<ng-template #errorOnLoad>
+@if (!errorLoading) {
+  <div>
+    <countries-map
+      class="demo-maps"
+      [data]="mapData"
+      valueLabel="F1 World Cups"
+      countryLabel="Nationality"
+      minColor="lightyellow"
+      (chartError)="mapError($event)"
+      (chartReady)="mapReady()"
+      [showCaption]="true"
+      [captionBelow]="false"
+      />
+    <!-- Caption intentionally left above the map for demo so that it is clearly seen -->
+  </div>
+} @else {
   <span>{{errorLoading?.message}}</span>
-</ng-template>
+}

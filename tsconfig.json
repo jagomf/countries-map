@@ -1,24 +1,20 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "esModuleInterop": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "strict": false,
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "types": [],
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "paths": {
       "countries-map": [
-        "dist/countries-map"
+        "./dist/countries-map"
       ]
     },
     "useDefineForClassFields": false
