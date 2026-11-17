@@ -16,9 +16,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "allowedCommonJsDependencies": [
-              "chroma-js"
-            ],
             "outputPath": {
               "base": "dist/demo"
             },

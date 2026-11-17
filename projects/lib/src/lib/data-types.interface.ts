@@ -16,7 +16,7 @@ export interface CountryExtraData {
 }
 
 export interface CountryData {
-  value: number;
+  value: number | null;
   extra?: CountryExtraData;
 }
 

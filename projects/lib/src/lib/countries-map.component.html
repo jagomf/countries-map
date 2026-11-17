@@ -22,7 +22,7 @@
       }
     </div>
   </div>
-  @if (selection?.extra?.length > 0) {
+  @if (selection?.extra?.length) {
     <div class="cm-extended-caption">
       @for (item of selection?.extra; track item.key) {
         <div class="cm-extended-item">

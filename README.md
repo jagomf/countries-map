@@ -108,7 +108,7 @@ interface CountriesData {
   [countryCode: string]: CountryData;
 }
 interface CountryData {
-  value: number;
+  value: number | null;
   extra?: CountryExtraData;
 }
 interface CountryExtraData {
@@ -187,6 +187,8 @@ interface ChartSelectEvent {
   extra?: CountryExtraData;
 }
 ```
+
+When the click deselects the current country (a click on the ocean or on a country that is not in `data`), the event has `selected: false` and `value`, `country` and `extra` set to `null`.
 
 You can import the `ChartSelectEvent` interface in your `.ts` file:
 ```ts

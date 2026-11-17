@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "strict": false,
+    "strict": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
