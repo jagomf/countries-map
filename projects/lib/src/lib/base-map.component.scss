@@ -1,0 +1,52 @@
+// Styles for the classes used in the map SVG. They come from the CSS that world-map.svg embeds,
+// which the minify script strips from the SVG so that it lives here instead.
+//
+// The source CSS also hides .circlexx (circles around small countries), but this map shows them on
+// purpose so that small countries can be seen and get the color of their data.
+
+// Smaller circles around subnational territories
+.subxx {
+  opacity: 0;
+  fill: #c0c0c0;
+  stroke: #000000;
+  stroke-width: 0.3;
+}
+
+.countryxx .landxx, .countryxx.landxx {
+  stroke: #afafaf;
+  stroke-width: 0.1%;
+  fill-rule: evenodd;
+}
+
+// Coastlines of islands and continents with no borders on them
+.coastxx {
+  stroke-width: 0.2;
+}
+
+// Territories with limited or no recognition, drawn as overlays over their host countries
+.limitxx {
+  opacity: 0;
+  fill: #c0c0c0;
+  stroke: #ffffff;
+  stroke-width: 0.2;
+  fill-rule: evenodd;
+}
+
+// Smaller circles around small territories with limited or no recognition
+.unxx {
+  opacity: 0;
+  fill: #c0c0c0;
+  stroke: #000000;
+  stroke-width: 0.3;
+}
+
+// Oceans, seas and large lakes: invisible, but the ocean still gets the clicks that deselect a country
+.oceanxx {
+  opacity: 0;
+  fill: #ffffff;
+  stroke-width: 0.5;
+}
+
+.aq {
+  opacity: 0;
+}

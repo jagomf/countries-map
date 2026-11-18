@@ -1,0 +1,48 @@
+// Minifies projects/lib/src/lib/base-map.component.svg, the template of the base map component.
+// Only the plugins listed here run, in this order. The map relies on the ids and classes of its
+// elements (country codes, countryxx, landxx, ocean), so plugins that rename or drop them stay out.
+// The embedded <style> goes first: its rules live in base-map.component.scss, and removing it before
+// removeHiddenElems keeps the elements it hides (like the ocean, which handles deselecting clicks).
+export default {
+  plugins: [
+    'removeStyleElement',
+    'removeDoctype',
+    'removeXMLProcInst',
+    'removeComments',
+    'removeMetadata',
+    'removeXMLNS',
+    'removeEditorsNSData',
+    'cleanupAttrs',
+    'convertStyleToAttrs',
+    'removeRasterImages',
+    'removeUselessDefs',
+    'cleanupNumericValues',
+    'cleanupListOfValues',
+    'convertColors',
+    'removeUnknownsAndDefaults',
+    'removeNonInheritableGroupAttrs',
+    'removeUselessStrokeAndFill',
+    'removeViewBox',
+    'cleanupEnableBackground',
+    'removeHiddenElems',
+    'removeEmptyText',
+    'convertShapeToPath',
+    'convertEllipseToCircle',
+    'moveElemsAttrsToGroup',
+    'moveGroupAttrsToElems',
+    'collapseGroups',
+    'convertPathData',
+    'convertTransform',
+    'removeEmptyAttrs',
+    'removeEmptyContainers',
+    'mergePaths',
+    'removeUnusedNS',
+    'sortAttrs',
+    'sortDefsChildren',
+    'removeTitle',
+    'removeDesc',
+    'removeDimensions',
+    'removeScripts',
+    'removeOffCanvasPaths',
+  ],
+};
