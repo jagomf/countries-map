@@ -1,30 +1,30 @@
-@if (loading) {
+@if (loadingSignal()) {
 <div class="major-block loading"><span class="text">Loading map...</span></div>
 }
 
-<countries-map-base class="major-block cm-map-content" #mapContent (click)="onMapSelect($event)" [ngClass]="{'goes-first': captionBelow}"/>
+<countries-map-base class="major-block cm-map-content" #mapContent (click)="onMapSelect($event)" [class.goes-first]="captionBelowSignal()"/>
 
-@if (!loading && showCaption) {
-<div class="major-block cm-caption-container" [ngClass]="{'goes-first': !captionBelow}">
+@if (!loadingSignal() && showCaptionSignal()) {
+<div class="major-block cm-caption-container" [class.goes-first]="!captionBelowSignal()">
   <div class="cm-simple-caption">
     <div class="cm-country-label">
-      @if (selection) {
-        <span class="cm-country-name">{{selection?.countryName}}</span>
+      @if (selectionSignal(); as selection) {
+        <span class="cm-country-name">{{selection.countryName}}</span>
       } @else {
-        <span class="cm-default-label">{{countryLabel}}</span>
+        <span class="cm-default-label">{{countryLabelSignal()}}</span>
       }
     </div>
     <div class="cm-value-label">
       <span class="cm-value-text"
-        [ngClass]="{'has-value': selection}">{{valueLabel}}@if (selection) {<span>: </span>}</span>
-      @if (selection) {
+        [class.has-value]="selectionSignal()">{{valueLabelSignal()}}@if (selectionSignal()) {<span>: </span>}</span>
+      @if (selectionSignal()) {
         <span class="cm-value-content">{{selectionValue}}</span>
       }
     </div>
   </div>
-  @if (selection?.extra?.length) {
+  @if (selectionSignal()?.extra?.length) {
     <div class="cm-extended-caption">
-      @for (item of selection?.extra; track item.key) {
+      @for (item of selectionSignal()?.extra; track item.key) {
         <div class="cm-extended-item">
           <span class="cm-extended-label">{{item.key}}</span>:
           <span class="cm-extended-value">{{item.val}}</span>

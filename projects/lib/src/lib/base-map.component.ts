@@ -7,8 +7,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   selector: 'countries-map-base',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './base-map.component.svg',
-  styles: [''],
-  standalone: false
+  styles: ['']
 })
 export class CountriesMapBaseComponent {
 }

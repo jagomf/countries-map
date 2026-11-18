@@ -22,9 +22,6 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "polyfills": [
-              "zone.js"
-            ],
             "assets": [
               "src/assets"
             ],

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ChartErrorEvent, CountriesMapModule } from 'countries-map';
 
 @Component({
@@ -48,9 +48,9 @@ export class DemoComponent {
     'CN' : { value:  0, extra: { 'Zhou': '' } },
   };
 
-  errorLoading: ChartErrorEvent | null = null;
+  readonly errorLoading = signal<ChartErrorEvent | null>(null);
   mapError(error: ChartErrorEvent): void {
-    this.errorLoading = error;
+    this.errorLoading.set(error);
   }
   mapReady(): void {
     console.log('Map ready');

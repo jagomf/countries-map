@@ -1,16 +1,19 @@
 import {
   Component,
   ElementRef,
+  Injector,
   Input,
-  Output,
-  ViewChild,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  EventEmitter,
   AfterViewInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  afterNextRender,
+  inject,
+  output,
+  signal,
+  viewChild
 } from '@angular/core';
+import { CountriesMapBaseComponent } from './base-map.component';
 import { CharErrorCode } from './chart-events.interface';
 import type { ChartSelectEvent, ChartErrorEvent } from './chart-events.interface';
 import type { CountriesData, SelectionExtra, DrawableCountries, Selection,
@@ -39,15 +42,33 @@ const countryName = (countryCode: string): string => {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './countries-map.component.html',
   styleUrls: ['./countries-map.component.scss'],
-  standalone: false
+  imports: [CountriesMapBaseComponent]
 })
 export class CountriesMapComponent implements AfterViewInit, OnChanges {
 
-  @Input({ required: true }) data!: CountriesData;
-  @Input() countryLabel = 'Country';
-  @Input() valueLabel = 'Value';
-  @Input() showCaption = true;
-  @Input() captionBelow = true;
+  // Inputs read by the template are backed by signals, so the view updates without zone.js;
+  // the accessors keep the same public members as 4.x (signal inputs would change their types)
+  protected readonly dataSignal = signal<CountriesData | undefined>(undefined);
+  @Input({ required: true }) set data(value: CountriesData) { this.dataSignal.set(value); }
+  get data(): CountriesData { return this.dataSignal() as CountriesData; }
+
+  protected readonly countryLabelSignal = signal('Country');
+  @Input() set countryLabel(value: string) { this.countryLabelSignal.set(value); }
+  get countryLabel(): string { return this.countryLabelSignal(); }
+
+  protected readonly valueLabelSignal = signal('Value');
+  @Input() set valueLabel(value: string) { this.valueLabelSignal.set(value); }
+  get valueLabel(): string { return this.valueLabelSignal(); }
+
+  protected readonly showCaptionSignal = signal(true);
+  @Input() set showCaption(value: boolean) { this.showCaptionSignal.set(value); }
+  get showCaption(): boolean { return this.showCaptionSignal(); }
+
+  protected readonly captionBelowSignal = signal(true);
+  @Input() set captionBelow(value: boolean) { this.captionBelowSignal.set(value); }
+  get captionBelow(): boolean { return this.captionBelowSignal(); }
+
+  // Inputs only used to paint the SVG, which happens imperatively in the lifecycle hooks
   @Input() minValue!: number;
   @Input() maxValue!: number;
   @Input() minColor = 'white';
@@ -56,28 +77,31 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
   @Input() noDataColor = '#CFCFCF';
   @Input() exceptionColor = '#FFEE58';
 
-  @Output() private readonly chartReady = new EventEmitter<void>();
-  @Output() private readonly chartError = new EventEmitter<ChartErrorEvent>();
-  @Output() private readonly chartSelect = new EventEmitter<ChartSelectEvent>();
+  protected readonly chartReady = output<void>();
+  protected readonly chartError = output<ChartErrorEvent>();
+  protected readonly chartSelect = output<ChartSelectEvent>();
 
-  @ViewChild('mapContent', { static: false, read: ElementRef }) private readonly mapContent!: ElementRef<HTMLElement>;
+  private readonly mapContent = viewChild.required('mapContent', { read: ElementRef<HTMLElement> });
+  private readonly injector = inject(Injector);
 
   mapData: DrawableCountries = {};
-  selection: Selection | null = null;
 
-  private innerLoading = true;
+  protected readonly selectionSignal = signal<Selection | null>(null);
+  get selection(): Selection | null { return this.selectionSignal(); }
+  set selection(value: Selection | null) { this.selectionSignal.set(value); }
+
+  protected readonly loadingSignal = signal(true);
   get loading(): boolean {
-    return this.innerLoading;
+    return this.loadingSignal();
   }
 
   get selectionValue(): ValidExtraData {
+    const selection = this.selectionSignal();
     // Keeps the 4.x public signature; the value can actually be null or undefined
-    return (this.selection && this.data[this.selection.countryId]?.value) as ValidExtraData;
+    return (selection && this.dataSignal()?.[selection.countryId]?.value) as ValidExtraData;
   }
 
-  constructor(
-    private readonly cdRef: ChangeDetectorRef,
-  ) { }
+  private readyScheduled = false;
 
   private getExtraSelected(country: string): SelectionExtra[] | undefined {
     const { extra } = this.data[country];
@@ -90,7 +114,6 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
       countryName: countryName(country),
       extra: this.getExtraSelected(country)
     } : null;
-    this.cdRef.detectChanges();
   }
 
   ngAfterViewInit(): void {
@@ -147,7 +170,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         this.mapData = {};
       }
 
-      const svgMap = this.mapContent.nativeElement.children[0] as SVGSVGElement;
+      const svgMap = this.mapContent().nativeElement.children[0] as SVGSVGElement;
       svgMap.style.backgroundColor = this.backgroundColor;
       svgMap.querySelectorAll<SVGSVGElement>(`.${countryClass}`).forEach(item => {
         const mapItem = this.mapData[item.id.toLowerCase()];
@@ -157,9 +180,7 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
         item.onmouseleave = this.countryHover.bind(this, item, false);
       });
 
-      // this.innerLoading = false;
       this.onChartReady();
-      this.cdRef.detectChanges();
 
     } catch (e) {
       this.onCharterror({ id: CharErrorCode.loading, message: 'Could not load' });
@@ -176,9 +197,14 @@ export class CountriesMapComponent implements AfterViewInit, OnChanges {
   }
 
   private onChartReady(): void {
-    if (this.innerLoading) {
-      this.innerLoading = false;
-      this.chartReady.emit();
+    if (this.loadingSignal() && !this.readyScheduled) {
+      this.readyScheduled = true;
+      // Wait until the current render finishes, so that listeners can update their own views
+      // without an ExpressionChangedAfterItHasBeenCheckedError
+      afterNextRender(() => {
+        this.loadingSignal.set(false);
+        this.chartReady.emit();
+      }, { injector: this.injector });
     }
   }
 

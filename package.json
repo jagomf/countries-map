@@ -29,8 +29,7 @@
     "@angular/platform-browser": "^22.2.6",
     "@jagomf/countrieslist": "^4.1.0",
     "rxjs": "~6.6.0",
-    "tslib": "^2.6.2",
-    "zone.js": "~0.15.1"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@angular/build": "^22.2.7",

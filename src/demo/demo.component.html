@@ -2,7 +2,7 @@
   <h1>countries-map demo</h1>
 </div>
 <h2>Map with data</h2>
-@if (!errorLoading) {
+@if (!errorLoading()) {
   <div>
     <countries-map
       class="demo-maps"
@@ -18,5 +18,5 @@
     <!-- Caption intentionally left above the map for demo so that it is clearly seen -->
   </div>
 } @else {
-  <span>{{errorLoading?.message}}</span>
+  <span>{{errorLoading()?.message}}</span>
 }

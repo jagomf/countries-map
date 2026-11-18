@@ -32,7 +32,18 @@ npm install --save countries-map
 
 ## Usage
 
-Import `CountriesMapModule` in your `app.module.ts`:
+`CountriesMapComponent` is standalone, so you can import it directly in your component:
+```ts
+import { CountriesMapComponent } from 'countries-map';
+
+@Component({
+  ...
+  imports: [CountriesMapComponent],
+})
+export class MyComponent { }
+```
+
+If your app uses NgModules, import `CountriesMapModule` in your `app.module.ts` instead:
 ```ts
 import { CountriesMapModule } from 'countries-map';
 
@@ -45,6 +56,8 @@ import { CountriesMapModule } from 'countries-map';
 })
 export class AppModule { }
 ```
+
+The component works both in zoneless apps and in apps that use zone.js.
 
 In your templates, use the `<countries-map>` component like this:
 ```html
